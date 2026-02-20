@@ -70,10 +70,6 @@
             </div>
 
             <form id="form-login" class="space-y-4 text-left">
-                <p class="text-xs text-center text-blue-600 font-bold mb-2">Nota: Pengesahan kata laluan dimatikan sementara (Bypass).</p>
-                <div>
-                    <input type="text" id="admin-id" placeholder="ID Pengguna" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-                </div>
                 <div>
                     <input type="password" id="admin-pass" placeholder="Kata Laluan" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </div>
@@ -89,9 +85,15 @@
     <!-- ============================================== -->
     <div id="view-guest-form" class="hidden min-h-screen py-10 px-4 fade-in">
         <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md border border-gray-200">
-            <div class="bg-blue-600 text-white p-6 rounded-t-lg flex items-center gap-3">
-                <i data-lucide="file-text" class="h-6 w-6"></i>
-                <h2 class="text-xl font-bold">Pendaftaran Kedatangan Pelawat</h2>
+            <div class="bg-blue-600 text-white p-4 sm:p-6 rounded-t-lg flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="file-text" class="h-6 w-6"></i>
+                    <h2 class="text-xl font-bold">Pendaftaran Pelawat Baru</h2>
+                </div>
+                <div class="flex flex-col items-start sm:items-end">
+                    <label class="text-xs text-blue-200 font-semibold mb-1">Tarikh Lawatan</label>
+                    <input type="date" id="guest-visit-date" name="visit_date" class="bg-blue-700 border border-blue-500 text-white text-sm rounded px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer w-full sm:w-auto font-medium" required>
+                </div>
             </div>
             
             <form id="form-guest" class="p-6 space-y-4">
@@ -108,27 +110,32 @@
                         <label class="text-sm font-semibold text-gray-700">Jawatan</label>
                         <input name="position" type="text" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pegawai" />
                     </div>
-                    <div class="space-y-1">
-                        <label class="text-sm font-semibold text-gray-700">Bahagian / Cawangan</label>
-                        <select name="department" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Sila Pilih...</option>
-                            <option value="PEJABAT KETUA PENGARAH">PEJABAT KETUA PENGARAH</option>
-                            <option value="BAHAGIAN PEMBANGUNAN PERDAGANGAN">BAHAGIAN PEMBANGUNAN PERDAGANGAN</option>
-                            <option value="BAHAGIAN PERANCANGAN STRATEGIK">BAHAGIAN PERANCANGAN STRATEGIK</option>
-                            <option value="BAHAGIAN PERLADANGAN HUTAN">BAHAGIAN PERLADANGAN HUTAN</option>
-                            <option value="BAHAGIAN PEMBANGUNAN INDUSTRI">BAHAGIAN PEMBANGUNAN INDUSTRI</option>
-                            <option value="BAHAGIAN PEMERKASAAN EKONOMI BUMIPUTERA">BAHAGIAN PEMERKASAAN EKONOMI BUMIPUTERA</option>
-                            <option value="BAHAGIAN KHIDMAT PENGURUSAN">BAHAGIAN KHIDMAT PENGURUSAN</option>
-                            <option value="BAHAGIAN PELESENAN & INSPEKTORAT">BAHAGIAN PELESENAN & INSPEKTORAT</option>
-                            <option value="WISDEC BANTING">WISDEC BANTING</option>
-                            <option value="WISDEC SABAH">WISDEC SABAH</option>
-                            <option value="PUSAT BIO KOMPOSIT & GENTIAN (FIDEC)">PUSAT BIO KOMPOSIT & GENTIAN (FIDEC)</option>
-                            <option value="WILAYAH TIMUR">WILAYAH TIMUR</option>
-                            <option value="WILAYAH TENGAH">WILAYAH TENGAH</option>
-                            <option value="WILAYAH UTARA">WILAYAH UTARA</option>
-                            <option value="WILAYAH SELATAN">WILAYAH SELATAN</option>
-                            <option value="WILAYAH SABAH">WILAYAH SABAH</option>
-                        </select>
+                    <div class="md:col-span-2 space-y-1">
+                        <label class="text-sm font-semibold text-gray-700">Bahagian / Kategori Pelawat *</label>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="flex-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                <option value="">Sila Pilih...</option>
+                                <option value="Pelawat Am">Pelawat Am</option>
+                                <option value="Penjawat Awam">Penjawat Awam</option>
+                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                                <option value="Wisdec Banting">Wisdec Banting</option>
+                                <option value="Wisdec Sabah">Wisdec Sabah</option>
+                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="Wilayah Timur">Wilayah Timur</option>
+                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                                <option value="Wilayah Utara">Wilayah Utara</option>
+                                <option value="Wilayah Selatan">Wilayah Selatan</option>
+                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            </select>
+                            <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden flex-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        </div>
                     </div>
                 </div>
                 
@@ -186,7 +193,8 @@
         <main class="flex-1 p-6 max-w-7xl mx-auto w-full flex flex-col gap-6 no-print">
             <!-- Top Widgets -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-lg shadow-sm border p-5 flex items-center justify-between">
+                <!-- Widget Pelawat Hari Ini (Clickable) -->
+                <div onclick="selectToday()" class="bg-white rounded-lg shadow-sm border p-5 flex items-center justify-between cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition">
                     <div>
                         <p class="text-sm font-bold text-gray-500 uppercase">Pelawat Hari Ini</p>
                         <p id="stat-today" class="text-3xl font-bold text-blue-600 mt-1">0</p>
@@ -194,12 +202,20 @@
                     <div class="bg-blue-100 p-3 rounded-full"><i data-lucide="users" class="h-8 w-8 text-blue-600"></i></div>
                 </div>
                 
-                <div class="bg-white rounded-lg shadow-sm border p-5 flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-bold text-gray-500 uppercase">Jumlah Keseluruhan</p>
-                        <p id="stat-total" class="text-3xl font-bold text-green-600 mt-1">0</p>
+                <!-- Widget Jumlah Keseluruhan dengan Penapis -->
+                <div class="bg-white rounded-lg shadow-sm border p-5 flex flex-col justify-center">
+                    <div class="flex justify-between items-center mb-1">
+                        <p class="text-sm font-bold text-gray-500 uppercase">Jumlah Pelawat</p>
+                        <select id="stat-time-filter" onchange="renderStats()" class="text-xs border border-gray-300 rounded text-gray-600 bg-gray-50 p-1 cursor-pointer hover:bg-gray-100 outline-none">
+                            <option value="month" selected>Bulan Ini</option>
+                            <option value="week">Minggu Ini</option>
+                            <option value="all">Keseluruhan</option>
+                        </select>
                     </div>
-                    <div class="bg-green-100 p-3 rounded-full"><i data-lucide="book-open" class="h-8 w-8 text-green-600"></i></div>
+                    <div class="flex justify-between items-center">
+                        <p id="stat-total" class="text-3xl font-bold text-green-600 mt-1">0</p>
+                        <div class="bg-green-100 p-3 rounded-full"><i data-lucide="book-open" class="h-8 w-8 text-green-600"></i></div>
+                    </div>
                 </div>
 
                 <!-- Admin Action Widget or Read-Only Banner -->
@@ -260,7 +276,7 @@
                             <thead>
                                 <tr class="bg-white text-xs uppercase text-gray-500 border-b">
                                     <th class="p-4 font-semibold">Nama & ID</th>
-                                    <th class="p-4 font-semibold">Jawatan / Bahagian</th>
+                                    <th class="p-4 font-semibold">Jawatan / Kategori</th>
                                     <th class="p-4 font-semibold w-1/3">Komen / Tujuan</th>
                                     <th id="th-action" class="p-4 font-semibold text-center hidden">Tindakan</th>
                                 </tr>
@@ -301,7 +317,7 @@
                     <th class="border border-gray-800 p-3 text-left w-24">Tarikh</th>
                     <th class="border border-gray-800 p-3 text-left">Nama</th>
                     <th class="border border-gray-800 p-3 text-left w-24">No Pekerja</th>
-                    <th class="border border-gray-800 p-3 text-left">Jawatan / Bahagian</th>
+                    <th class="border border-gray-800 p-3 text-left">Jawatan / Kategori</th>
                     <th class="border border-gray-800 p-3 text-left w-1/3">Tujuan Lawatan</th>
                 </tr>
             </thead>
@@ -325,10 +341,6 @@
             <div class="flex justify-center mb-3"><i data-lucide="lock" class="h-10 w-10 text-blue-600"></i></div>
             <h3 class="text-lg font-bold mb-4">Pengesahan Admin</h3>
             <form id="form-quick-login" class="space-y-4 text-left">
-                <p class="text-xs text-center text-blue-600 font-bold mb-2">Nota: Pengesahan kata laluan dimatikan sementara.</p>
-                <div>
-                    <input type="text" id="quick-admin-id" placeholder="ID Pengguna" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-                </div>
                 <div>
                     <input type="password" id="quick-admin-pass" placeholder="Kata Laluan" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </div>
@@ -343,9 +355,12 @@
     <!-- Modal Admin Register -->
     <div id="modal-register" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 fade-in">
         <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
-            <div class="px-6 py-4 border-b flex justify-between items-center bg-blue-600 text-white rounded-t-lg">
-                <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="user-plus" class="h-5 w-5"></i> Pendaftaran Pelawat Baru</h3>
-                <button onclick="hideModal('modal-register')" class="text-white hover:text-gray-200 text-2xl">&times;</button>
+            <div class="px-4 sm:px-6 py-4 border-b flex flex-col sm:flex-row justify-between items-center bg-blue-600 text-white rounded-t-lg gap-4">
+                <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="user-plus" class="h-5 w-5"></i> Pendaftaran Pelawat</h3>
+                <div class="flex items-center gap-4">
+                    <input type="date" id="admin-visit-date" name="visit_date" form="form-admin-register" class="bg-blue-700 border border-blue-500 text-white text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer font-medium" required>
+                    <button onclick="hideModal('modal-register')" class="text-white hover:text-gray-200 text-2xl ml-2">&times;</button>
+                </div>
             </div>
             <form id="form-admin-register" class="p-6 space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -361,27 +376,32 @@
                         <label class="text-sm font-semibold text-gray-700">Jawatan</label>
                         <input name="position" type="text" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
-                    <div class="space-y-1">
-                        <label class="text-sm font-semibold text-gray-700">Bahagian / Cawangan</label>
-                        <select name="department" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <option value="">Sila Pilih...</option>
-                            <option value="PEJABAT KETUA PENGARAH">PEJABAT KETUA PENGARAH</option>
-                            <option value="BAHAGIAN PEMBANGUNAN PERDAGANGAN">BAHAGIAN PEMBANGUNAN PERDAGANGAN</option>
-                            <option value="BAHAGIAN PERANCANGAN STRATEGIK">BAHAGIAN PERANCANGAN STRATEGIK</option>
-                            <option value="BAHAGIAN PERLADANGAN HUTAN">BAHAGIAN PERLADANGAN HUTAN</option>
-                            <option value="BAHAGIAN PEMBANGUNAN INDUSTRI">BAHAGIAN PEMBANGUNAN INDUSTRI</option>
-                            <option value="BAHAGIAN PEMERKASAAN EKONOMI BUMIPUTERA">BAHAGIAN PEMERKASAAN EKONOMI BUMIPUTERA</option>
-                            <option value="BAHAGIAN KHIDMAT PENGURUSAN">BAHAGIAN KHIDMAT PENGURUSAN</option>
-                            <option value="BAHAGIAN PELESENAN & INSPEKTORAT">BAHAGIAN PELESENAN & INSPEKTORAT</option>
-                            <option value="WISDEC BANTING">WISDEC BANTING</option>
-                            <option value="WISDEC SABAH">WISDEC SABAH</option>
-                            <option value="PUSAT BIO KOMPOSIT & GENTIAN (FIDEC)">PUSAT BIO KOMPOSIT & GENTIAN (FIDEC)</option>
-                            <option value="WILAYAH TIMUR">WILAYAH TIMUR</option>
-                            <option value="WILAYAH TENGAH">WILAYAH TENGAH</option>
-                            <option value="WILAYAH UTARA">WILAYAH UTARA</option>
-                            <option value="WILAYAH SELATAN">WILAYAH SELATAN</option>
-                            <option value="WILAYAH SABAH">WILAYAH SABAH</option>
-                        </select>
+                    <div class="md:col-span-2 space-y-1">
+                        <label class="text-sm font-semibold text-gray-700">Bahagian / Kategori Pelawat *</label>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="flex-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                                <option value="">Sila Pilih...</option>
+                                <option value="Pelawat Am">Pelawat Am</option>
+                                <option value="Penjawat Awam">Penjawat Awam</option>
+                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                                <option value="Wisdec Banting">Wisdec Banting</option>
+                                <option value="Wisdec Sabah">Wisdec Sabah</option>
+                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="Wilayah Timur">Wilayah Timur</option>
+                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                                <option value="Wilayah Utara">Wilayah Utara</option>
+                                <option value="Wilayah Selatan">Wilayah Selatan</option>
+                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            </select>
+                            <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden flex-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        </div>
                     </div>
                 </div>
                 <div class="space-y-1 pt-2">
@@ -418,27 +438,32 @@
                         <label class="block text-xs font-bold text-gray-600 mb-1">Jawatan</label>
                         <input id="edit-position" name="position" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 mb-1">Bahagian</label>
-                        <select id="edit-department" name="department" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none">
-                            <option value="">Sila Pilih...</option>
-                            <option value="PEJABAT KETUA PENGARAH">PEJABAT KETUA PENGARAH</option>
-                            <option value="BAHAGIAN PEMBANGUNAN PERDAGANGAN">BAHAGIAN PEMBANGUNAN PERDAGANGAN</option>
-                            <option value="BAHAGIAN PERANCANGAN STRATEGIK">BAHAGIAN PERANCANGAN STRATEGIK</option>
-                            <option value="BAHAGIAN PERLADANGAN HUTAN">BAHAGIAN PERLADANGAN HUTAN</option>
-                            <option value="BAHAGIAN PEMBANGUNAN INDUSTRI">BAHAGIAN PEMBANGUNAN INDUSTRI</option>
-                            <option value="BAHAGIAN PEMERKASAAN EKONOMI BUMIPUTERA">BAHAGIAN PEMERKASAAN EKONOMI BUMIPUTERA</option>
-                            <option value="BAHAGIAN KHIDMAT PENGURUSAN">BAHAGIAN KHIDMAT PENGURUSAN</option>
-                            <option value="BAHAGIAN PELESENAN & INSPEKTORAT">BAHAGIAN PELESENAN & INSPEKTORAT</option>
-                            <option value="WISDEC BANTING">WISDEC BANTING</option>
-                            <option value="WISDEC SABAH">WISDEC SABAH</option>
-                            <option value="PUSAT BIO KOMPOSIT & GENTIAN (FIDEC)">PUSAT BIO KOMPOSIT & GENTIAN (FIDEC)</option>
-                            <option value="WILAYAH TIMUR">WILAYAH TIMUR</option>
-                            <option value="WILAYAH TENGAH">WILAYAH TENGAH</option>
-                            <option value="WILAYAH UTARA">WILAYAH UTARA</option>
-                            <option value="WILAYAH SELATAN">WILAYAH SELATAN</option>
-                            <option value="WILAYAH SABAH">WILAYAH SABAH</option>
-                        </select>
+                    <div class="col-span-2">
+                        <label class="block text-xs font-bold text-gray-600 mb-1">Bahagian / Kategori Pelawat *</label>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="flex-1 p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none bg-white">
+                                <option value="">Sila Pilih...</option>
+                                <option value="Pelawat Am">Pelawat Am</option>
+                                <option value="Penjawat Awam">Penjawat Awam</option>
+                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                                <option value="Wisdec Banting">Wisdec Banting</option>
+                                <option value="Wisdec Sabah">Wisdec Sabah</option>
+                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="Wilayah Timur">Wilayah Timur</option>
+                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                                <option value="Wilayah Utara">Wilayah Utara</option>
+                                <option value="Wilayah Selatan">Wilayah Selatan</option>
+                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            </select>
+                            <input id="edit-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden flex-1 p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -501,7 +526,6 @@
         const firebaseConfig = typeof window.__firebase_config !== 'undefined' ? JSON.parse(window.__firebase_config) : providedConfig;
         const app = initializeApp(firebaseConfig);
         
-        // Initialize Analytics (disimpan dlm try-catch jika disekat ad-blocker)
         try {
             const analytics = getAnalytics(app);
         } catch (e) {
@@ -524,6 +548,12 @@
             confirmActionCallback: null
         };
         const todayStr = new Date().toISOString().split('T')[0];
+
+        // Init date inputs
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('guest-visit-date').value = todayStr;
+            document.getElementById('admin-visit-date').value = todayStr;
+        });
 
         // --- Inisialisasi Lucide Icons ---
         lucide.createIcons();
@@ -550,6 +580,13 @@
             setTimeout(() => toast.classList.add('hidden'), 3500);
         };
 
+        const isWithinLast7Days = (dateString) => {
+            const d = new Date(dateString);
+            const t = new Date(todayStr);
+            const diffDays = Math.ceil((t - d) / (1000 * 60 * 60 * 24));
+            return diffDays >= 0 && diffDays <= 7;
+        };
+
         // Custom Confirm
         window.customConfirm = function(msg, callback) {
             document.getElementById('confirm-msg').innerText = msg;
@@ -565,6 +602,19 @@
             if (state.confirmActionCallback) state.confirmActionCallback();
         };
 
+        // --- Toggle Agency Input ---
+        window.toggleAgencyInput = function(selectEl, inputId) {
+            const inputEl = document.getElementById(inputId);
+            if (selectEl.value === 'Pelawat Am' || selectEl.value === 'Penjawat Awam') {
+                inputEl.classList.remove('hidden');
+                inputEl.required = true;
+            } else {
+                inputEl.classList.add('hidden');
+                inputEl.value = '';
+                inputEl.required = false;
+            }
+        };
+
         // --- Navigation Functions ---
         window.switchView = function(viewName) {
             state.view = viewName;
@@ -574,7 +624,10 @@
             document.getElementById('view-print').classList.add('hidden');
             
             if (viewName === 'login') document.getElementById('view-login').classList.remove('hidden');
-            else if (viewName === 'guestForm') document.getElementById('view-guest-form').classList.remove('hidden');
+            else if (viewName === 'guestForm') {
+                document.getElementById('view-guest-form').classList.remove('hidden');
+                document.getElementById('guest-visit-date').value = todayStr; // reset to today
+            }
             else if (viewName === 'dashboard') {
                 document.getElementById('view-dashboard').classList.remove('hidden');
                 updateDashboardUI();
@@ -583,7 +636,12 @@
             }
         };
 
-        window.showModal = function(id) { document.getElementById(id).classList.remove('hidden'); };
+        window.showModal = function(id) { 
+            if(id === 'modal-register') {
+                document.getElementById('admin-visit-date').value = todayStr; // reset to today when opened
+            }
+            document.getElementById(id).classList.remove('hidden'); 
+        };
         window.hideModal = function(id) { document.getElementById(id).classList.add('hidden'); };
 
         window.handleLogout = function() {
@@ -632,7 +690,6 @@
                 }
             } catch (err) {
                 console.warn("Auth Gagal, cuba sambung terus ke pangkalan data...", err);
-                // Teruskan sambungan ke Firestore jika Rules diset ke "true" di Firebase
                 initDatabaseConnection(); 
             }
         };
@@ -646,32 +703,35 @@
         });
 
         // --- Forms Submission (CREATE/UPDATE) ---
-        // 1. Admin Login
+        // 1. Admin Login (Berpengesahan Kata Laluan)
         document.getElementById('form-login').onsubmit = (e) => {
             e.preventDefault();
-            
-            // Bypass aktif
-            state.role = 'admin';
-            switchView('dashboard');
-            showToast("Log masuk Admin berjaya (Bypass).");
-            
-            // Kosongkan semula ruangan
-            document.getElementById('admin-id').value = '';
-            document.getElementById('admin-pass').value = '';
+            const pass = document.getElementById('admin-pass').value;
+
+            if (pass === 'pustakaMtib') {
+                state.role = 'admin';
+                switchView('dashboard');
+                showToast("Log masuk Admin berjaya.");
+                document.getElementById('admin-pass').value = '';
+            } else {
+                showToast("Kata Laluan tidak sah.");
+            }
         };
 
         // 1b. Quick Admin Login (dari Dashboard Pelawat)
         document.getElementById('form-quick-login').onsubmit = (e) => {
             e.preventDefault();
-            
-            // Bypass aktif
-            state.role = 'admin';
-            hideModal('modal-admin-login');
-            updateDashboardUI(); // Kemaskini UI dashboard serta-merta
-            showToast("Log masuk Admin berjaya (Bypass).");
-            
-            document.getElementById('quick-admin-id').value = '';
-            document.getElementById('quick-admin-pass').value = '';
+            const pass = document.getElementById('quick-admin-pass').value;
+
+            if (pass === 'pustakaMtib') {
+                state.role = 'admin';
+                hideModal('modal-admin-login');
+                updateDashboardUI(); 
+                showToast("Log masuk Admin berjaya.");
+                document.getElementById('quick-admin-pass').value = '';
+            } else {
+                showToast("Kata Laluan tidak sah.");
+            }
         };
 
         // 2. Add Visitor (Guest Form & Admin Modal)
@@ -680,12 +740,17 @@
             
             const form = document.getElementById(formId);
             const formData = new FormData(form);
+            
+            // Dapatkan tarikh yang dipilih dari kotak tarikh
+            const selectedVisitDate = formData.get('visit_date') || todayStr;
+
             const newVisitor = {
-                date: todayStr,
+                date: selectedVisitDate,
                 name: formData.get('name'),
                 empNo: formData.get('empNo'),
                 position: formData.get('position'),
-                department: formData.get('department'),
+                department: formData.get('department') || '',
+                agency: formData.get('agency') || '',
                 comment: formData.get('comment'),
                 timestamp: Date.now()
             };
@@ -696,20 +761,27 @@
             btn.disabled = true;
 
             try {
-                // Cuba simpan terus ke Firebase walaupun Auth gagal (asalkan Rules membenarkan)
                 await addDoc(collection(db, 'artifacts', fbAppId, 'public', 'data', 'visitors'), newVisitor);
                 
                 btn.innerText = oriTxt; 
                 btn.disabled = false;
                 form.reset();
 
+                // Kembalikan paparan UI asal (Sembunyikan kotak Nyatakan)
+                if (isGuestForm) window.toggleAgencyInput(form.querySelector('select[name="department"]'), 'guest-agency');
+                else window.toggleAgencyInput(form.querySelector('select[name="department"]'), 'admin-agency');
+
                 if (isGuestForm) {
                     state.role = 'visitor';
-                    state.selectedDate = todayStr;
+                    state.selectedDate = selectedVisitDate;
+                    state.calendarDate = new Date(selectedVisitDate);
                     switchView('dashboard');
                     showToast("Pendaftaran berjaya! Data direkodkan.");
                 } else {
                     hideModal('modal-register');
+                    state.selectedDate = selectedVisitDate;
+                    state.calendarDate = new Date(selectedVisitDate);
+                    updateDashboardUI();
                     showToast("Pelawat berjaya ditambah oleh Admin.");
                 }
             } catch (err) {
@@ -729,11 +801,14 @@
         document.getElementById('form-edit').onsubmit = async (e) => {
             e.preventDefault();
             const id = document.getElementById('edit-id').value;
+            const formData = new FormData(e.target);
+
             const updatedData = {
                 name: document.getElementById('edit-name').value,
                 empNo: document.getElementById('edit-empNo').value,
                 position: document.getElementById('edit-position').value,
                 department: document.getElementById('edit-department').value,
+                agency: document.getElementById('edit-agency').value,
                 comment: document.getElementById('edit-comment').value
             };
             
@@ -767,8 +842,17 @@
             document.getElementById('edit-name').value = visitor.name || '';
             document.getElementById('edit-empNo').value = visitor.empNo || '';
             document.getElementById('edit-position').value = visitor.position || '';
-            document.getElementById('edit-department').value = visitor.department || '';
             document.getElementById('edit-comment').value = visitor.comment || '';
+            
+            const deptSelect = document.getElementById('edit-department');
+            deptSelect.value = visitor.department || '';
+            
+            const agencyInput = document.getElementById('edit-agency');
+            agencyInput.value = visitor.agency || '';
+            
+            // Tunjuk/Sembunyi kotak Nyatakan bergantung pada data sedia ada
+            window.toggleAgencyInput(deptSelect, 'edit-agency');
+            
             showModal('modal-edit');
         };
 
@@ -808,10 +892,26 @@
             renderTable();
         }
 
-        function renderStats() {
+        window.renderStats = function() {
+            // Pelawat Hari Ini
             const todayCount = state.visitors.filter(v => v.date === todayStr).length;
             document.getElementById('stat-today').innerText = todayCount;
-            document.getElementById('stat-total').innerText = state.visitors.length;
+            
+            // Jumlah Pelawat (Berdasarkan Penapis)
+            const filterValue = document.getElementById('stat-time-filter').value;
+            let totalCount = 0;
+            
+            if (filterValue === 'month') {
+                const currentMonthPrefix = todayStr.substring(0, 7);
+                totalCount = state.visitors.filter(v => v.date.startsWith(currentMonthPrefix)).length;
+            } else if (filterValue === 'week') {
+                totalCount = state.visitors.filter(v => isWithinLast7Days(v.date)).length;
+            } else {
+                // 'all'
+                totalCount = state.visitors.length;
+            }
+            
+            document.getElementById('stat-total').innerText = totalCount;
         }
 
         function renderTable() {
@@ -845,14 +945,18 @@
                     `;
                 }
 
+                // Format Kategori/Jabatan Paparan
+                const agensi = v.agency ? ` - ${v.agency}` : '';
+                const tagKategori = `<span class="text-xs text-gray-500">${v.department || '-'}${agensi}</span>`;
+
                 tr.innerHTML = `
                     <td class="p-4">
                         <p class="font-bold text-gray-800">${v.name}</p>
                         <p class="text-xs text-gray-500">ID: ${v.empNo || '-'}</p>
                     </td>
                     <td class="p-4">
-                        <p class="text-sm text-gray-800">${v.position || '-'}</p>
-                        <p class="text-xs text-gray-500">${v.department || '-'}</p>
+                        <p class="text-sm text-gray-800 mb-0.5">${v.position || '-'}</p>
+                        ${tagKategori}
                     </td>
                     <td class="p-4 text-sm text-gray-600 italic">"${v.comment}"</td>
                     ${actionTd}
@@ -880,6 +984,8 @@
             state.calendarDate = new Date();
             renderCalendar();
             renderTable();
+            // Scroll ke jadual untuk memudahkan pengguna melihat apabila ditekan pada widget
+            document.getElementById('table-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
 
         function renderCalendar() {
@@ -964,13 +1070,6 @@
             });
         };
 
-        const isWithinLast7Days = (dateString) => {
-            const d = new Date(dateString);
-            const t = new Date(todayStr);
-            const diffDays = Math.ceil(Math.abs(t - d) / (1000 * 60 * 60 * 24));
-            return diffDays <= 7 && d <= t;
-        };
-
         window.generateReport = function() {
             let filteredData = [];
             let title = "";
@@ -998,12 +1097,14 @@
                 tbody.innerHTML = `<tr><td colspan="5" class="border border-gray-800 p-6 text-center text-gray-500 font-medium">Tiada rekod dijumpai bagi tempoh ini.</td></tr>`;
             } else {
                 filteredData.forEach(v => {
+                    const agensi = v.agency ? ` - ${v.agency}` : '';
+                    const kategoriDisplay = `${v.department || '-'}${agensi}`;
                     tbody.innerHTML += `
                         <tr>
                             <td class="border border-gray-800 p-3">${v.date}</td>
                             <td class="border border-gray-800 p-3 font-semibold">${v.name}</td>
                             <td class="border border-gray-800 p-3">${v.empNo || '-'}</td>
-                            <td class="border border-gray-800 p-3">${v.position}<br/><span class="text-xs text-gray-600">${v.department}</span></td>
+                            <td class="border border-gray-800 p-3">${v.position}<br/><span class="text-xs text-gray-600">${kategoriDisplay}</span></td>
                             <td class="border border-gray-800 p-3 italic">"${v.comment}"</td>
                         </tr>
                     `;
