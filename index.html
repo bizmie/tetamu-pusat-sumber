@@ -110,12 +110,11 @@
                         <label class="text-sm font-semibold text-gray-700">Jawatan</label>
                         <input name="position" type="text" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pegawai" />
                     </div>
-                    <div class="md:col-span-2 space-y-1">
-                        <label class="text-sm font-semibold text-gray-700">Bahagian / Kategori Pelawat *</label>
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="flex-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                                <option value="">Sila Pilih...</option>
-                                <option value="Pelawat Am">Pelawat Am</option>
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="text-sm font-semibold text-gray-700 block">Bahagian / Kategori Pelawat *</label>
+                        <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white block">
+                            <option value="">Sila Pilih...</option>
+                            <option value="Pelawat Am">Pelawat Am</option>
                                 <option value="Penjawat Awam">Penjawat Awam</option>
                                 <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
                                 <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
@@ -130,12 +129,11 @@
                                 <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
                                 <option value="Wilayah Timur">Wilayah Timur</option>
                                 <option value="Wilayah Tengah">Wilayah Tengah</option>
-                                <option value="Wilayah Utara">Wilayah Utara</option>
-                                <option value="Wilayah Selatan">Wilayah Selatan</option>
-                                <option value="Wilayah Sabah">Wilayah Sabah</option>
-                            </select>
-                            <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden flex-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                        </div>
+                            <option value="Wilayah Utara">Wilayah Utara</option>
+                            <option value="Wilayah Selatan">Wilayah Selatan</option>
+                            <option value="Wilayah Sabah">Wilayah Sabah</option>
+                        </select>
+                        <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                 </div>
                 
@@ -376,12 +374,11 @@
                         <label class="text-sm font-semibold text-gray-700">Jawatan</label>
                         <input name="position" type="text" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
-                    <div class="md:col-span-2 space-y-1">
-                        <label class="text-sm font-semibold text-gray-700">Bahagian / Kategori Pelawat *</label>
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="flex-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-                                <option value="">Sila Pilih...</option>
-                                <option value="Pelawat Am">Pelawat Am</option>
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="text-sm font-semibold text-gray-700 block">Bahagian / Kategori Pelawat *</label>
+                        <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white block">
+                            <option value="">Sila Pilih...</option>
+                            <option value="Pelawat Am">Pelawat Am</option>
                                 <option value="Penjawat Awam">Penjawat Awam</option>
                                 <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
                                 <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
@@ -396,12 +393,11 @@
                                 <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
                                 <option value="Wilayah Timur">Wilayah Timur</option>
                                 <option value="Wilayah Tengah">Wilayah Tengah</option>
-                                <option value="Wilayah Utara">Wilayah Utara</option>
-                                <option value="Wilayah Selatan">Wilayah Selatan</option>
-                                <option value="Wilayah Sabah">Wilayah Sabah</option>
-                            </select>
-                            <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden flex-1 px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                        </div>
+                            <option value="Wilayah Utara">Wilayah Utara</option>
+                            <option value="Wilayah Selatan">Wilayah Selatan</option>
+                            <option value="Wilayah Sabah">Wilayah Sabah</option>
+                        </select>
+                        <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
                 </div>
                 <div class="space-y-1 pt-2">
@@ -427,6 +423,10 @@
                 <input type="hidden" id="edit-id" />
                 <div class="grid grid-cols-2 gap-4">
                     <div>
+                        <label class="block text-xs font-bold text-gray-600 mb-1">Tarikh Lawatan</label>
+                        <input type="date" id="edit-date" name="date" required class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
+                    </div>
+                    <div>
                         <label class="block text-xs font-bold text-gray-600 mb-1">Nama Penuh</label>
                         <input id="edit-name" name="name" required class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
                     </div>
@@ -438,12 +438,11 @@
                         <label class="block text-xs font-bold text-gray-600 mb-1">Jawatan</label>
                         <input id="edit-position" name="position" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
                     </div>
-                    <div class="col-span-2">
+                    <div class="col-span-2 space-y-2">
                         <label class="block text-xs font-bold text-gray-600 mb-1">Bahagian / Kategori Pelawat *</label>
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="flex-1 p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none bg-white">
-                                <option value="">Sila Pilih...</option>
-                                <option value="Pelawat Am">Pelawat Am</option>
+                        <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none bg-white block">
+                            <option value="">Sila Pilih...</option>
+                            <option value="Pelawat Am">Pelawat Am</option>
                                 <option value="Penjawat Awam">Penjawat Awam</option>
                                 <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
                                 <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
@@ -455,24 +454,23 @@
                                 <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
                                 <option value="Wisdec Banting">Wisdec Banting</option>
                                 <option value="Wisdec Sabah">Wisdec Sabah</option>
-                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
-                                <option value="Wilayah Timur">Wilayah Timur</option>
-                                <option value="Wilayah Tengah">Wilayah Tengah</option>
-                                <option value="Wilayah Utara">Wilayah Utara</option>
-                                <option value="Wilayah Selatan">Wilayah Selatan</option>
                                 <option value="Wilayah Sabah">Wilayah Sabah</option>
-                            </select>
-                            <input id="edit-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden flex-1 p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
-                        </div>
+                        </select>
+                        <input id="edit-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full mt-2 p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-gray-600 mb-1">Komen / Tujuan</label>
                     <textarea id="edit-comment" name="comment" required rows="3" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none"></textarea>
                 </div>
-                <div class="flex justify-end gap-3 mt-4 pt-4 border-t">
-                    <button type="button" onclick="hideModal('modal-edit')" class="px-4 py-2 border rounded text-sm font-medium hover:bg-gray-50">Batal</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Simpan Perubahan</button>
+                <div class="flex justify-between items-center mt-4 pt-4 border-t">
+                    <button type="button" onclick="hideModal('modal-edit'); deleteVisitor(document.getElementById('edit-id').value);" class="px-4 py-2 bg-red-50 text-red-600 border border-red-200 rounded text-sm font-medium hover:bg-red-100 flex items-center gap-2">
+                        <i data-lucide="trash-2" class="h-4 w-4"></i> Padam
+                    </button>
+                    <div class="flex gap-3">
+                        <button type="button" onclick="hideModal('modal-edit')" class="px-4 py-2 border rounded text-sm font-medium hover:bg-gray-50">Batal</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Simpan Perubahan</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -804,6 +802,7 @@
             const formData = new FormData(e.target);
 
             const updatedData = {
+                date: document.getElementById('edit-date').value,
                 name: document.getElementById('edit-name').value,
                 empNo: document.getElementById('edit-empNo').value,
                 position: document.getElementById('edit-position').value,
@@ -839,6 +838,7 @@
             const visitor = state.visitors.find(v => v.id === id);
             if (!visitor) return;
             document.getElementById('edit-id').value = visitor.id;
+            document.getElementById('edit-date').value = visitor.date || todayStr;
             document.getElementById('edit-name').value = visitor.name || '';
             document.getElementById('edit-empNo').value = visitor.empNo || '';
             document.getElementById('edit-position').value = visitor.position || '';
@@ -938,8 +938,7 @@
                     actionTd = `
                         <td class="p-4">
                             <div class="flex justify-center gap-2">
-                                <button onclick="openEditModal('${v.id}')" class="p-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded border border-blue-200" title="Edit"><i data-lucide="edit" class="h-4 w-4"></i></button>
-                                <button onclick="deleteVisitor('${v.id}')" class="p-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded border border-red-200" title="Padam"><i data-lucide="trash-2" class="h-4 w-4"></i></button>
+                                <button onclick="openEditModal('${v.id}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded border border-blue-200 font-medium text-xs flex items-center gap-1" title="Kemaskini Data"><i data-lucide="edit" class="h-3 w-3"></i> Kemaskini</button>
                             </div>
                         </td>
                     `;
