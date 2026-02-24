@@ -21,6 +21,46 @@
         /* Smooth fade transition */
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- Efek UI 3D --- */
+        .card-3d {
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        /* Hover Effect: Naik ke atas sikit, bayang membesar */
+        .card-3d:hover {
+            transform: translateY(-3px);
+        }
+        /* Active/Click Effect: Tertekan ke bawah */
+        .card-3d:active {
+            transform: translateY(2px);
+        }
+        
+        /* Warna Bayang 3D Pelbagai Tema */
+        .shadow-3d-blue { box-shadow: 0 5px 0 0 #93c5fd; border: 2px solid #bfdbfe; }
+        .shadow-3d-blue:hover { box-shadow: 0 8px 0 0 #93c5fd; }
+        .shadow-3d-blue:active { box-shadow: 0 0px 0 0 #93c5fd; }
+
+        .shadow-3d-green { box-shadow: 0 5px 0 0 #86efac; border: 2px solid #bbf7d0; }
+        .shadow-3d-green:hover { box-shadow: 0 8px 0 0 #86efac; }
+        .shadow-3d-green:active { box-shadow: 0 0px 0 0 #86efac; }
+
+        .shadow-3d-indigo { box-shadow: 0 5px 0 0 #4f46e5; border: 2px solid #3730a3; }
+        .shadow-3d-indigo:hover { box-shadow: 0 8px 0 0 #4f46e5; }
+        .shadow-3d-indigo:active { box-shadow: 0 0px 0 0 #4f46e5; }
+
+        .shadow-3d-gray { box-shadow: 0 5px 0 0 #cbd5e1; border: 2px solid #e2e8f0; }
+        .shadow-3d-gray:hover { box-shadow: 0 8px 0 0 #cbd5e1; }
+        .shadow-3d-gray:active { box-shadow: 0 0px 0 0 #cbd5e1; }
+
+        /* Butang Klasik 3D */
+        .btn-3d {
+            transition: all 0.1s ease;
+            box-shadow: 0 4px 0 0 rgba(0,0,0,0.15);
+        }
+        .btn-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0 0 rgba(0,0,0,0.15);
+        }
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-[#f4f4ec]">
@@ -37,13 +77,13 @@
     </div>
 
     <div id="modal-confirm" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[60] fade-in">
-        <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
+        <div class="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 text-center card-3d shadow-3d-gray">
             <div class="flex justify-center mb-3"><i data-lucide="alert-triangle" class="h-10 w-10 text-red-500"></i></div>
             <h3 class="text-lg font-bold mb-2">Pengesahan Padam</h3>
             <p id="confirm-msg" class="mb-6 text-sm text-gray-600">Adakah anda pasti untuk memadam rekod ini?</p>
             <div class="flex justify-center gap-3">
-                <button id="btn-confirm-cancel" class="px-5 py-2 border rounded font-medium hover:bg-gray-50">Batal</button>
-                <button id="btn-confirm-ok" class="px-5 py-2 bg-red-600 text-white rounded font-medium hover:bg-red-700">Ya, Padam</button>
+                <button id="btn-confirm-cancel" class="px-5 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 btn-3d">Batal</button>
+                <button id="btn-confirm-ok" class="px-5 py-2 bg-red-600 text-white rounded-lg font-bold hover:bg-red-700 btn-3d">Ya, Padam</button>
             </div>
         </div>
     </div>
@@ -51,36 +91,36 @@
     <!-- ============================================== -->
     <!-- PAPARAN 1: BORANG PENDAFTARAN PELAWAT          -->
     <!-- ============================================== -->
-    <div id="view-guest-form" class="hidden min-h-screen py-10 px-4 fade-in">
-        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md border-2 border-blue-200">
-            <div class="bg-blue-600 text-white p-4 sm:p-6 rounded-t flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div id="view-guest-form" class="hidden min-h-screen py-6 sm:py-10 px-4 fade-in">
+        <div class="max-w-2xl mx-auto bg-white rounded-xl card-3d shadow-3d-gray overflow-hidden">
+            <div class="bg-blue-600 text-white p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-3">
                     <i data-lucide="file-text" class="h-6 w-6"></i>
                     <h2 class="text-xl font-bold">Pendaftaran Pelawat Baru</h2>
                 </div>
-                <div class="flex flex-col items-start sm:items-end">
+                <div class="flex flex-col items-start sm:items-end w-full sm:w-auto">
                     <label class="text-xs text-blue-200 font-semibold mb-1">Tarikh Lawatan</label>
-                    <input type="date" id="guest-visit-date" name="visit_date" class="bg-blue-700 border border-blue-500 text-white text-sm rounded px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer w-full sm:w-auto font-medium" required>
+                    <input type="date" id="guest-visit-date" name="visit_date" class="bg-blue-700 border border-blue-500 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer w-full font-medium shadow-inner" required>
                 </div>
             </div>
             
-            <form id="form-guest" class="p-6 space-y-4">
+            <form id="form-guest" class="p-4 sm:p-6 space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-1">
                         <label class="text-sm font-semibold text-gray-700">Nama Penuh *</label>
-                        <input name="name" type="text" required class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ali bin Abu" />
+                        <input name="name" type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" placeholder="Ali bin Abu" />
                     </div>
                     <div class="space-y-1">
                         <label class="text-sm font-semibold text-gray-700">No Pekerja / ID</label>
-                        <input name="empNo" type="text" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="12345" />
+                        <input name="empNo" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" placeholder="12345" />
                     </div>
                     <div class="space-y-1">
                         <label class="text-sm font-semibold text-gray-700">Jawatan</label>
-                        <input name="position" type="text" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Pegawai" />
+                        <input name="position" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" placeholder="Pegawai" />
                     </div>
                     <div class="md:col-span-2 space-y-2">
                         <label class="text-sm font-semibold text-gray-700 block">Bahagian / Kategori Pelawat *</label>
-                        <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white block">
+                        <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white block transition-colors">
                             <option value="">Sila Pilih...</option>
                             <option value="Pelawat Am">Pelawat Am</option>
                             <option value="Penjawat Awam">Penjawat Awam</option>
@@ -101,21 +141,22 @@
                             <option value="Wilayah Selatan">Wilayah Selatan</option>
                             <option value="Wilayah Sabah">Wilayah Sabah</option>
                         </select>
-                        <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" />
                     </div>
                 </div>
                 
                 <div class="space-y-1 pt-2">
                     <label class="text-sm font-semibold text-gray-700">Komen / Tujuan Lawatan *</label>
-                    <textarea name="comment" required rows="4" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Sila nyatakan tujuan lawatan anda dalam satu perenggan..."></textarea>
+                    <textarea name="comment" required rows="4" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors" placeholder="Sila nyatakan tujuan lawatan anda dalam satu perenggan..."></textarea>
                 </div>
 
-                <div class="flex justify-end gap-3 pt-4 border-t mt-6">
-                    <!-- Butang Lihat Dashboard tanpa Daftar -->
-                    <button type="button" onclick="viewAsGuest()" class="px-5 py-2 bg-blue-50 border border-blue-200 text-blue-700 font-medium rounded hover:bg-blue-100 flex items-center gap-2">
+                <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t mt-6">
+                    <button type="button" onclick="viewAsGuest()" class="w-full sm:w-auto px-5 py-2.5 bg-blue-50 border-2 border-blue-200 text-blue-700 font-bold rounded-lg hover:bg-blue-100 flex justify-center items-center gap-2 btn-3d">
                         <i data-lucide="layout-dashboard" class="h-4 w-4"></i> Batal & Ke Dashboard
                     </button>
-                    <button type="submit" id="btn-submit-guest" class="px-5 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700">Daftar & Teruskan</button>
+                    <button type="submit" id="btn-submit-guest" class="w-full sm:w-auto px-5 py-2.5 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 btn-3d">
+                        Daftar & Teruskan
+                    </button>
                 </div>
             </form>
         </div>
@@ -126,133 +167,137 @@
     <!-- ============================================== -->
     <div id="view-dashboard" class="hidden min-h-screen flex flex-col fade-in">
         <!-- Header -->
-        <header class="bg-white border-b shadow-sm px-6 py-4 flex justify-between items-center no-print">
+        <header class="bg-white border-b-2 border-gray-200 shadow-sm px-4 sm:px-6 py-4 flex justify-between items-center no-print sticky top-0 z-40">
             <div class="flex items-center gap-3">
                 <i data-lucide="book-open" class="h-8 w-8 text-blue-600"></i>
-                <div>
-                    <h1 class="font-bold text-xl text-blue-900 leading-tight">TAMU PUSAT SUMBER</h1>
-                    <p class="text-xs text-gray-500">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</p>
+                <div class="flex flex-col">
+                    <!-- Class app-main-title dan app-sub-title digunakan utk dikemaskini oleh JS -->
+                    <h1 class="font-black text-lg sm:text-xl text-blue-900 leading-tight tracking-tight uppercase app-main-title">TAMU PUSAT SUMBER</h1>
+                    <p class="text-[10px] sm:text-xs text-gray-500 font-medium app-sub-title hidden sm:block">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</p>
                 </div>
             </div>
-            <div class="flex items-center gap-4">
-                <div class="text-right hidden sm:block mr-2">
-                    <p id="header-date" class="font-bold text-blue-800 text-xl"></p>
-                    <p id="header-role" class="text-sm text-gray-500">Paparan Pelawat Sahaja</p>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <div class="text-right hidden lg:block mr-2">
+                    <p id="header-date" class="font-bold text-blue-800 text-lg"></p>
+                    <p id="header-role" class="text-xs text-gray-500 uppercase tracking-wide font-bold">Paparan Pelawat Sahaja</p>
                 </div>
                 
                 <!-- Quick Admin Login Button (Visible for Visitors) -->
-                <button id="btn-quick-admin" onclick="showModal('modal-admin-login')" class="hidden items-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded text-sm font-bold transition border border-blue-200">
-                    <i data-lucide="lock" class="h-4 w-4"></i> Admin
+                <button id="btn-quick-admin" onclick="showModal('modal-admin-login')" class="hidden items-center gap-1.5 sm:gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition border-2 border-blue-200 btn-3d">
+                    <i data-lucide="lock" class="h-4 w-4"></i> <span class="hidden sm:inline">Admin</span>
                 </button>
 
                 <!-- Admin Tools -->
-                <button id="btn-report-menu" onclick="showModal('modal-report')" class="hidden items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded text-sm font-bold transition border border-gray-300">
-                    <i data-lucide="settings" class="h-4 w-4"></i> Laporan
+                <button id="btn-settings-menu" onclick="openSettingsModal()" class="hidden items-center gap-1.5 sm:gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition border-2 border-gray-200 btn-3d">
+                    <i data-lucide="sliders" class="h-4 w-4"></i> <span class="hidden sm:inline">Tetapan</span>
                 </button>
-                <button id="btn-logout" onclick="handleLogout()" class="hidden items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-4 py-2 rounded text-sm font-bold transition">
-                    <i data-lucide="log-out" class="h-4 w-4"></i> Keluar
+                <button id="btn-report-menu" onclick="showModal('modal-report')" class="hidden items-center gap-1.5 sm:gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition border-2 border-gray-200 btn-3d">
+                    <i data-lucide="settings" class="h-4 w-4"></i> <span class="hidden sm:inline">Laporan</span>
+                </button>
+                <button id="btn-logout" onclick="handleLogout()" class="hidden items-center gap-1.5 sm:gap-2 bg-red-50 hover:bg-red-100 text-red-600 border-2 border-red-200 px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition btn-3d">
+                    <i data-lucide="log-out" class="h-4 w-4"></i> <span class="hidden sm:inline">Keluar</span>
                 </button>
             </div>
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 p-6 max-w-7xl mx-auto w-full flex flex-col gap-6 no-print">
-            <!-- Top Widgets -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <main class="flex-1 p-4 sm:p-6 max-w-7xl mx-auto w-full flex flex-col gap-4 sm:gap-6 no-print">
+            <!-- Top Widgets (Now with Custom 3D classes) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                 <!-- Widget Pelawat Hari Ini (Clickable) -->
-                <div onclick="selectToday()" class="bg-white rounded-lg shadow-sm border-2 border-blue-300 p-5 flex items-center justify-between cursor-pointer hover:bg-blue-50 transition">
+                <div onclick="selectToday()" class="bg-white rounded-xl p-5 flex items-center justify-between cursor-pointer card-3d shadow-3d-blue">
                     <div>
-                        <p class="text-sm font-bold text-gray-500 uppercase">Pelawat Hari Ini</p>
-                        <p id="stat-today" class="text-3xl font-bold text-blue-600 mt-1">0</p>
+                        <p class="text-xs font-bold text-blue-500 uppercase tracking-wider">Pelawat Hari Ini</p>
+                        <p id="stat-today" class="text-4xl font-black text-blue-700 mt-1">0</p>
                     </div>
-                    <div class="bg-blue-100 p-3 rounded-full"><i data-lucide="users" class="h-8 w-8 text-blue-600"></i></div>
+                    <div class="bg-blue-100 p-3 sm:p-4 rounded-full border-2 border-blue-200"><i data-lucide="users" class="h-8 w-8 text-blue-600"></i></div>
                 </div>
                 
                 <!-- Widget Jumlah Keseluruhan dengan Penapis -->
-                <div class="bg-white rounded-lg shadow-sm border-2 border-green-300 p-5 flex flex-col justify-center">
+                <div class="bg-white rounded-xl p-5 flex flex-col justify-center card-3d shadow-3d-green">
                     <div class="flex justify-between items-center mb-1">
-                        <p class="text-sm font-bold text-gray-500 uppercase">Jumlah Pelawat</p>
-                        <select id="stat-time-filter" onchange="renderStats()" class="text-xs border border-gray-300 rounded text-gray-600 bg-gray-50 p-1 cursor-pointer hover:bg-gray-100 outline-none">
+                        <p class="text-xs font-bold text-green-600 uppercase tracking-wider">Jumlah Pelawat</p>
+                        <select id="stat-time-filter" onchange="renderStats()" class="text-xs border-2 border-green-200 rounded-md text-green-800 bg-green-50 p-1 cursor-pointer hover:bg-green-100 outline-none font-bold">
                             <option value="month" selected>Bulan Ini</option>
                             <option value="week">Minggu Ini</option>
                             <option value="all">Keseluruhan</option>
                         </select>
                     </div>
-                    <div class="flex justify-between items-center">
-                        <p id="stat-total" class="text-3xl font-bold text-green-600 mt-1">0</p>
-                        <div class="bg-green-100 p-3 rounded-full"><i data-lucide="book-open" class="h-8 w-8 text-green-600"></i></div>
+                    <div class="flex justify-between items-center mt-1">
+                        <p id="stat-total" class="text-4xl font-black text-green-700">0</p>
+                        <div class="bg-green-100 p-3 sm:p-4 rounded-full border-2 border-green-200"><i data-lucide="book-open" class="h-8 w-8 text-green-600"></i></div>
                     </div>
                 </div>
 
                 <!-- Admin Action Widget -->
                 <div id="widget-admin" class="hidden">
-                    <button onclick="showModal('modal-register')" class="w-full h-full bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-sm border-2 border-blue-400 p-5 flex items-center justify-between hover:from-blue-700 hover:to-blue-900 transition text-left transform hover:scale-[1.02]">
+                    <button onclick="showModal('modal-register')" class="w-full h-full bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-5 flex items-center justify-between text-left card-3d shadow-3d-indigo">
                         <div>
-                            <p class="text-sm font-bold text-blue-100 uppercase">Pendaftaran Baru</p>
-                            <p class="text-xl font-bold text-white mt-1">Daftar Pelawat</p>
+                            <p class="text-xs font-bold text-blue-200 uppercase tracking-wider">Pendaftaran Baru</p>
+                            <p class="text-xl sm:text-2xl font-black text-white mt-1">Daftar Pelawat</p>
                         </div>
-                        <div class="bg-white/20 p-3 rounded-full"><i data-lucide="plus-circle" class="h-8 w-8 text-white"></i></div>
+                        <div class="bg-white/20 p-3 sm:p-4 rounded-full border-2 border-blue-400/50"><i data-lucide="plus-circle" class="h-8 w-8 text-white"></i></div>
                     </button>
                 </div>
 
                 <!-- Visitor Action Widget -->
                 <div id="widget-visitor" class="hidden">
-                    <button onclick="switchView('guestForm')" class="w-full h-full bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg shadow-sm border-2 border-indigo-400 p-5 flex items-center justify-between hover:from-indigo-600 hover:to-indigo-800 transition text-left transform hover:scale-[1.02]">
+                    <button onclick="switchView('guestForm')" class="w-full h-full bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-xl p-5 flex items-center justify-between text-left card-3d shadow-3d-indigo">
                         <div>
-                            <p class="text-sm font-bold text-indigo-100 uppercase">Borang Pelawat</p>
-                            <p class="text-xl font-bold text-white mt-1">Daftar Rekod Baru</p>
+                            <p class="text-xs font-bold text-indigo-200 uppercase tracking-wider">Borang Pelawat</p>
+                            <p class="text-xl sm:text-2xl font-black text-white mt-1">Daftar Rekod Baru</p>
                         </div>
-                        <div class="bg-white/20 p-3 rounded-full"><i data-lucide="user-plus" class="h-8 w-8 text-white"></i></div>
+                        <div class="bg-white/20 p-3 sm:p-4 rounded-full border-2 border-indigo-400/50"><i data-lucide="user-plus" class="h-8 w-8 text-white"></i></div>
                     </button>
                 </div>
             </div>
 
             <!-- Lower Section (Calendar + Table) -->
-            <div class="flex flex-col lg:flex-row gap-6">
+            <div class="flex flex-col lg:flex-row gap-4 sm:gap-6">
                 <!-- Calendar Widget -->
-                <div class="bg-white rounded-lg shadow-sm border-2 border-gray-200 p-5 w-full lg:w-80 flex-shrink-0">
-                    <div class="flex justify-between items-center mb-4 pb-2 border-b">
-                        <button onclick="changeMonth(-1)" class="p-1 hover:bg-gray-100 rounded"><i data-lucide="chevron-left" class="h-5 w-5"></i></button>
-                        <h3 id="calendar-title" class="font-bold text-gray-800 uppercase text-sm"></h3>
-                        <button onclick="changeMonth(1)" class="p-1 hover:bg-gray-100 rounded"><i data-lucide="chevron-right" class="h-5 w-5"></i></button>
+                <div class="bg-white rounded-xl p-5 w-full lg:w-[340px] flex-shrink-0 card-3d shadow-3d-gray h-fit">
+                    <div class="flex justify-between items-center mb-4 pb-3 border-b-2 border-gray-100">
+                        <button onclick="changeMonth(-1)" class="p-1.5 hover:bg-gray-100 rounded-lg border border-transparent hover:border-gray-200 transition"><i data-lucide="chevron-left" class="h-5 w-5"></i></button>
+                        <h3 id="calendar-title" class="font-black text-gray-800 uppercase text-sm tracking-wide"></h3>
+                        <button onclick="changeMonth(1)" class="p-1.5 hover:bg-gray-100 rounded-lg border border-transparent hover:border-gray-200 transition"><i data-lucide="chevron-right" class="h-5 w-5"></i></button>
                     </div>
                     
                     <div class="grid grid-cols-7 gap-1 text-center mb-2">
-                        <div class="text-xs font-bold text-gray-500">Is</div>
-                        <div class="text-xs font-bold text-gray-500">Se</div>
-                        <div class="text-xs font-bold text-gray-500">Ra</div>
-                        <div class="text-xs font-bold text-gray-500">Kh</div>
-                        <div class="text-xs font-bold text-gray-500">Ju</div>
-                        <div class="text-xs font-bold text-red-500">Sa</div>
-                        <div class="text-xs font-bold text-red-500">Ah</div>
+                        <div class="text-xs font-bold text-gray-400 uppercase">Is</div>
+                        <div class="text-xs font-bold text-gray-400 uppercase">Se</div>
+                        <div class="text-xs font-bold text-gray-400 uppercase">Ra</div>
+                        <div class="text-xs font-bold text-gray-400 uppercase">Kh</div>
+                        <div class="text-xs font-bold text-gray-400 uppercase">Ju</div>
+                        <div class="text-xs font-bold text-orange-500 uppercase">Sa</div>
+                        <div class="text-xs font-bold text-orange-500 uppercase">Ah</div>
                     </div>
                     
-                    <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-sm">
+                    <div id="calendar-grid" class="grid grid-cols-7 gap-1.5 text-sm">
                         <!-- Disuntik melalui JS -->
                     </div>
                     
-                    <button onclick="selectToday()" class="mt-4 w-full py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition">
+                    <button onclick="selectToday()" class="mt-5 w-full py-2.5 bg-blue-50 text-blue-700 border-2 border-blue-200 rounded-lg text-sm font-bold flex items-center justify-center gap-2 btn-3d hover:bg-blue-100">
                         <i data-lucide="calendar" class="h-4 w-4"></i> Senarai Hari Ini
                     </button>
                 </div>
 
                 <!-- Visitor Table -->
-                <div class="bg-white rounded-lg shadow-sm border-2 border-gray-200 flex-1 overflow-hidden flex flex-col">
-                    <div class="p-4 border-b bg-gray-50 flex justify-between items-center">
-                        <h3 id="table-title" class="font-bold text-gray-800 flex items-center gap-2">
+                <div class="bg-white rounded-xl flex-1 overflow-hidden flex flex-col card-3d shadow-3d-gray">
+                    <div class="p-4 sm:p-5 border-b-2 border-gray-100 bg-gray-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <h3 id="table-title" class="font-black text-gray-800 flex items-center gap-2 text-sm sm:text-base">
                             <i data-lucide="calendar" class="h-5 w-5 text-blue-600"></i> Senarai Pelawat: Hari Ini
                         </h3>
-                        <span id="table-count" class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded-full">0 rekod</span>
+                        <span id="table-count" class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-md border border-blue-200">0 rekod</span>
                     </div>
                     
-                    <div class="overflow-x-auto flex-1">
-                        <table class="w-full text-left border-collapse">
+                    <div class="overflow-x-auto flex-1 p-2 sm:p-0">
+                        <table class="w-full text-left border-collapse min-w-[600px]">
                             <thead>
-                                <tr class="bg-white text-xs uppercase text-gray-500 border-b">
-                                    <th class="p-4 font-semibold">Nama & ID</th>
-                                    <th class="p-4 font-semibold">Jawatan / Kategori</th>
-                                    <th class="p-4 font-semibold w-1/3">Komen / Tujuan</th>
-                                    <th id="th-action" class="p-4 font-semibold text-center hidden">Tindakan</th>
+                                <tr class="text-xs uppercase text-gray-400 border-b-2 border-gray-100">
+                                    <th class="p-4 font-bold tracking-wider">Nama & ID</th>
+                                    <th class="p-4 font-bold tracking-wider">Jawatan / Kategori</th>
+                                    <th class="p-4 font-bold tracking-wider w-1/3">Komen / Tujuan</th>
+                                    <th id="th-action" class="p-4 font-bold tracking-wider text-center hidden">Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody id="table-body">
@@ -269,19 +314,19 @@
     <!-- PAPARAN 3: CETAKAN PDF (PRINT VIEW)            -->
     <!-- ============================================== -->
     <div id="view-print" class="hidden min-h-screen bg-white p-8 text-black fade-in">
-        <div class="flex justify-between items-center mb-8 border-b pb-4 no-print bg-gray-50 p-4 rounded-lg">
+        <div class="flex justify-between items-center mb-8 border-b pb-4 no-print bg-gray-50 p-4 rounded-lg border-2 border-gray-200">
             <div>
                 <h2 class="text-xl font-bold text-gray-800">Mod Prapapar Cetakan (PDF)</h2>
                 <p class="text-sm text-gray-500">Sila gunakan fungsi "Save as PDF" atau cetak di pelayar anda.</p>
             </div>
-            <button onclick="cancelPrint()" class="px-5 py-2 bg-red-600 text-white font-bold rounded-lg shadow hover:bg-red-700">
+            <button onclick="cancelPrint()" class="px-5 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 btn-3d">
                 Batal & Kembali
             </button>
         </div>
 
         <div class="text-center mb-8">
-            <h1 class="text-2xl font-bold uppercase mb-1">TAMU PUSAT SUMBER</h1>
-            <h2 class="text-lg font-semibold text-gray-700">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</h2>
+            <h1 class="text-2xl font-black uppercase mb-1 app-main-title">TAMU PUSAT SUMBER</h1>
+            <h2 class="text-lg font-bold text-gray-700 app-sub-title">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</h2>
             <h3 id="print-title" class="text-md mt-4 font-bold border-b-2 border-black inline-block pb-1"></h3>
         </div>
 
@@ -300,27 +345,51 @@
             </tbody>
         </table>
         
-        <div class="mt-12 text-sm text-gray-500 text-center">
+        <div class="mt-12 text-sm text-gray-500 text-center font-medium">
             <p>Laporan dijana secara automatik pada: <span id="print-timestamp"></span></p>
         </div>
     </div>
 
     <!-- ============================================== -->
-    <!-- MODAL POPUPS (TAMBAH, EDIT, LAPORAN)           -->
+    <!-- MODAL POPUPS (TAMBAH, EDIT, LAPORAN, TETAPAN)  -->
     <!-- ============================================== -->
 
     <!-- Modal Quick Admin Login -->
     <div id="modal-admin-login" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[60] fade-in">
-        <div class="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 text-center">
+        <div class="bg-white rounded-xl shadow-xl max-w-sm w-full p-6 text-center card-3d shadow-3d-gray">
             <div class="flex justify-center mb-3"><i data-lucide="lock" class="h-10 w-10 text-blue-600"></i></div>
-            <h3 class="text-lg font-bold mb-4">Pengesahan Admin</h3>
+            <h3 class="text-lg font-black mb-4 uppercase">Pengesahan Admin</h3>
             <form id="form-quick-login" class="space-y-4 text-left">
                 <div>
-                    <input type="password" id="quick-admin-pass" placeholder="Kata Laluan Admin" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                    <input type="password" id="quick-admin-pass" placeholder="Kata Laluan Admin" class="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-medium"/>
                 </div>
                 <div class="flex justify-end gap-3 mt-6">
-                    <button type="button" onclick="hideModal('modal-admin-login')" class="px-5 py-2 border rounded font-medium hover:bg-gray-50">Batal</button>
-                    <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700">Log Masuk</button>
+                    <button type="button" onclick="hideModal('modal-admin-login')" class="px-5 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 btn-3d">Batal</button>
+                    <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 btn-3d">Log Masuk</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tetapan (Settings) -->
+    <div id="modal-settings" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[60] fade-in">
+        <div class="bg-white rounded-xl shadow-xl max-w-lg w-full card-3d shadow-3d-gray">
+            <div class="px-4 sm:px-6 py-4 border-b-2 border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
+                <h3 class="font-black text-lg flex items-center gap-2 text-gray-800"><i data-lucide="sliders" class="h-5 w-5 text-gray-600"></i> Tetapan Sistem</h3>
+                <button onclick="hideModal('modal-settings')" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+            </div>
+            <form id="form-settings" onsubmit="saveSettings(event)" class="p-6 space-y-4">
+                <div class="space-y-1">
+                    <label class="text-sm font-bold text-gray-700">Tajuk Besar Aplikasi</label>
+                    <input id="setting-title" type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-blue-900" />
+                </div>
+                <div class="space-y-1">
+                    <label class="text-sm font-bold text-gray-700">Deskripsi / Tajuk Kecil</label>
+                    <input id="setting-subtitle" type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 text-gray-600" />
+                </div>
+                <div class="flex justify-end gap-3 mt-6 pt-4 border-t-2 border-gray-100">
+                    <button type="button" onclick="hideModal('modal-settings')" class="px-5 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 btn-3d">Batal</button>
+                    <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 btn-3d">Simpan Tetapan</button>
                 </div>
             </form>
         </div>
@@ -328,159 +397,163 @@
 
     <!-- Modal Admin Register -->
     <div id="modal-register" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 fade-in">
-        <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
-            <div class="px-4 sm:px-6 py-4 border-b flex flex-col sm:flex-row justify-between items-center bg-blue-600 text-white rounded-t-lg gap-4">
-                <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="user-plus" class="h-5 w-5"></i> Pendaftaran Pelawat</h3>
+        <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full overflow-hidden card-3d shadow-3d-gray max-h-[90vh] flex flex-col">
+            <div class="px-4 sm:px-6 py-4 border-b flex flex-col sm:flex-row justify-between items-center bg-blue-600 text-white gap-4">
+                <h3 class="font-black text-lg flex items-center gap-2"><i data-lucide="user-plus" class="h-5 w-5"></i> Pendaftaran Pelawat</h3>
                 <div class="flex items-center gap-4">
-                    <input type="date" id="admin-visit-date" name="visit_date" form="form-admin-register" class="bg-blue-700 border border-blue-500 text-white text-sm rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer font-medium" required>
-                    <button onclick="hideModal('modal-register')" class="text-white hover:text-gray-200 text-2xl ml-2">&times;</button>
+                    <input type="date" id="admin-visit-date" name="visit_date" form="form-admin-register" class="bg-blue-700 border border-blue-500 text-white text-sm rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer font-medium" required>
+                    <button onclick="hideModal('modal-register')" class="text-white hover:text-blue-200 text-2xl font-bold ml-2">&times;</button>
                 </div>
             </div>
-            <form id="form-admin-register" class="p-6 space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="space-y-1">
-                        <label class="text-sm font-semibold text-gray-700">Nama Penuh *</label>
-                        <input name="name" type="text" required class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <div class="overflow-y-auto p-4 sm:p-6">
+                <form id="form-admin-register" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-700">Nama Penuh *</label>
+                            <input name="name" type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-700">No Pekerja / ID</label>
+                            <input name="empNo" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-sm font-semibold text-gray-700">Jawatan</label>
+                            <input name="position" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500" />
+                        </div>
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="text-sm font-semibold text-gray-700 block">Bahagian / Kategori Pelawat *</label>
+                            <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white block">
+                                <option value="">Sila Pilih...</option>
+                                <option value="Pelawat Am">Pelawat Am</option>
+                                <option value="Penjawat Awam">Penjawat Awam</option>
+                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                                <option value="Wisdec Banting">Wisdec Banting</option>
+                                <option value="Wisdec Sabah">Wisdec Sabah</option>
+                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="Wilayah Timur">Wilayah Timur</option>
+                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                                <option value="Wilayah Utara">Wilayah Utara</option>
+                                <option value="Wilayah Selatan">Wilayah Selatan</option>
+                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            </select>
+                            <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500" />
+                        </div>
                     </div>
-                    <div class="space-y-1">
-                        <label class="text-sm font-semibold text-gray-700">No Pekerja / ID</label>
-                        <input name="empNo" type="text" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <div class="space-y-1 pt-2">
+                        <label class="text-sm font-semibold text-gray-700">Komen / Tujuan Lawatan *</label>
+                        <textarea name="comment" required rows="3" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"></textarea>
                     </div>
-                    <div class="space-y-1">
-                        <label class="text-sm font-semibold text-gray-700">Jawatan</label>
-                        <input name="position" type="text" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                    <div class="flex justify-end gap-3 mt-4 pt-4 border-t-2 border-gray-100">
+                        <button type="button" onclick="hideModal('modal-register')" class="px-5 py-2.5 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 btn-3d">Batal</button>
+                        <button type="submit" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 btn-3d">Daftar Pelawat</button>
                     </div>
-                    <div class="md:col-span-2 space-y-2">
-                        <label class="text-sm font-semibold text-gray-700 block">Bahagian / Kategori Pelawat *</label>
-                        <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white block">
-                            <option value="">Sila Pilih...</option>
-                            <option value="Pelawat Am">Pelawat Am</option>
-                            <option value="Penjawat Awam">Penjawat Awam</option>
-                            <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                            <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                            <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                            <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                            <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                            <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
-                            <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                            <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
-                            <option value="Wisdec Banting">Wisdec Banting</option>
-                            <option value="Wisdec Sabah">Wisdec Sabah</option>
-                            <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
-                            <option value="Wilayah Timur">Wilayah Timur</option>
-                            <option value="Wilayah Tengah">Wilayah Tengah</option>
-                            <option value="Wilayah Utara">Wilayah Utara</option>
-                            <option value="Wilayah Selatan">Wilayah Selatan</option>
-                            <option value="Wilayah Sabah">Wilayah Sabah</option>
-                        </select>
-                        <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    </div>
-                </div>
-                <div class="space-y-1 pt-2">
-                    <label class="text-sm font-semibold text-gray-700">Komen / Tujuan Lawatan *</label>
-                    <textarea name="comment" required rows="3" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                </div>
-                <div class="flex justify-end gap-3 mt-4 pt-4 border-t">
-                    <button type="button" onclick="hideModal('modal-register')" class="px-4 py-2 border rounded text-sm font-medium hover:bg-gray-50">Batal</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Daftar Pelawat</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- Modal Edit -->
     <div id="modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 fade-in">
-        <div class="bg-white rounded-lg shadow-xl max-w-lg w-full">
-            <div class="px-6 py-4 border-b flex justify-between items-center bg-blue-50 rounded-t-lg">
-                <h3 class="font-bold text-blue-900 flex items-center gap-2"><i data-lucide="edit" class="h-5 w-5"></i> Kemaskini Data</h3>
-                <button onclick="hideModal('modal-edit')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+        <div class="bg-white rounded-xl shadow-xl max-w-lg w-full card-3d shadow-3d-gray max-h-[90vh] flex flex-col overflow-hidden">
+            <div class="px-6 py-4 border-b-2 border-blue-100 flex justify-between items-center bg-blue-50 rounded-t-xl">
+                <h3 class="font-black text-blue-900 flex items-center gap-2"><i data-lucide="edit" class="h-5 w-5"></i> Kemaskini Data</h3>
+                <button onclick="hideModal('modal-edit')" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
             </div>
-            <form id="form-edit" class="p-6 space-y-4">
-                <input type="hidden" id="edit-id" />
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 mb-1">Tarikh Lawatan</label>
-                        <input type="date" id="edit-date" name="date" required class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
+            <div class="overflow-y-auto p-6">
+                <form id="form-edit" class="space-y-4">
+                    <input type="hidden" id="edit-id" />
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">Tarikh Lawatan</label>
+                            <input type="date" id="edit-date" name="date" required class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-medium" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">Nama Penuh</label>
+                            <input id="edit-name" name="name" required class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">No Pekerja / ID</label>
+                            <input id="edit-empNo" name="empNo" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500" />
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">Jawatan</label>
+                            <input id="edit-position" name="position" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500" />
+                        </div>
+                        <div class="col-span-2 space-y-2">
+                            <label class="block text-xs font-bold text-gray-600 mb-1">Bahagian / Kategori Pelawat *</label>
+                            <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 bg-white block">
+                                <option value="">Sila Pilih...</option>
+                                <option value="Pelawat Am">Pelawat Am</option>
+                                <option value="Penjawat Awam">Penjawat Awam</option>
+                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                                <option value="Wisdec Banting">Wisdec Banting</option>
+                                <option value="Wisdec Sabah">Wisdec Sabah</option>
+                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="Wilayah Timur">Wilayah Timur</option>
+                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                                <option value="Wilayah Utara">Wilayah Utara</option>
+                                <option value="Wilayah Selatan">Wilayah Selatan</option>
+                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            </select>
+                            <input id="edit-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full mt-2 p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500" />
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-600 mb-1">Nama Penuh</label>
-                        <input id="edit-name" name="name" required class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
+                        <label class="block text-xs font-bold text-gray-600 mb-1">Komen / Tujuan</label>
+                        <textarea id="edit-comment" name="comment" required rows="3" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500"></textarea>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 mb-1">No Pekerja / ID</label>
-                        <input id="edit-empNo" name="empNo" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
+                    <div class="flex flex-col-reverse sm:flex-row justify-between items-center mt-4 pt-4 border-t-2 border-gray-100 gap-4">
+                        <button type="button" onclick="hideModal('modal-edit'); deleteVisitor(document.getElementById('edit-id').value);" class="w-full sm:w-auto px-4 py-2 bg-red-50 text-red-600 border-2 border-red-200 rounded-lg font-bold hover:bg-red-100 flex justify-center items-center gap-2 btn-3d">
+                            <i data-lucide="trash-2" class="h-4 w-4"></i> Padam
+                        </button>
+                        <div class="flex w-full sm:w-auto gap-3">
+                            <button type="button" onclick="hideModal('modal-edit')" class="flex-1 sm:flex-none px-4 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 btn-3d">Batal</button>
+                            <button type="submit" class="flex-1 sm:flex-none px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 btn-3d">Simpan</button>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 mb-1">Jawatan</label>
-                        <input id="edit-position" name="position" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
-                    </div>
-                    <div class="col-span-2 space-y-2">
-                        <label class="block text-xs font-bold text-gray-600 mb-1">Bahagian / Kategori Pelawat *</label>
-                        <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none bg-white block">
-                            <option value="">Sila Pilih...</option>
-                            <option value="Pelawat Am">Pelawat Am</option>
-                            <option value="Penjawat Awam">Penjawat Awam</option>
-                            <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                            <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                            <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                            <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                            <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                            <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
-                            <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                            <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
-                            <option value="Wisdec Banting">Wisdec Banting</option>
-                            <option value="Wisdec Sabah">Wisdec Sabah</option>
-                            <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
-                            <option value="Wilayah Timur">Wilayah Timur</option>
-                            <option value="Wilayah Tengah">Wilayah Tengah</option>
-                            <option value="Wilayah Utara">Wilayah Utara</option>
-                            <option value="Wilayah Selatan">Wilayah Selatan</option>
-                            <option value="Wilayah Sabah">Wilayah Sabah</option>
-                        </select>
-                        <input id="edit-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full mt-2 p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-600 mb-1">Komen / Tujuan</label>
-                    <textarea id="edit-comment" name="comment" required rows="3" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none"></textarea>
-                </div>
-                <div class="flex justify-between items-center mt-4 pt-4 border-t">
-                    <button type="button" onclick="hideModal('modal-edit'); deleteVisitor(document.getElementById('edit-id').value);" class="px-4 py-2 bg-red-50 text-red-600 border border-red-200 rounded text-sm font-medium hover:bg-red-100 flex items-center gap-2">
-                        <i data-lucide="trash-2" class="h-4 w-4"></i> Padam
-                    </button>
-                    <div class="flex gap-3">
-                        <button type="button" onclick="hideModal('modal-edit')" class="px-4 py-2 border rounded text-sm font-medium hover:bg-gray-50">Batal</button>
-                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700">Simpan Perubahan</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 
     <!-- Modal Report -->
     <div id="modal-report" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 fade-in">
-        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 text-center">
+        <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 text-center card-3d shadow-3d-gray">
             <div class="flex justify-center mb-4"><i data-lucide="file-text" class="h-12 w-12 text-blue-600"></i></div>
-            <h3 class="text-xl font-bold mb-2">Jana Laporan PDF</h3>
-            <p class="text-sm text-gray-500 mb-6">Pilih jenis laporan yang ingin dijana dan dicetak.</p>
+            <h3 class="text-xl font-black mb-2">Jana Laporan PDF</h3>
+            <p class="text-sm text-gray-500 mb-6 font-medium">Pilih jenis laporan yang ingin dijana dan dicetak.</p>
             
             <div class="space-y-3 mb-6">
-                <button onclick="selectReport('harian', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border border-gray-300 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition">
-                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-semibold text-gray-800">Senarai Harian</span>
+                <button onclick="selectReport('harian', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition btn-3d">
+                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Harian</span>
                 </button>
-                <button onclick="selectReport('mingguan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border border-gray-300 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition">
-                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-semibold text-gray-800">Senarai Mingguan</span>
+                <button onclick="selectReport('mingguan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition btn-3d">
+                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Mingguan</span>
                 </button>
-                <button onclick="selectReport('bulanan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border border-gray-300 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition">
-                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-semibold text-gray-800">Senarai Bulanan</span>
+                <button onclick="selectReport('bulanan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition btn-3d">
+                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Bulanan</span>
                 </button>
             </div>
 
-            <button id="btn-print-trigger" onclick="generateReport()" class="hidden mb-3 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition shadow-md">
+            <button id="btn-print-trigger" onclick="generateReport()" class="hidden mb-3 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition btn-3d">
                 <i data-lucide="printer" class="h-5 w-5"></i> Cetak PDF
             </button>
             
-            <button onclick="closeReportModal()" class="px-6 py-2 bg-gray-200 text-gray-800 hover:bg-gray-300 rounded-lg font-bold w-full transition">Tutup</button>
+            <button onclick="closeReportModal()" class="px-6 py-2.5 bg-gray-200 text-gray-800 hover:bg-gray-300 rounded-lg font-bold w-full transition btn-3d">Tutup</button>
         </div>
     </div>
 
@@ -491,7 +564,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Konfigurasi Firebase ---
         const providedConfig = {
@@ -522,9 +595,11 @@
             user: null,
             visitors: [],
             selectedDate: new Date().toISOString().split('T')[0],
-            calendarDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+            calendarDate: new Date(), // Default sentiasa bulan & hari semasa
             selectedReportType: null,
-            confirmActionCallback: null
+            confirmActionCallback: null,
+            appTitle: "TAMU PUSAT SUMBER",
+            appSubtitle: "Sistem Rekod Pelawat Pusat Sumber & Perpustakaan"
         };
         const todayStr = new Date().toISOString().split('T')[0];
 
@@ -533,6 +608,7 @@
             document.getElementById('guest-visit-date').value = todayStr;
             document.getElementById('admin-visit-date').value = todayStr;
             switchView('dashboard'); // Force initial view
+            updateAppTitles();
         });
 
         // --- Inisialisasi Lucide Icons ---
@@ -565,6 +641,11 @@
             const t = new Date(todayStr);
             const diffDays = Math.ceil((t - d) / (1000 * 60 * 60 * 24));
             return diffDays >= 0 && diffDays <= 7;
+        };
+
+        window.updateAppTitles = function() {
+            document.querySelectorAll('.app-main-title').forEach(el => el.innerText = state.appTitle);
+            document.querySelectorAll('.app-sub-title').forEach(el => el.innerText = state.appSubtitle);
         };
 
         // Custom Confirm
@@ -624,6 +705,12 @@
         };
         window.hideModal = function(id) { document.getElementById(id).classList.add('hidden'); };
 
+        window.openSettingsModal = function() {
+            document.getElementById('setting-title').value = state.appTitle;
+            document.getElementById('setting-subtitle').value = state.appSubtitle;
+            showModal('modal-settings');
+        };
+
         window.handleLogout = function() {
             state.role = 'visitor'; // Reset to visitor role
             switchView('dashboard');
@@ -643,8 +730,8 @@
             if (isDbInitialized) return;
             isDbInitialized = true;
             
+            // 1. Data Pelawat Listener
             const visitorsRef = collection(db, 'artifacts', fbAppId, 'public', 'data', 'visitors');
-            
             onSnapshot(visitorsRef, (snapshot) => {
                 const data = [];
                 snapshot.forEach(doc => data.push({ id: doc.id, ...doc.data() }));
@@ -656,6 +743,17 @@
             }, (err) => {
                 isDbInitialized = false; // Boleh cuba lagi
                 showSystemError(`Ralat Pangkalan Data (${err.code}): Sila pastikan Rules diset 'allow read, write: if true;' di Firebase Console.`);
+            });
+
+            // 2. Settings Listener
+            const settingsRef = doc(db, 'artifacts', fbAppId, 'public', 'data', 'settings', 'general');
+            onSnapshot(settingsRef, (docSnap) => {
+                if(docSnap.exists()){
+                    const data = docSnap.data();
+                    if(data.title) state.appTitle = data.title;
+                    if(data.subtitle) state.appSubtitle = data.subtitle;
+                    updateAppTitles();
+                }
             });
         }
 
@@ -681,7 +779,24 @@
             }
         });
 
-        // --- Forms Submission (CREATE/UPDATE) ---
+        // --- Forms Submission (CREATE/UPDATE/SETTINGS) ---
+        
+        // Simpan Tetapan
+        window.saveSettings = async function(e) {
+            e.preventDefault();
+            const newTitle = document.getElementById('setting-title').value;
+            const newSubtitle = document.getElementById('setting-subtitle').value;
+            
+            try {
+                const settingsRef = doc(db, 'artifacts', fbAppId, 'public', 'data', 'settings', 'general');
+                await setDoc(settingsRef, { title: newTitle, subtitle: newSubtitle }, { merge: true });
+                hideModal('modal-settings');
+                showToast("Tetapan sistem berjaya disimpan.");
+            } catch (err) {
+                showToast("Gagal menyimpan tetapan. Ralat: " + err.code);
+            }
+        };
+
         // Quick Admin Login (dari Dashboard Pelawat)
         document.getElementById('form-quick-login').onsubmit = (e) => {
             e.preventDefault();
@@ -835,6 +950,7 @@
             
             // Buttons Visibility Based on Role
             const btnReport = document.getElementById('btn-report-menu');
+            const btnSettings = document.getElementById('btn-settings-menu');
             const btnQuickAdmin = document.getElementById('btn-quick-admin');
             const btnLogout = document.getElementById('btn-logout');
             const thAction = document.getElementById('th-action');
@@ -844,6 +960,9 @@
             if (state.role === 'admin') {
                 btnReport.classList.remove('hidden');
                 btnReport.classList.add('flex');
+                
+                btnSettings.classList.remove('hidden');
+                btnSettings.classList.add('flex');
                 
                 btnLogout.classList.remove('hidden');
                 btnLogout.classList.add('flex');
@@ -857,6 +976,9 @@
             } else {
                 btnReport.classList.add('hidden');
                 btnReport.classList.remove('flex');
+                
+                btnSettings.classList.add('hidden');
+                btnSettings.classList.remove('flex');
                 
                 btnLogout.classList.add('hidden');
                 btnLogout.classList.remove('flex');
@@ -906,21 +1028,21 @@
 
             if (filteredData.length === 0) {
                 const colSpan = state.role === 'admin' ? 4 : 3;
-                tbody.innerHTML = `<tr><td colspan="${colSpan}" class="p-8 text-center text-gray-400">Tiada rekod pelawat pada tarikh ini.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${colSpan}" class="p-8 text-center text-gray-400 font-bold">Tiada rekod pelawat pada tarikh ini.</td></tr>`;
                 lucide.createIcons();
                 return;
             }
 
             filteredData.forEach(v => {
                 const tr = document.createElement('tr');
-                tr.className = "border-b hover:bg-gray-50";
+                tr.className = "border-b-2 border-gray-100 hover:bg-blue-50 transition-colors";
                 
                 let actionTd = '';
                 if (state.role === 'admin') {
                     actionTd = `
                         <td class="p-4">
                             <div class="flex justify-center gap-2">
-                                <button onclick="openEditModal('${v.id}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded border border-blue-200 font-medium text-xs flex items-center gap-1" title="Kemaskini Data"><i data-lucide="edit" class="h-3 w-3"></i> Kemaskini</button>
+                                <button onclick="openEditModal('${v.id}')" class="px-3 py-1.5 bg-white text-blue-600 hover:bg-blue-100 border-2 border-blue-200 rounded-lg font-bold text-xs flex items-center gap-1 btn-3d" title="Kemaskini Data"><i data-lucide="edit" class="h-3 w-3"></i> Kemaskini</button>
                             </div>
                         </td>
                     `;
@@ -928,18 +1050,18 @@
 
                 // Format Kategori/Jabatan Paparan
                 const agensi = v.agency ? ` - ${v.agency}` : '';
-                const tagKategori = `<span class="text-xs text-gray-500">${v.department || '-'}${agensi}</span>`;
+                const tagKategori = `<span class="text-xs text-gray-500 font-bold">${v.department || '-'}${agensi}</span>`;
 
                 tr.innerHTML = `
                     <td class="p-4">
-                        <p class="font-bold text-gray-800">${v.name}</p>
-                        <p class="text-xs text-gray-500">ID: ${v.empNo || '-'}</p>
+                        <p class="font-black text-gray-800">${v.name}</p>
+                        <p class="text-xs text-gray-500 font-bold">ID: ${v.empNo || '-'}</p>
                     </td>
                     <td class="p-4">
-                        <p class="text-sm text-gray-800 mb-0.5">${v.position || '-'}</p>
+                        <p class="text-sm text-gray-800 font-bold mb-0.5">${v.position || '-'}</p>
                         ${tagKategori}
                     </td>
-                    <td class="p-4 text-sm text-gray-600 italic">"${v.comment}"</td>
+                    <td class="p-4 text-sm text-gray-600 font-medium">"${v.comment}"</td>
                     ${actionTd}
                 `;
                 tbody.appendChild(tr);
@@ -984,10 +1106,14 @@
             let startDay = firstDay === 0 ? 6 : firstDay - 1; // Align to Monday
 
             for (let i = 0; i < startDay; i++) {
-                grid.innerHTML += `<div class="h-8 bg-gray-50 rounded"></div>`;
+                grid.innerHTML += `<div class="h-9 bg-gray-50 rounded-lg"></div>`;
             }
 
             for (let day = 1; day <= daysInMonth; day++) {
+                const currentDayObj = new Date(year, month, day);
+                const dayOfWeek = currentDayObj.getDay();
+                const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6); // 0 = Ahad, 6 = Sabtu
+                
                 const mo = String(month + 1).padStart(2, '0');
                 const da = String(day).padStart(2, '0');
                 const dateStr = `${year}-${mo}-${da}`;
@@ -996,12 +1122,20 @@
                 const isSelected = (dateStr === state.selectedDate);
                 const hasVisitors = state.visitors.some(v => v.date === dateStr);
 
-                let baseClass = "h-9 flex flex-col items-center justify-center rounded cursor-pointer transition-all border ";
-                if (isSelected) baseClass += "bg-blue-50 border-blue-500 text-blue-700 font-bold";
-                else if (isToday) baseClass += "border-gray-400 font-bold bg-gray-100 hover:border-gray-300";
-                else baseClass += "border-transparent hover:border-gray-300";
+                let baseClass = "h-9 flex flex-col items-center justify-center rounded-lg cursor-pointer transition-all border-2 ";
+                
+                if (isSelected) {
+                    baseClass += "bg-blue-100 border-blue-500 text-blue-800 font-black shadow-inner";
+                } else if (isToday) {
+                    baseClass += "bg-gray-100 border-gray-400 text-gray-800 font-bold hover:border-gray-500";
+                } else if (isWeekend) {
+                    // PENGUBAHSUAIAN: Pewarnaan Kotak Hujung Minggu
+                    baseClass += "bg-orange-50/70 border-orange-100 text-orange-700 hover:border-orange-300 font-medium";
+                } else {
+                    baseClass += "bg-white border-transparent hover:border-gray-300 font-medium";
+                }
 
-                let dotHtml = hasVisitors ? `<div class="w-1.5 h-1.5 bg-green-500 rounded-full mt-0.5"></div>` : '';
+                let dotHtml = hasVisitors ? `<div class="w-1.5 h-1.5 bg-green-500 rounded-full mt-0.5 shadow-sm"></div>` : '';
 
                 grid.innerHTML += `
                     <div onclick="selectDate('${dateStr}')" class="${baseClass}">
@@ -1018,21 +1152,21 @@
             
             // Remove active style from all
             document.querySelectorAll('.report-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-50', 'border-blue-500', 'ring-1', 'ring-blue-500');
-                btn.classList.add('bg-gray-50', 'border-gray-300');
+                btn.classList.remove('bg-blue-50', 'border-blue-300');
+                btn.classList.add('bg-gray-50', 'border-gray-200');
                 const icon = btn.querySelector('svg') || btn.querySelector('i');
                 if (icon) icon.classList.replace('text-blue-600', 'text-gray-500');
                 const span = btn.querySelector('span');
-                if (span) span.classList.replace('text-blue-800', 'text-gray-800');
+                if (span) span.classList.replace('text-blue-800', 'text-gray-700');
             });
             
             // Add active style to selected
-            element.classList.add('bg-blue-50', 'border-blue-500', 'ring-1', 'ring-blue-500');
-            element.classList.remove('bg-gray-50', 'border-gray-300');
+            element.classList.add('bg-blue-50', 'border-blue-300');
+            element.classList.remove('bg-gray-50', 'border-gray-200');
             const elIcon = element.querySelector('svg') || element.querySelector('i');
             if (elIcon) elIcon.classList.replace('text-gray-500', 'text-blue-600');
             const elSpan = element.querySelector('span');
-            if (elSpan) elSpan.classList.replace('text-gray-800', 'text-blue-800');
+            if (elSpan) elSpan.classList.replace('text-gray-700', 'text-blue-800');
 
             document.getElementById('btn-print-trigger').classList.remove('hidden');
         };
@@ -1042,12 +1176,12 @@
             state.selectedReportType = null;
             document.getElementById('btn-print-trigger').classList.add('hidden');
             document.querySelectorAll('.report-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-50', 'border-blue-500', 'ring-1', 'ring-blue-500');
-                btn.classList.add('bg-gray-50', 'border-gray-300');
+                btn.classList.remove('bg-blue-50', 'border-blue-300');
+                btn.classList.add('bg-gray-50', 'border-gray-200');
                 const icon = btn.querySelector('svg') || btn.querySelector('i');
                 if (icon) icon.classList.replace('text-blue-600', 'text-gray-500');
                 const span = btn.querySelector('span');
-                if (span) span.classList.replace('text-blue-800', 'text-gray-800');
+                if (span) span.classList.replace('text-blue-800', 'text-gray-700');
             });
         };
 
@@ -1095,7 +1229,6 @@
             closeReportModal();
             switchView('print');
             
-            // Allow DOM to update before triggering print
             setTimeout(() => { window.print(); }, 500);
         };
 
