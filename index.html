@@ -49,43 +49,11 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- PAPARAN 1: LOG MASUK                           -->
-    <!-- ============================================== -->
-    <div id="view-login" class="min-h-screen flex items-center justify-center p-4 fade-in">
-        <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md border border-gray-200 text-center">
-            <div class="flex justify-center mb-4">
-                <i data-lucide="book-open" class="h-16 w-16 text-blue-600"></i>
-            </div>
-            <h1 class="text-2xl font-bold text-blue-900 mb-1">TAMU PUSAT SUMBER</h1>
-            <p class="text-sm text-gray-500 mb-8">Pusat Sumber & Perpustakaan</p>
-
-            <button onclick="switchView('guestForm')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded shadow transition-colors flex items-center justify-center gap-2 mb-8">
-                <i data-lucide="user-plus" class="h-5 w-5"></i> Daftar Masuk Pelawat
-            </button>
-
-            <div class="relative flex py-5 items-center">
-                <div class="flex-grow border-t border-gray-300"></div>
-                <span class="flex-shrink-0 mx-4 text-gray-400 text-sm font-medium">Log Masuk Admin</span>
-                <div class="flex-grow border-t border-gray-300"></div>
-            </div>
-
-            <form id="form-login" class="space-y-4 text-left">
-                <div>
-                    <input type="password" id="admin-pass" placeholder="Kata Laluan" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-                </div>
-                <button type="submit" class="w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded transition-colors">
-                    Log Masuk
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ============================================== -->
-    <!-- PAPARAN 2: BORANG PENDAFTARAN PELAWAT          -->
+    <!-- PAPARAN 1: BORANG PENDAFTARAN PELAWAT          -->
     <!-- ============================================== -->
     <div id="view-guest-form" class="hidden min-h-screen py-10 px-4 fade-in">
-        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md border border-gray-200">
-            <div class="bg-blue-600 text-white p-4 sm:p-6 rounded-t-lg flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md border-2 border-blue-200">
+            <div class="bg-blue-600 text-white p-4 sm:p-6 rounded-t flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-3">
                     <i data-lucide="file-text" class="h-6 w-6"></i>
                     <h2 class="text-xl font-bold">Pendaftaran Pelawat Baru</h2>
@@ -115,20 +83,20 @@
                         <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white block">
                             <option value="">Sila Pilih...</option>
                             <option value="Pelawat Am">Pelawat Am</option>
-                                <option value="Penjawat Awam">Penjawat Awam</option>
-                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
-                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
-                                <option value="Wisdec Banting">Wisdec Banting</option>
-                                <option value="Wisdec Sabah">Wisdec Sabah</option>
-                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
-                                <option value="Wilayah Timur">Wilayah Timur</option>
-                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                            <option value="Penjawat Awam">Penjawat Awam</option>
+                            <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                            <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                            <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                            <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                            <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                            <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                            <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                            <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                            <option value="Wisdec Banting">Wisdec Banting</option>
+                            <option value="Wisdec Sabah">Wisdec Sabah</option>
+                            <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                            <option value="Wilayah Timur">Wilayah Timur</option>
+                            <option value="Wilayah Tengah">Wilayah Tengah</option>
                             <option value="Wilayah Utara">Wilayah Utara</option>
                             <option value="Wilayah Selatan">Wilayah Selatan</option>
                             <option value="Wilayah Sabah">Wilayah Sabah</option>
@@ -143,10 +111,9 @@
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t mt-6">
-                    <button type="button" onclick="switchView('login')" class="px-5 py-2 border border-gray-300 text-gray-700 font-medium rounded hover:bg-gray-50">Batal</button>
                     <!-- Butang Lihat Dashboard tanpa Daftar -->
                     <button type="button" onclick="viewAsGuest()" class="px-5 py-2 bg-blue-50 border border-blue-200 text-blue-700 font-medium rounded hover:bg-blue-100 flex items-center gap-2">
-                        <i data-lucide="layout-dashboard" class="h-4 w-4"></i> Lihat Dashboard
+                        <i data-lucide="layout-dashboard" class="h-4 w-4"></i> Batal & Ke Dashboard
                     </button>
                     <button type="submit" id="btn-submit-guest" class="px-5 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700">Daftar & Teruskan</button>
                 </div>
@@ -155,7 +122,7 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- PAPARAN 3: DASHBOARD (ADMIN & PELAWAT)         -->
+    <!-- PAPARAN 2: DASHBOARD (ADMIN & PELAWAT)         -->
     <!-- ============================================== -->
     <div id="view-dashboard" class="hidden min-h-screen flex flex-col fade-in">
         <!-- Header -->
@@ -173,15 +140,16 @@
                     <p id="header-role" class="text-sm text-gray-500">Paparan Pelawat Sahaja</p>
                 </div>
                 
+                <!-- Quick Admin Login Button (Visible for Visitors) -->
                 <button id="btn-quick-admin" onclick="showModal('modal-admin-login')" class="hidden items-center gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded text-sm font-bold transition border border-blue-200">
                     <i data-lucide="lock" class="h-4 w-4"></i> Admin
                 </button>
 
+                <!-- Admin Tools -->
                 <button id="btn-report-menu" onclick="showModal('modal-report')" class="hidden items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded text-sm font-bold transition border border-gray-300">
                     <i data-lucide="settings" class="h-4 w-4"></i> Laporan
                 </button>
-
-                <button onclick="handleLogout()" class="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition">
+                <button id="btn-logout" onclick="handleLogout()" class="hidden items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-4 py-2 rounded text-sm font-bold transition">
                     <i data-lucide="log-out" class="h-4 w-4"></i> Keluar
                 </button>
             </div>
@@ -192,7 +160,7 @@
             <!-- Top Widgets -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Widget Pelawat Hari Ini (Clickable) -->
-                <div onclick="selectToday()" class="bg-white rounded-lg shadow-sm border p-5 flex items-center justify-between cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition">
+                <div onclick="selectToday()" class="bg-white rounded-lg shadow-sm border-2 border-blue-300 p-5 flex items-center justify-between cursor-pointer hover:bg-blue-50 transition">
                     <div>
                         <p class="text-sm font-bold text-gray-500 uppercase">Pelawat Hari Ini</p>
                         <p id="stat-today" class="text-3xl font-bold text-blue-600 mt-1">0</p>
@@ -201,7 +169,7 @@
                 </div>
                 
                 <!-- Widget Jumlah Keseluruhan dengan Penapis -->
-                <div class="bg-white rounded-lg shadow-sm border p-5 flex flex-col justify-center">
+                <div class="bg-white rounded-lg shadow-sm border-2 border-green-300 p-5 flex flex-col justify-center">
                     <div class="flex justify-between items-center mb-1">
                         <p class="text-sm font-bold text-gray-500 uppercase">Jumlah Pelawat</p>
                         <select id="stat-time-filter" onchange="renderStats()" class="text-xs border border-gray-300 rounded text-gray-600 bg-gray-50 p-1 cursor-pointer hover:bg-gray-100 outline-none">
@@ -216,9 +184,9 @@
                     </div>
                 </div>
 
-                <!-- Admin Action Widget or Read-Only Banner -->
+                <!-- Admin Action Widget -->
                 <div id="widget-admin" class="hidden">
-                    <button onclick="showModal('modal-register')" class="w-full h-full bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-sm border p-5 flex items-center justify-between hover:from-blue-700 hover:to-blue-900 transition text-left transform hover:scale-[1.02]">
+                    <button onclick="showModal('modal-register')" class="w-full h-full bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-sm border-2 border-blue-400 p-5 flex items-center justify-between hover:from-blue-700 hover:to-blue-900 transition text-left transform hover:scale-[1.02]">
                         <div>
                             <p class="text-sm font-bold text-blue-100 uppercase">Pendaftaran Baru</p>
                             <p class="text-xl font-bold text-white mt-1">Daftar Pelawat</p>
@@ -226,12 +194,13 @@
                         <div class="bg-white/20 p-3 rounded-full"><i data-lucide="plus-circle" class="h-8 w-8 text-white"></i></div>
                     </button>
                 </div>
-                <!-- PENGUBAHSUAIAN: Tukar Banner Pelawat kepada Butang Pendaftaran -->
+
+                <!-- Visitor Action Widget -->
                 <div id="widget-visitor" class="hidden">
-                    <button onclick="showModal('modal-register')" class="w-full h-full bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg shadow-sm border p-5 flex items-center justify-between hover:from-indigo-600 hover:to-indigo-800 transition text-left transform hover:scale-[1.02]">
+                    <button onclick="switchView('guestForm')" class="w-full h-full bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg shadow-sm border-2 border-indigo-400 p-5 flex items-center justify-between hover:from-indigo-600 hover:to-indigo-800 transition text-left transform hover:scale-[1.02]">
                         <div>
-                            <p class="text-sm font-bold text-indigo-100 uppercase">Pendaftaran Baru</p>
-                            <p class="text-xl font-bold text-white mt-1">Daftar Pelawat</p>
+                            <p class="text-sm font-bold text-indigo-100 uppercase">Borang Pelawat</p>
+                            <p class="text-xl font-bold text-white mt-1">Daftar Rekod Baru</p>
                         </div>
                         <div class="bg-white/20 p-3 rounded-full"><i data-lucide="user-plus" class="h-8 w-8 text-white"></i></div>
                     </button>
@@ -241,7 +210,7 @@
             <!-- Lower Section (Calendar + Table) -->
             <div class="flex flex-col lg:flex-row gap-6">
                 <!-- Calendar Widget -->
-                <div class="bg-white rounded-lg shadow-sm border p-5 w-full lg:w-80 flex-shrink-0">
+                <div class="bg-white rounded-lg shadow-sm border-2 border-gray-200 p-5 w-full lg:w-80 flex-shrink-0">
                     <div class="flex justify-between items-center mb-4 pb-2 border-b">
                         <button onclick="changeMonth(-1)" class="p-1 hover:bg-gray-100 rounded"><i data-lucide="chevron-left" class="h-5 w-5"></i></button>
                         <h3 id="calendar-title" class="font-bold text-gray-800 uppercase text-sm"></h3>
@@ -268,7 +237,7 @@
                 </div>
 
                 <!-- Visitor Table -->
-                <div class="bg-white rounded-lg shadow-sm border flex-1 overflow-hidden flex flex-col">
+                <div class="bg-white rounded-lg shadow-sm border-2 border-gray-200 flex-1 overflow-hidden flex flex-col">
                     <div class="p-4 border-b bg-gray-50 flex justify-between items-center">
                         <h3 id="table-title" class="font-bold text-gray-800 flex items-center gap-2">
                             <i data-lucide="calendar" class="h-5 w-5 text-blue-600"></i> Senarai Pelawat: Hari Ini
@@ -297,7 +266,7 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- PAPARAN 4: CETAKAN PDF (PRINT VIEW)            -->
+    <!-- PAPARAN 3: CETAKAN PDF (PRINT VIEW)            -->
     <!-- ============================================== -->
     <div id="view-print" class="hidden min-h-screen bg-white p-8 text-black fade-in">
         <div class="flex justify-between items-center mb-8 border-b pb-4 no-print bg-gray-50 p-4 rounded-lg">
@@ -347,7 +316,7 @@
             <h3 class="text-lg font-bold mb-4">Pengesahan Admin</h3>
             <form id="form-quick-login" class="space-y-4 text-left">
                 <div>
-                    <input type="password" id="quick-admin-pass" placeholder="Kata Laluan" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                    <input type="password" id="quick-admin-pass" placeholder="Kata Laluan Admin" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </div>
                 <div class="flex justify-end gap-3 mt-6">
                     <button type="button" onclick="hideModal('modal-admin-login')" class="px-5 py-2 border rounded font-medium hover:bg-gray-50">Batal</button>
@@ -386,20 +355,20 @@
                         <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white block">
                             <option value="">Sila Pilih...</option>
                             <option value="Pelawat Am">Pelawat Am</option>
-                                <option value="Penjawat Awam">Penjawat Awam</option>
-                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
-                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
-                                <option value="Wisdec Banting">Wisdec Banting</option>
-                                <option value="Wisdec Sabah">Wisdec Sabah</option>
-                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
-                                <option value="Wilayah Timur">Wilayah Timur</option>
-                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                            <option value="Penjawat Awam">Penjawat Awam</option>
+                            <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                            <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                            <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                            <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                            <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                            <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                            <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                            <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                            <option value="Wisdec Banting">Wisdec Banting</option>
+                            <option value="Wisdec Sabah">Wisdec Sabah</option>
+                            <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                            <option value="Wilayah Timur">Wilayah Timur</option>
+                            <option value="Wilayah Tengah">Wilayah Tengah</option>
                             <option value="Wilayah Utara">Wilayah Utara</option>
                             <option value="Wilayah Selatan">Wilayah Selatan</option>
                             <option value="Wilayah Sabah">Wilayah Sabah</option>
@@ -450,18 +419,23 @@
                         <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="w-full p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none bg-white block">
                             <option value="">Sila Pilih...</option>
                             <option value="Pelawat Am">Pelawat Am</option>
-                                <option value="Penjawat Awam">Penjawat Awam</option>
-                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
-                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
-                                <option value="Wisdec Banting">Wisdec Banting</option>
-                                <option value="Wisdec Sabah">Wisdec Sabah</option>
-                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            <option value="Penjawat Awam">Penjawat Awam</option>
+                            <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                            <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                            <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                            <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                            <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                            <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                            <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                            <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                            <option value="Wisdec Banting">Wisdec Banting</option>
+                            <option value="Wisdec Sabah">Wisdec Sabah</option>
+                            <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                            <option value="Wilayah Timur">Wilayah Timur</option>
+                            <option value="Wilayah Tengah">Wilayah Tengah</option>
+                            <option value="Wilayah Utara">Wilayah Utara</option>
+                            <option value="Wilayah Selatan">Wilayah Selatan</option>
+                            <option value="Wilayah Sabah">Wilayah Sabah</option>
                         </select>
                         <input id="edit-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full mt-2 p-2 border rounded text-sm focus:ring-1 focus:ring-blue-500 outline-none" />
                     </div>
@@ -543,8 +517,8 @@
 
         // --- State Application ---
         let state = {
-            view: 'login',
-            role: null, // 'admin' | 'visitor'
+            view: 'dashboard', // Default directly to dashboard as visitor
+            role: 'visitor',   // Default role visitor
             user: null,
             visitors: [],
             selectedDate: new Date().toISOString().split('T')[0],
@@ -554,10 +528,11 @@
         };
         const todayStr = new Date().toISOString().split('T')[0];
 
-        // Init date inputs
+        // Init date inputs and view
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('guest-visit-date').value = todayStr;
             document.getElementById('admin-visit-date').value = todayStr;
+            switchView('dashboard'); // Force initial view
         });
 
         // --- Inisialisasi Lucide Icons ---
@@ -623,20 +598,20 @@
         // --- Navigation Functions ---
         window.switchView = function(viewName) {
             state.view = viewName;
-            document.getElementById('view-login').classList.add('hidden');
             document.getElementById('view-guest-form').classList.add('hidden');
             document.getElementById('view-dashboard').classList.add('hidden');
             document.getElementById('view-print').classList.add('hidden');
             
-            if (viewName === 'login') document.getElementById('view-login').classList.remove('hidden');
+            // Re-route 'login' to 'dashboard' since login screen is removed
+            if (viewName === 'login' || viewName === 'dashboard') {
+                document.getElementById('view-dashboard').classList.remove('hidden');
+                updateDashboardUI();
+            }
             else if (viewName === 'guestForm') {
                 document.getElementById('view-guest-form').classList.remove('hidden');
                 document.getElementById('guest-visit-date').value = todayStr; // reset to today
             }
-            else if (viewName === 'dashboard') {
-                document.getElementById('view-dashboard').classList.remove('hidden');
-                updateDashboardUI();
-            } else if (viewName === 'print') {
+            else if (viewName === 'print') {
                 document.getElementById('view-print').classList.remove('hidden');
             }
         };
@@ -650,8 +625,8 @@
         window.hideModal = function(id) { document.getElementById(id).classList.add('hidden'); };
 
         window.handleLogout = function() {
-            state.role = null;
-            switchView('login');
+            state.role = 'visitor'; // Reset to visitor role
+            switchView('dashboard');
             showToast("Berjaya log keluar.");
         };
 
@@ -659,7 +634,6 @@
             state.role = 'visitor';
             state.selectedDate = todayStr;
             switchView('dashboard');
-            showToast("Paparan Pelawat (Baca Sahaja).");
         };
 
         // --- Firebase Database Connection Logic ---
@@ -677,7 +651,7 @@
                 data.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
                 state.visitors = data;
                 
-                if (state.view === 'dashboard') updateDashboardUI();
+                if (state.view === 'dashboard' || state.view === 'login') updateDashboardUI();
                 document.getElementById('system-error-banner').classList.add('hidden'); 
             }, (err) => {
                 isDbInitialized = false; // Boleh cuba lagi
@@ -708,22 +682,7 @@
         });
 
         // --- Forms Submission (CREATE/UPDATE) ---
-        // 1. Admin Login (Berpengesahan Kata Laluan)
-        document.getElementById('form-login').onsubmit = (e) => {
-            e.preventDefault();
-            const pass = document.getElementById('admin-pass').value;
-
-            if (pass === 'pustakaMtib') {
-                state.role = 'admin';
-                switchView('dashboard');
-                showToast("Log masuk Admin berjaya.");
-                document.getElementById('admin-pass').value = '';
-            } else {
-                showToast("Kata Laluan tidak sah.");
-            }
-        };
-
-        // 1b. Quick Admin Login (dari Dashboard Pelawat)
+        // Quick Admin Login (dari Dashboard Pelawat)
         document.getElementById('form-quick-login').onsubmit = (e) => {
             e.preventDefault();
             const pass = document.getElementById('quick-admin-pass').value;
@@ -739,7 +698,7 @@
             }
         };
 
-        // 2. Add Visitor (Guest Form & Admin Modal)
+        // Add Visitor (Guest Form & Admin Modal)
         const processRegistration = async (e, formId, isGuestForm) => {
             e.preventDefault();
             
@@ -787,7 +746,7 @@
                     state.selectedDate = selectedVisitDate;
                     state.calendarDate = new Date(selectedVisitDate);
                     updateDashboardUI();
-                    // PENGUBAHSUAIAN: Paparkan notifikasi berbeza ikut peranan (role)
+                    
                     if (state.role === 'admin') {
                         showToast("Pelawat berjaya ditambah oleh Admin.");
                     } else {
@@ -807,7 +766,7 @@
         document.getElementById('form-guest').onsubmit = (e) => processRegistration(e, 'form-guest', true);
         document.getElementById('form-admin-register').onsubmit = (e) => processRegistration(e, 'form-admin-register', false);
 
-        // 3. Edit Submission
+        // Edit Submission
         document.getElementById('form-edit').onsubmit = async (e) => {
             e.preventDefault();
             const id = document.getElementById('edit-id').value;
@@ -877,6 +836,7 @@
             // Buttons Visibility Based on Role
             const btnReport = document.getElementById('btn-report-menu');
             const btnQuickAdmin = document.getElementById('btn-quick-admin');
+            const btnLogout = document.getElementById('btn-logout');
             const thAction = document.getElementById('th-action');
             const widgetAdmin = document.getElementById('widget-admin');
             const widgetVisitor = document.getElementById('widget-visitor');
@@ -884,16 +844,26 @@
             if (state.role === 'admin') {
                 btnReport.classList.remove('hidden');
                 btnReport.classList.add('flex');
+                
+                btnLogout.classList.remove('hidden');
+                btnLogout.classList.add('flex');
+                
                 btnQuickAdmin.classList.add('hidden');
                 btnQuickAdmin.classList.remove('flex');
+                
                 thAction.classList.remove('hidden');
                 widgetAdmin.classList.remove('hidden');
                 widgetVisitor.classList.add('hidden');
             } else {
                 btnReport.classList.add('hidden');
                 btnReport.classList.remove('flex');
+                
+                btnLogout.classList.add('hidden');
+                btnLogout.classList.remove('flex');
+                
                 btnQuickAdmin.classList.remove('hidden');
                 btnQuickAdmin.classList.add('flex');
+                
                 thAction.classList.add('hidden');
                 widgetAdmin.classList.add('hidden');
                 widgetVisitor.classList.remove('hidden');
