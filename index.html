@@ -588,20 +588,29 @@
         const db = getFirestore(app);
         const fbAppId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'tamu-pusat-sumber-6dfbc';
 
+        // --- Fungsi Helper Tarikh Lokal (Cegah Isu Zon Masa UTC) ---
+        function getLocalTodayStr() {
+            const d = new Date();
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        const todayStr = getLocalTodayStr();
+
         // --- State Application ---
         let state = {
             view: 'dashboard', // Default directly to dashboard as visitor
             role: 'visitor',   // Default role visitor
             user: null,
             visitors: [],
-            selectedDate: new Date().toISOString().split('T')[0],
+            selectedDate: todayStr,
             calendarDate: new Date(), // Default sentiasa bulan & hari semasa
             selectedReportType: null,
             confirmActionCallback: null,
             appTitle: "TAMU PUSAT SUMBER",
             appSubtitle: "Sistem Rekod Pelawat Pusat Sumber & Perpustakaan"
         };
-        const todayStr = new Date().toISOString().split('T')[0];
 
         // Init date inputs and view
         document.addEventListener('DOMContentLoaded', () => {
@@ -609,6 +618,7 @@
             document.getElementById('admin-visit-date').value = todayStr;
             switchView('dashboard'); // Force initial view
             updateAppTitles();
+            selectToday(true); // Pastikan UI di-reset pada hari ini tanpa scroll
         });
 
         // --- Inisialisasi Lucide Icons ---
@@ -1082,13 +1092,18 @@
             renderTable();
         };
 
-        window.selectToday = function() {
+        window.selectToday = function(preventScroll = false) {
             state.selectedDate = todayStr;
             state.calendarDate = new Date();
             renderCalendar();
             renderTable();
+            
             // Scroll ke jadual untuk memudahkan pengguna melihat apabila ditekan pada widget
-            document.getElementById('table-title').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Hanya aktif jika bukan auto-load pada mula-mula buka
+            if (preventScroll !== true) {
+                const tableTitle = document.getElementById('table-title');
+                if (tableTitle) tableTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         };
 
         function renderCalendar() {
@@ -1129,7 +1144,7 @@
                 } else if (isToday) {
                     baseClass += "bg-gray-100 border-gray-400 text-gray-800 font-bold hover:border-gray-500";
                 } else if (isWeekend) {
-                    // PENGUBAHSUAIAN: Pewarnaan Kotak Hujung Minggu
+                    // Pewarnaan Kotak Hujung Minggu
                     baseClass += "bg-orange-50/70 border-orange-100 text-orange-700 hover:border-orange-300 font-medium";
                 } else {
                     baseClass += "bg-white border-transparent hover:border-gray-300 font-medium";
