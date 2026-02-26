@@ -94,31 +94,36 @@
             <div class="bg-blue-600 text-white p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-3">
                     <i data-lucide="file-text" class="h-6 w-6"></i>
-                    <h2 class="text-xl font-bold">Pendaftaran Pelawat</h2>
+                    <h2 class="text-2xl font-black">Pendaftaran Pelawat</h2>
                 </div>
                 <div class="flex flex-col items-start sm:items-end w-full sm:w-auto">
-                    <label class="text-xs text-blue-200 font-bold mb-1">Tarikh Lawatan</label>
-                    <input type="date" id="guest-visit-date" name="visit_date" class="bg-blue-700 border border-blue-500 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer w-full font-bold shadow-inner" required>
+                    <label class="text-xs text-blue-200 font-extrabold mb-1">Tarikh Lawatan</label>
+                    <input type="date" id="guest-visit-date" name="visit_date" class="bg-blue-700 border border-blue-500 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white cursor-pointer w-full font-black shadow-inner" required>
                 </div>
             </div>
             
             <form id="form-guest" class="p-4 sm:p-6 space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-1">
-                        <label class="text-sm font-bold text-gray-900">Nama Penuh *</label>
-                        <input name="name" type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-semibold text-gray-900" placeholder="Ali bin Abu" />
+                        <label class="text-sm font-extrabold text-gray-900">No Pekerja / ID</label>
+                        <div class="flex gap-2">
+                            <input name="empNo" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-bold text-gray-900" placeholder="Contoh: 12345" />
+                            <button type="button" onclick="searchEmployee('guest')" class="px-4 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg hover:bg-blue-200 border-2 border-blue-200 transition-colors">
+                                Cari
+                            </button>
+                        </div>
                     </div>
                     <div class="space-y-1">
-                        <label class="text-sm font-bold text-gray-900">No Pekerja / ID</label>
-                        <input name="empNo" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-semibold text-gray-900" placeholder="12345" />
+                        <label class="text-sm font-extrabold text-gray-900">Nama Penuh *</label>
+                        <input name="name" type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-bold text-gray-900" placeholder="Ali bin Abu" />
                     </div>
                     <div class="space-y-1">
-                        <label class="text-sm font-bold text-gray-900">Jawatan</label>
-                        <input name="position" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-semibold text-gray-900" placeholder="Pegawai" />
+                        <label class="text-sm font-extrabold text-gray-900">Jawatan</label>
+                        <input name="position" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-bold text-gray-900" placeholder="Pegawai" />
                     </div>
                     <div class="md:col-span-2 space-y-2">
-                        <label class="text-sm font-bold text-gray-900 block">Bahagian / Kategori Pelawat *</label>
-                        <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white block transition-colors font-semibold text-gray-900">
+                        <label class="text-sm font-extrabold text-gray-900 block">Bahagian / Kategori Pelawat *</label>
+                        <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white block transition-colors font-bold text-gray-900">
                             <option value="">Sila Pilih...</option>
                             <option value="Pelawat Am">Pelawat Am</option>
                             <option value="Penjawat Awam">Penjawat Awam</option>
@@ -139,20 +144,20 @@
                             <option value="Wilayah Selatan">Wilayah Selatan</option>
                             <option value="Wilayah Sabah">Wilayah Sabah</option>
                         </select>
-                        <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-semibold text-gray-900" />
+                        <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-bold text-gray-900" />
                     </div>
                 </div>
                 
                 <div class="space-y-1 pt-2">
-                    <label class="text-sm font-bold text-gray-900">Komen / Tujuan Lawatan *</label>
-                    <textarea name="comment" required rows="4" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-semibold text-gray-900" placeholder="Sila nyatakan tujuan lawatan anda dalam satu perenggan..."></textarea>
+                    <label class="text-sm font-extrabold text-gray-900">Komen / Tujuan Lawatan *</label>
+                    <textarea name="comment" required rows="4" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 transition-colors font-bold text-gray-900" placeholder="Sila nyatakan tujuan lawatan anda dalam satu perenggan..."></textarea>
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t mt-6">
-                    <button type="button" onclick="viewAsGuest()" class="w-full sm:w-auto px-5 py-2.5 bg-blue-50 border-2 border-blue-200 text-blue-700 font-bold rounded-lg hover:bg-blue-100 flex justify-center items-center gap-2 btn-3d">
+                    <button type="button" onclick="viewAsGuest()" class="w-full sm:w-auto px-5 py-2.5 bg-blue-50 border-2 border-blue-200 text-blue-700 font-bold rounded-lg hover:bg-blue-100 flex justify-center items-center gap-2">
                         <i data-lucide="layout-dashboard" class="h-4 w-4"></i> Batal & Ke Dashboard
                     </button>
-                    <button type="submit" id="btn-submit-guest" class="w-full sm:w-auto px-5 py-2.5 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 btn-3d">
+                    <button type="submit" id="btn-submit-guest" class="w-full sm:w-auto px-5 py-2.5 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700">
                         Daftar & Teruskan
                     </button>
                 </div>
@@ -245,7 +250,7 @@
 
             <!-- Lower Section (Calendar + Table) -->
             <div class="flex flex-col lg:flex-row gap-4 sm:gap-6">
-                <!-- Calendar Widget (Dikecilkan lebarnya lg:w-[280px]) -->
+                <!-- Calendar Widget -->
                 <div class="bg-white rounded-xl p-4 w-full lg:w-[280px] flex-shrink-0 card-3d shadow-3d-gray h-fit">
                     <div class="flex justify-between items-center mb-3 pb-2 border-b-2 border-gray-100">
                         <button onclick="changeMonth(-1)" class="p-1 hover:bg-gray-100 rounded-lg border border-transparent hover:border-gray-200 transition"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
@@ -267,7 +272,7 @@
                         <!-- Disuntik melalui JS -->
                     </div>
                     
-                    <button onclick="selectToday()" class="mt-4 w-full py-2 bg-blue-50 text-blue-700 border-2 border-blue-200 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 btn-3d hover:bg-blue-100">
+                    <button onclick="selectToday()" class="mt-4 w-full py-2 bg-blue-50 text-blue-700 border-2 border-blue-200 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-blue-100">
                         <i data-lucide="calendar" class="h-3.5 w-3.5"></i> Senarai Hari Ini
                     </button>
                 </div>
@@ -382,6 +387,7 @@
                     <button type="button" onclick="hideModal('modal-settings')" class="px-5 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 btn-3d">Batal</button>
                     <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 btn-3d">Simpan Tetapan</button>
                 </div>
+                <p class="text-xs text-gray-400 font-bold text-center mt-4">Versi Aplikasi: 1.0.1</p>
             </form>
         </div>
     </div>
@@ -455,20 +461,25 @@
                 <form id="form-admin-register" class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="space-y-1">
-                            <label class="text-sm font-bold text-gray-900">Nama Penuh *</label>
-                            <input name="name" type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-semibold text-gray-900" />
+                            <label class="text-sm font-extrabold text-gray-900">No Pekerja / ID</label>
+                            <div class="flex gap-2">
+                                <input name="empNo" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-gray-900" placeholder="Contoh: 12345" />
+                                <button type="button" onclick="searchEmployee('admin')" class="px-4 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg hover:bg-blue-200 border-2 border-blue-200 transition-colors">
+                                    Cari
+                                </button>
+                            </div>
                         </div>
                         <div class="space-y-1">
-                            <label class="text-sm font-bold text-gray-900">No Pekerja / ID</label>
-                            <input name="empNo" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-semibold text-gray-900" />
+                            <label class="text-sm font-extrabold text-gray-900">Nama Penuh *</label>
+                            <input name="name" type="text" required class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-gray-900" placeholder="Ali bin Abu" />
                         </div>
                         <div class="space-y-1">
-                            <label class="text-sm font-bold text-gray-900">Jawatan</label>
-                            <input name="position" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-semibold text-gray-900" />
+                            <label class="text-sm font-extrabold text-gray-900">Jawatan</label>
+                            <input name="position" type="text" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-gray-900" placeholder="Pegawai" />
                         </div>
                         <div class="md:col-span-2 space-y-2">
-                            <label class="text-sm font-bold text-gray-900 block">Bahagian / Kategori Pelawat *</label>
-                            <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white block font-semibold text-gray-900">
+                            <label class="text-sm font-extrabold text-gray-900 block">Bahagian / Kategori Pelawat *</label>
+                            <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white block font-bold text-gray-900">
                                 <option value="">Sila Pilih...</option>
                                 <option value="Pelawat Am">Pelawat Am</option>
                                 <option value="Penjawat Awam">Penjawat Awam</option>
@@ -489,16 +500,16 @@
                                 <option value="Wilayah Selatan">Wilayah Selatan</option>
                                 <option value="Wilayah Sabah">Wilayah Sabah</option>
                             </select>
-                            <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-semibold text-gray-900" />
+                            <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-gray-900" />
                         </div>
                     </div>
                     <div class="space-y-1 pt-2">
-                        <label class="text-sm font-bold text-gray-900">Komen / Tujuan Lawatan *</label>
-                        <textarea name="comment" required rows="3" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-semibold text-gray-900"></textarea>
+                        <label class="text-sm font-extrabold text-gray-900">Komen / Tujuan Lawatan *</label>
+                        <textarea name="comment" required rows="3" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-gray-900" placeholder="Sila nyatakan tujuan lawatan anda dalam satu perenggan..."></textarea>
                     </div>
                     <div class="flex justify-end gap-3 mt-4 pt-4 border-t-2 border-gray-100">
-                        <button type="button" onclick="hideModal('modal-register')" class="px-5 py-2.5 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 btn-3d">Batal</button>
-                        <button type="submit" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 btn-3d">Daftar Pelawat</button>
+                        <button type="button" onclick="hideModal('modal-register')" class="px-5 py-2.5 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50">Batal</button>
+                        <button type="submit" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">Daftar Pelawat</button>
                     </div>
                 </form>
             </div>
@@ -563,12 +574,12 @@
                         <textarea id="edit-comment" name="comment" required rows="3" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-semibold text-gray-900"></textarea>
                     </div>
                     <div class="flex flex-col-reverse sm:flex-row justify-between items-center mt-4 pt-4 border-t-2 border-gray-100 gap-4">
-                        <button type="button" onclick="hideModal('modal-edit'); deleteVisitor(document.getElementById('edit-id').value);" class="w-full sm:w-auto px-4 py-2 bg-red-50 text-red-600 border-2 border-red-200 rounded-lg font-bold hover:bg-red-100 flex justify-center items-center gap-2 btn-3d">
+                        <button type="button" onclick="hideModal('modal-edit'); deleteVisitor(document.getElementById('edit-id').value);" class="w-full sm:w-auto px-4 py-2 bg-red-50 text-red-600 border-2 border-red-200 rounded-lg font-bold hover:bg-red-100 flex justify-center items-center gap-2">
                             <i data-lucide="trash-2" class="h-4 w-4"></i> Padam
                         </button>
                         <div class="flex w-full sm:w-auto gap-3">
-                            <button type="button" onclick="hideModal('modal-edit')" class="flex-1 sm:flex-none px-4 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 btn-3d">Batal</button>
-                            <button type="submit" class="flex-1 sm:flex-none px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 btn-3d">Simpan</button>
+                            <button type="button" onclick="hideModal('modal-edit')" class="flex-1 sm:flex-none px-4 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50">Batal</button>
+                            <button type="submit" class="flex-1 sm:flex-none px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">Simpan</button>
                         </div>
                     </div>
                 </form>
@@ -584,22 +595,22 @@
             <p class="text-sm text-gray-500 mb-6 font-medium">Pilih jenis laporan yang ingin dijana dan dicetak.</p>
             
             <div class="space-y-3 mb-6">
-                <button onclick="selectReport('harian', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition btn-3d">
+                <button onclick="selectReport('harian', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition">
                     <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Harian</span>
                 </button>
-                <button onclick="selectReport('mingguan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition btn-3d">
+                <button onclick="selectReport('mingguan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition">
                     <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Mingguan</span>
                 </button>
-                <button onclick="selectReport('bulanan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition btn-3d">
+                <button onclick="selectReport('bulanan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition">
                     <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Bulanan</span>
                 </button>
             </div>
 
-            <button id="btn-print-trigger" onclick="generateReport()" class="hidden mb-3 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition btn-3d">
+            <button id="btn-print-trigger" onclick="generateReport()" class="hidden mb-3 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition">
                 <i data-lucide="printer" class="h-5 w-5"></i> Cetak PDF
             </button>
             
-            <button onclick="closeReportModal()" class="px-6 py-2.5 bg-gray-200 text-gray-800 hover:bg-gray-300 rounded-lg font-bold w-full transition btn-3d">Tutup</button>
+            <button onclick="closeReportModal()" class="px-6 py-2.5 bg-gray-200 text-gray-800 hover:bg-gray-300 rounded-lg font-bold w-full transition">Tutup</button>
         </div>
     </div>
 
@@ -729,6 +740,46 @@
                 inputEl.classList.add('hidden');
                 inputEl.value = '';
                 inputEl.required = false;
+            }
+        };
+
+        // --- Carian No Pekerja (Auto-Isi) ---
+        window.searchEmployee = function(formType) {
+            const formId = formType === 'guest' ? 'form-guest' : 'form-admin-register';
+            const form = document.getElementById(formId);
+            const empNoInput = form.elements['empNo'].value.trim();
+
+            if (!empNoInput) {
+                showToast("Sila masukkan No Pekerja / ID untuk membuat carian.");
+                return;
+            }
+
+            // Cari rekod terbaru bagi pekerja tersebut
+            const sortedVisitors = [...state.visitors].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            const found = sortedVisitors.find(v => v.empNo && v.empNo.trim() === empNoInput);
+
+            if (found) {
+                form.elements['name'].value = found.name || '';
+                form.elements['position'].value = found.position || '';
+                
+                const deptSelect = form.elements['department'];
+                
+                // Semak sama ada jabatan rekod lama wujud dalam senarai dropdown
+                if([...deptSelect.options].some(o => o.value === found.department)) {
+                    deptSelect.value = found.department;
+                } else {
+                    deptSelect.value = '';
+                }
+
+                const agencyInput = form.elements['agency'];
+                if(agencyInput) {
+                    agencyInput.value = found.agency || '';
+                }
+                
+                window.toggleAgencyInput(deptSelect, `${formType}-agency`);
+                showToast(`Rekod dijumpai: ${found.name}`);
+            } else {
+                showToast("Tiada rekod pernah hadir.");
             }
         };
 
@@ -1182,7 +1233,7 @@
                     actionTd = `
                         <td class="p-4">
                             <div class="flex justify-center gap-2">
-                                <button onclick="openEditModal('${v.id}')" class="px-3 py-1.5 bg-white text-blue-600 hover:bg-blue-100 border-2 border-blue-200 rounded-lg font-bold text-xs flex items-center gap-1 btn-3d" title="Kemaskini Data"><i data-lucide="edit" class="h-3 w-3"></i> Kemaskini</button>
+                                <button onclick="openEditModal('${v.id}')" class="px-3 py-1.5 bg-white text-blue-600 hover:bg-blue-100 border-2 border-blue-200 rounded-lg font-bold text-xs flex items-center gap-1" title="Kemaskini Data"><i data-lucide="edit" class="h-3 w-3"></i> Kemaskini</button>
                             </div>
                         </td>
                     `;
