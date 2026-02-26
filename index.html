@@ -26,11 +26,9 @@
         .card-3d {
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
-        /* Hover Effect: Naik ke atas sikit, bayang membesar */
         .card-3d:hover {
             transform: translateY(-3px);
         }
-        /* Active/Click Effect: Tertekan ke bawah */
         .card-3d:active {
             transform: translateY(2px);
         }
@@ -96,7 +94,7 @@
             <div class="bg-blue-600 text-white p-4 sm:p-6 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-3">
                     <i data-lucide="file-text" class="h-6 w-6"></i>
-                    <h2 class="text-xl font-bold">Pendaftaran Pelawat Baru</h2>
+                    <h2 class="text-xl font-bold">Pendaftaran Pelawat</h2>
                 </div>
                 <div class="flex flex-col items-start sm:items-end w-full sm:w-auto">
                     <label class="text-xs text-blue-200 font-bold mb-1">Tarikh Lawatan</label>
@@ -171,7 +169,6 @@
             <div class="flex items-center gap-3">
                 <i data-lucide="book-open" class="h-8 w-8 text-blue-600"></i>
                 <div class="flex flex-col">
-                    <!-- Class app-main-title dan app-sub-title digunakan utk dikemaskini oleh JS -->
                     <h1 class="font-black text-lg sm:text-xl text-blue-900 leading-tight tracking-tight uppercase app-main-title">TAMU PUSAT SUMBER</h1>
                     <p class="text-[10px] sm:text-xs text-gray-500 font-medium app-sub-title hidden sm:block">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</p>
                 </div>
@@ -182,12 +179,10 @@
                     <p id="header-role" class="text-xs text-gray-500 uppercase tracking-wide font-bold">Paparan Pelawat Sahaja</p>
                 </div>
                 
-                <!-- Quick Admin Login Button (Visible for Visitors) -->
                 <button id="btn-quick-admin" onclick="showModal('modal-admin-login')" class="hidden items-center gap-1.5 sm:gap-2 bg-blue-50 hover:bg-blue-100 text-blue-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition border-2 border-blue-200 btn-3d">
                     <i data-lucide="lock" class="h-4 w-4"></i> <span class="hidden sm:inline">Admin</span>
                 </button>
 
-                <!-- Admin Tools -->
                 <button id="btn-settings-menu" onclick="openSettingsModal()" class="hidden items-center gap-1.5 sm:gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition border-2 border-gray-200 btn-3d">
                     <i data-lucide="sliders" class="h-4 w-4"></i> <span class="hidden sm:inline">Tetapan</span>
                 </button>
@@ -202,9 +197,9 @@
 
         <!-- Main Content -->
         <main class="flex-1 p-4 sm:p-6 max-w-7xl mx-auto w-full flex flex-col gap-4 sm:gap-6 no-print">
-            <!-- Top Widgets (Now with Custom 3D classes) -->
+            <!-- Top Widgets -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                <!-- Widget Pelawat Hari Ini (Clickable) -->
+                <!-- Widget Pelawat Hari Ini -->
                 <div onclick="selectToday()" class="bg-white rounded-xl p-5 flex items-center justify-between cursor-pointer card-3d shadow-3d-blue">
                     <div>
                         <p class="text-xs font-bold text-blue-500 uppercase tracking-wider">Pelawat Hari Ini</p>
@@ -213,15 +208,11 @@
                     <div class="bg-blue-100 p-3 sm:p-4 rounded-full border-2 border-blue-200"><i data-lucide="users" class="h-8 w-8 text-blue-600"></i></div>
                 </div>
                 
-                <!-- Widget Jumlah Keseluruhan dengan Penapis -->
-                <div class="bg-white rounded-xl p-5 flex flex-col justify-center card-3d shadow-3d-green">
+                <!-- Widget Jumlah Pelawat (Clickable untuk Modal Statistik) -->
+                <div onclick="openStatsModal()" class="bg-white rounded-xl p-5 flex flex-col justify-center cursor-pointer card-3d shadow-3d-green hover:bg-green-50 transition">
                     <div class="flex justify-between items-center mb-1">
-                        <p class="text-xs font-bold text-green-600 uppercase tracking-wider">Jumlah Pelawat</p>
-                        <select id="stat-time-filter" onchange="renderStats()" class="text-xs border-2 border-green-200 rounded-md text-green-800 bg-green-50 p-1 cursor-pointer hover:bg-green-100 outline-none font-bold">
-                            <option value="month" selected>Bulan Ini</option>
-                            <option value="week">Minggu Ini</option>
-                            <option value="all">Keseluruhan</option>
-                        </select>
+                        <p class="text-xs font-bold text-green-600 uppercase tracking-wider" id="widget-stat-label">Jumlah Pelawat (Bulan Ini)</p>
+                        <i data-lucide="pie-chart" class="h-4 w-4 text-green-500"></i>
                     </div>
                     <div class="flex justify-between items-center mt-1">
                         <p id="stat-total" class="text-4xl font-black text-green-700">0</p>
@@ -254,30 +245,30 @@
 
             <!-- Lower Section (Calendar + Table) -->
             <div class="flex flex-col lg:flex-row gap-4 sm:gap-6">
-                <!-- Calendar Widget -->
-                <div class="bg-white rounded-xl p-5 w-full lg:w-[340px] flex-shrink-0 card-3d shadow-3d-gray h-fit">
-                    <div class="flex justify-between items-center mb-4 pb-3 border-b-2 border-gray-100">
-                        <button onclick="changeMonth(-1)" class="p-1.5 hover:bg-gray-100 rounded-lg border border-transparent hover:border-gray-200 transition"><i data-lucide="chevron-left" class="h-5 w-5"></i></button>
-                        <h3 id="calendar-title" class="font-black text-gray-800 uppercase text-sm tracking-wide"></h3>
-                        <button onclick="changeMonth(1)" class="p-1.5 hover:bg-gray-100 rounded-lg border border-transparent hover:border-gray-200 transition"><i data-lucide="chevron-right" class="h-5 w-5"></i></button>
+                <!-- Calendar Widget (Dikecilkan lebarnya lg:w-[280px]) -->
+                <div class="bg-white rounded-xl p-4 w-full lg:w-[280px] flex-shrink-0 card-3d shadow-3d-gray h-fit">
+                    <div class="flex justify-between items-center mb-3 pb-2 border-b-2 border-gray-100">
+                        <button onclick="changeMonth(-1)" class="p-1 hover:bg-gray-100 rounded-lg border border-transparent hover:border-gray-200 transition"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
+                        <h3 id="calendar-title" class="font-black text-gray-800 uppercase text-xs tracking-wide"></h3>
+                        <button onclick="changeMonth(1)" class="p-1 hover:bg-gray-100 rounded-lg border border-transparent hover:border-gray-200 transition"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
                     </div>
                     
-                    <div class="grid grid-cols-7 gap-1 text-center mb-2">
-                        <div class="text-xs font-bold text-gray-400 uppercase">Is</div>
-                        <div class="text-xs font-bold text-gray-400 uppercase">Se</div>
-                        <div class="text-xs font-bold text-gray-400 uppercase">Ra</div>
-                        <div class="text-xs font-bold text-gray-400 uppercase">Kh</div>
-                        <div class="text-xs font-bold text-gray-400 uppercase">Ju</div>
-                        <div class="text-xs font-bold text-orange-500 uppercase">Sa</div>
-                        <div class="text-xs font-bold text-orange-500 uppercase">Ah</div>
+                    <div class="grid grid-cols-7 gap-1 text-center mb-1.5">
+                        <div class="text-[10px] font-bold text-gray-400 uppercase">Is</div>
+                        <div class="text-[10px] font-bold text-gray-400 uppercase">Se</div>
+                        <div class="text-[10px] font-bold text-gray-400 uppercase">Ra</div>
+                        <div class="text-[10px] font-bold text-gray-400 uppercase">Kh</div>
+                        <div class="text-[10px] font-bold text-gray-400 uppercase">Ju</div>
+                        <div class="text-[10px] font-bold text-orange-500 uppercase">Sa</div>
+                        <div class="text-[10px] font-bold text-orange-500 uppercase">Ah</div>
                     </div>
                     
-                    <div id="calendar-grid" class="grid grid-cols-7 gap-1.5 text-sm">
+                    <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-xs">
                         <!-- Disuntik melalui JS -->
                     </div>
                     
-                    <button onclick="selectToday()" class="mt-5 w-full py-2.5 bg-blue-50 text-blue-700 border-2 border-blue-200 rounded-lg text-sm font-bold flex items-center justify-center gap-2 btn-3d hover:bg-blue-100">
-                        <i data-lucide="calendar" class="h-4 w-4"></i> Senarai Hari Ini
+                    <button onclick="selectToday()" class="mt-4 w-full py-2 bg-blue-50 text-blue-700 border-2 border-blue-200 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 btn-3d hover:bg-blue-100">
+                        <i data-lucide="calendar" class="h-3.5 w-3.5"></i> Senarai Hari Ini
                     </button>
                 </div>
 
@@ -332,7 +323,7 @@
 
         <table class="w-full border-collapse border border-gray-800 text-sm">
             <thead class="bg-gray-100">
-                <tr>
+                <tr id="print-header-row">
                     <th class="border border-gray-800 p-3 text-left w-24">Tarikh</th>
                     <th class="border border-gray-800 p-3 text-left">Nama</th>
                     <th class="border border-gray-800 p-3 text-left w-24">No Pekerja</th>
@@ -392,6 +383,61 @@
                     <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 btn-3d">Simpan Tetapan</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal Statistik & Top Visitors -->
+    <div id="modal-stats" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 fade-in">
+        <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full card-3d shadow-3d-gray max-h-[90vh] flex flex-col overflow-hidden">
+            <div class="px-4 sm:px-6 py-4 border-b-2 border-green-100 flex justify-between items-center bg-green-50 rounded-t-xl">
+                <h3 class="font-black text-green-900 flex items-center gap-2"><i data-lucide="bar-chart-2" class="h-5 w-5"></i> Statistik & Pelawat Tertinggi</h3>
+                <button onclick="hideModal('modal-stats')" class="text-gray-400 hover:text-green-800 text-2xl font-bold">&times;</button>
+            </div>
+            <div class="overflow-y-auto p-4 sm:p-6 space-y-6">
+                <!-- Filter Jumlah Keseluruhan -->
+                <div class="bg-white p-4 rounded-lg border-2 border-green-200 shadow-sm flex flex-col gap-2">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                        <label class="text-sm font-bold text-green-800">Jumlah Pelawat</label>
+                        <select id="modal-stat-filter" onchange="updateStatsModal()" class="text-sm border-2 border-green-300 rounded-md text-green-900 bg-green-50 p-1.5 cursor-pointer outline-none font-bold">
+                            <option value="month">Bulan Ini</option>
+                            <option value="week">Minggu Ini</option>
+                            <option value="all">Keseluruhan</option>
+                        </select>
+                    </div>
+                    <p id="modal-stat-total" class="text-5xl font-black text-green-600">0</p>
+                </div>
+
+                <!-- Top Visitors -->
+                <div>
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-3 gap-2">
+                        <h4 class="font-bold text-gray-800 uppercase tracking-wide text-sm flex items-center gap-2">
+                            <i data-lucide="award" class="h-4 w-4 text-orange-500"></i> Senarai Kerap Hadir
+                        </h4>
+                        <input type="month" id="top-month-picker" onchange="updateStatsModal()" class="text-sm border-2 border-gray-200 rounded-md p-1.5 outline-none font-bold text-blue-700 cursor-pointer bg-gray-50 hover:bg-gray-100" />
+                    </div>
+                    <div class="border-2 border-gray-200 rounded-lg overflow-hidden">
+                        <table class="w-full text-left text-sm">
+                            <thead class="bg-gray-100 border-b-2 border-gray-200">
+                                <tr>
+                                    <th class="p-2 sm:p-3 text-center w-12 font-extrabold text-gray-700">No</th>
+                                    <th class="p-2 sm:p-3 font-extrabold text-gray-700">Nama Pelawat</th>
+                                    <th class="p-2 sm:p-3 font-extrabold text-gray-700">Kategori / Jabatan</th>
+                                    <th class="p-2 sm:p-3 text-center font-extrabold text-gray-700">Hadir</th>
+                                </tr>
+                            </thead>
+                            <tbody id="top-visitors-body">
+                                <!-- Disuntik melalui JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="px-4 sm:px-6 py-4 border-t-2 border-gray-100 flex justify-between bg-gray-50 rounded-b-xl gap-3">
+                <button onclick="generateTopVisitorsReport()" class="px-4 py-2.5 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 btn-3d flex items-center gap-2">
+                    <i data-lucide="printer" class="h-4 w-4"></i> Cetak Top 10
+                </button>
+                <button onclick="hideModal('modal-stats')" class="px-5 py-2.5 border-2 border-gray-200 bg-white rounded-lg font-bold hover:bg-gray-100 btn-3d">Tutup</button>
+            </div>
         </div>
     </div>
 
@@ -600,28 +646,28 @@
 
         // --- State Application ---
         let state = {
-            view: 'dashboard', // Default directly to dashboard as visitor
-            role: 'visitor',   // Default role visitor
+            view: 'dashboard', 
+            role: 'visitor',   
             user: null,
             visitors: [],
             selectedDate: todayStr,
-            calendarDate: new Date(), // Default sentiasa bulan & hari semasa
+            calendarDate: new Date(), 
             selectedReportType: null,
             confirmActionCallback: null,
             appTitle: "TAMU PUSAT SUMBER",
-            appSubtitle: "Sistem Rekod Pelawat Pusat Sumber & Perpustakaan"
+            appSubtitle: "Sistem Rekod Pelawat Pusat Sumber & Perpustakaan",
+            statsFilter: 'month' // Default untuk Modal Stat & Widget
         };
 
         // Init date inputs and view
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('guest-visit-date').value = todayStr;
             document.getElementById('admin-visit-date').value = todayStr;
-            switchView('dashboard'); // Force initial view
+            switchView('dashboard'); 
             updateAppTitles();
-            selectToday(true); // Pastikan UI di-reset pada hari ini tanpa scroll
+            selectToday(true); 
         });
 
-        // --- Inisialisasi Lucide Icons ---
         lucide.createIcons();
 
         // --- Sistem Tunjuk Ralat ---
@@ -693,14 +739,13 @@
             document.getElementById('view-dashboard').classList.add('hidden');
             document.getElementById('view-print').classList.add('hidden');
             
-            // Re-route 'login' to 'dashboard' since login screen is removed
             if (viewName === 'login' || viewName === 'dashboard') {
                 document.getElementById('view-dashboard').classList.remove('hidden');
                 updateDashboardUI();
             }
             else if (viewName === 'guestForm') {
                 document.getElementById('view-guest-form').classList.remove('hidden');
-                document.getElementById('guest-visit-date').value = todayStr; // reset to today
+                document.getElementById('guest-visit-date').value = todayStr; 
             }
             else if (viewName === 'print') {
                 document.getElementById('view-print').classList.remove('hidden');
@@ -709,7 +754,7 @@
 
         window.showModal = function(id) { 
             if(id === 'modal-register') {
-                document.getElementById('admin-visit-date').value = todayStr; // reset to today when opened
+                document.getElementById('admin-visit-date').value = todayStr; 
             }
             document.getElementById(id).classList.remove('hidden'); 
         };
@@ -722,7 +767,7 @@
         };
 
         window.handleLogout = function() {
-            state.role = 'visitor'; // Reset to visitor role
+            state.role = 'visitor'; 
             switchView('dashboard');
             showToast("Berjaya log keluar.");
         };
@@ -733,6 +778,124 @@
             switchView('dashboard');
         };
 
+        // --- Logic Popup Statistik (Jumlah Pelawat & Top Visitors) ---
+        window.openStatsModal = function() {
+            document.getElementById('modal-stat-filter').value = state.statsFilter;
+            document.getElementById('top-month-picker').value = todayStr.substring(0, 7); // Set default picker ke bulan semasa
+            updateStatsModal();
+            showModal('modal-stats');
+        };
+
+        window.updateStatsModal = function() {
+            const filter = document.getElementById('modal-stat-filter').value;
+            state.statsFilter = filter;
+            renderStats(); // Kemaskini Widget Dashboard Luar
+
+            // 1. Kemaskini Total dalam Popup
+            let total = 0;
+            if(filter === 'month') {
+                const prefix = todayStr.substring(0, 7);
+                total = state.visitors.filter(v => v.date.startsWith(prefix)).length;
+            } else if(filter === 'week') {
+                total = state.visitors.filter(v => isWithinLast7Days(v.date)).length;
+            } else {
+                total = state.visitors.length;
+            }
+            document.getElementById('modal-stat-total').innerText = total;
+
+            // 2. Kira "Top Visitors" (Senarai Kerap Hadir) berdasarkan pilihan bulan di Popup
+            const topMonth = document.getElementById('top-month-picker').value; 
+            const monthData = state.visitors.filter(v => v.date.startsWith(topMonth));
+            
+            const counts = {};
+            monthData.forEach(v => {
+                const nameKey = v.name.trim().toUpperCase();
+                const dept = v.department || 'Pelawat Luar';
+                const agency = v.agency ? ` - ${v.agency}` : '';
+                const fullKey = `${nameKey}|${dept}${agency}`;
+                
+                if(!counts[fullKey]) {
+                    counts[fullKey] = { name: v.name, category: `${dept}${agency}`, count: 0 };
+                }
+                counts[fullKey].count++;
+            });
+
+            // Susun dari paling tinggi dan ambil Top 10
+            const topVisitors = Object.values(counts).sort((a,b) => b.count - a.count).slice(0, 10);
+            
+            const tbody = document.getElementById('top-visitors-body');
+            tbody.innerHTML = '';
+            
+            if(topVisitors.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-gray-500 font-bold">Tiada rekod pada bulan ini.</td></tr>';
+            } else {
+                topVisitors.forEach((v, index) => {
+                    tbody.innerHTML += `
+                        <tr class="border-b-2 border-gray-100 hover:bg-gray-50">
+                            <td class="p-2 sm:p-3 text-center font-bold text-gray-800">${index + 1}</td>
+                            <td class="p-2 sm:p-3 font-extrabold text-gray-900">${v.name}</td>
+                            <td class="p-2 sm:p-3 text-xs font-bold text-gray-600">${v.category}</td>
+                            <td class="p-2 sm:p-3 text-center font-black text-blue-600 text-lg">${v.count}</td>
+                        </tr>
+                    `;
+                });
+            }
+        };
+
+        window.generateTopVisitorsReport = function() {
+            const topMonth = document.getElementById('top-month-picker').value; 
+            const monthData = state.visitors.filter(v => v.date.startsWith(topMonth));
+            
+            const counts = {};
+            monthData.forEach(v => {
+                const nameKey = v.name.trim().toUpperCase();
+                const dept = v.department || 'Pelawat Luar';
+                const agency = v.agency ? ` - ${v.agency}` : '';
+                const fullKey = `${nameKey}|${dept}${agency}`;
+                
+                if(!counts[fullKey]) counts[fullKey] = { name: v.name, category: `${dept}${agency}`, count: 0 };
+                counts[fullKey].count++;
+            });
+
+            const topVisitors = Object.values(counts).sort((a,b) => b.count - a.count);
+
+            document.getElementById('print-title').innerText = `Senarai Pelawat Paling Kerap Hadir (${topMonth})`;
+            document.getElementById('print-timestamp').innerText = new Date().toLocaleString('ms-MY');
+
+            // Tukar struktur jadual khusus untuk cetakan Top Visitors
+            const thead = document.querySelector('#print-header-row');
+            thead.innerHTML = `
+                <th class="border border-gray-800 p-3 text-center w-16">No</th>
+                <th class="border border-gray-800 p-3 text-left">Nama Pelawat</th>
+                <th class="border border-gray-800 p-3 text-left">Bahagian / Kategori</th>
+                <th class="border border-gray-800 p-3 text-center w-32">Jumlah Hadir</th>
+            `;
+            
+            const tbody = document.getElementById('print-body');
+            tbody.innerHTML = '';
+            
+            if (topVisitors.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="border border-gray-800 p-6 text-center text-gray-500 font-bold">Tiada rekod dijumpai.</td></tr>`;
+            } else {
+                topVisitors.forEach((v, idx) => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td class="border border-gray-800 p-3 text-center font-bold">${idx + 1}</td>
+                            <td class="border border-gray-800 p-3 font-extrabold text-base">${v.name}</td>
+                            <td class="border border-gray-800 p-3 font-bold">${v.category}</td>
+                            <td class="border border-gray-800 p-3 text-center font-black text-lg">${v.count}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            hideModal('modal-stats');
+            switchView('print');
+            
+            setTimeout(() => { window.print(); }, 500);
+        };
+
+
         // --- Firebase Database Connection Logic ---
         let isDbInitialized = false;
 
@@ -740,7 +903,6 @@
             if (isDbInitialized) return;
             isDbInitialized = true;
             
-            // 1. Data Pelawat Listener
             const visitorsRef = collection(db, 'artifacts', fbAppId, 'public', 'data', 'visitors');
             onSnapshot(visitorsRef, (snapshot) => {
                 const data = [];
@@ -751,11 +913,10 @@
                 if (state.view === 'dashboard' || state.view === 'login') updateDashboardUI();
                 document.getElementById('system-error-banner').classList.add('hidden'); 
             }, (err) => {
-                isDbInitialized = false; // Boleh cuba lagi
+                isDbInitialized = false; 
                 showSystemError(`Ralat Pangkalan Data (${err.code}): Sila pastikan Rules diset 'allow read, write: if true;' di Firebase Console.`);
             });
 
-            // 2. Settings Listener
             const settingsRef = doc(db, 'artifacts', fbAppId, 'public', 'data', 'settings', 'general');
             onSnapshot(settingsRef, (docSnap) => {
                 if(docSnap.exists()){
@@ -789,9 +950,7 @@
             }
         });
 
-        // --- Forms Submission (CREATE/UPDATE/SETTINGS) ---
-        
-        // Simpan Tetapan
+        // --- Forms Submission ---
         window.saveSettings = async function(e) {
             e.preventDefault();
             const newTitle = document.getElementById('setting-title').value;
@@ -807,7 +966,6 @@
             }
         };
 
-        // Quick Admin Login (dari Dashboard Pelawat)
         document.getElementById('form-quick-login').onsubmit = (e) => {
             e.preventDefault();
             const pass = document.getElementById('quick-admin-pass').value;
@@ -823,14 +981,11 @@
             }
         };
 
-        // Add Visitor (Guest Form & Admin Modal)
         const processRegistration = async (e, formId, isGuestForm) => {
             e.preventDefault();
             
             const form = document.getElementById(formId);
             const formData = new FormData(form);
-            
-            // Dapatkan tarikh yang dipilih dari kotak tarikh
             const selectedVisitDate = formData.get('visit_date') || todayStr;
 
             const newVisitor = {
@@ -856,7 +1011,6 @@
                 btn.disabled = false;
                 form.reset();
 
-                // Kembalikan paparan UI asal (Sembunyikan kotak Nyatakan)
                 if (isGuestForm) window.toggleAgencyInput(form.querySelector('select[name="department"]'), 'guest-agency');
                 else window.toggleAgencyInput(form.querySelector('select[name="department"]'), 'admin-agency');
 
@@ -882,7 +1036,6 @@
                 console.error(err);
                 btn.innerText = oriTxt; 
                 btn.disabled = false;
-                
                 showSystemError(`Gagal Menyimpan Data (${err.code}). Pastikan Rules Firestore anda adalah 'true'.`);
                 showToast("Ralat menyimpan data ke Firebase.");
             }
@@ -891,12 +1044,10 @@
         document.getElementById('form-guest').onsubmit = (e) => processRegistration(e, 'form-guest', true);
         document.getElementById('form-admin-register').onsubmit = (e) => processRegistration(e, 'form-admin-register', false);
 
-        // Edit Submission
         document.getElementById('form-edit').onsubmit = async (e) => {
             e.preventDefault();
             const id = document.getElementById('edit-id').value;
-            const formData = new FormData(e.target);
-
+            
             const updatedData = {
                 date: document.getElementById('edit-date').value,
                 name: document.getElementById('edit-name').value,
@@ -917,7 +1068,6 @@
             }
         };
 
-        // --- Table Actions (Exposed to Window for inline onclick) ---
         window.deleteVisitor = function(id) {
             customConfirm("AMARAN: Adakah anda pasti untuk memadam rekod pelawat ini? Data yang dipadam tidak boleh dikembalikan.", async () => {
                 try {
@@ -942,23 +1092,18 @@
             
             const deptSelect = document.getElementById('edit-department');
             deptSelect.value = visitor.department || '';
-            
             const agencyInput = document.getElementById('edit-agency');
             agencyInput.value = visitor.agency || '';
             
-            // Tunjuk/Sembunyi kotak Nyatakan bergantung pada data sedia ada
             window.toggleAgencyInput(deptSelect, 'edit-agency');
-            
             showModal('modal-edit');
         };
 
         // --- Dashboard UI Renderers ---
         function updateDashboardUI() {
-            // Header Info
             document.getElementById('header-date').innerText = formatDateMalay(new Date());
             document.getElementById('header-role').innerText = state.role === 'admin' ? 'Dashboard Admin' : 'Paparan Pelawat Sahaja';
             
-            // Buttons Visibility Based on Role
             const btnReport = document.getElementById('btn-report-menu');
             const btnSettings = document.getElementById('btn-settings-menu');
             const btnQuickAdmin = document.getElementById('btn-quick-admin');
@@ -968,37 +1113,19 @@
             const widgetVisitor = document.getElementById('widget-visitor');
 
             if (state.role === 'admin') {
-                btnReport.classList.remove('hidden');
-                btnReport.classList.add('flex');
-                
-                btnSettings.classList.remove('hidden');
-                btnSettings.classList.add('flex');
-                
-                btnLogout.classList.remove('hidden');
-                btnLogout.classList.add('flex');
-                
-                btnQuickAdmin.classList.add('hidden');
-                btnQuickAdmin.classList.remove('flex');
-                
+                btnReport.classList.remove('hidden'); btnReport.classList.add('flex');
+                btnSettings.classList.remove('hidden'); btnSettings.classList.add('flex');
+                btnLogout.classList.remove('hidden'); btnLogout.classList.add('flex');
+                btnQuickAdmin.classList.add('hidden'); btnQuickAdmin.classList.remove('flex');
                 thAction.classList.remove('hidden');
-                widgetAdmin.classList.remove('hidden');
-                widgetVisitor.classList.add('hidden');
+                widgetAdmin.classList.remove('hidden'); widgetVisitor.classList.add('hidden');
             } else {
-                btnReport.classList.add('hidden');
-                btnReport.classList.remove('flex');
-                
-                btnSettings.classList.add('hidden');
-                btnSettings.classList.remove('flex');
-                
-                btnLogout.classList.add('hidden');
-                btnLogout.classList.remove('flex');
-                
-                btnQuickAdmin.classList.remove('hidden');
-                btnQuickAdmin.classList.add('flex');
-                
+                btnReport.classList.add('hidden'); btnReport.classList.remove('flex');
+                btnSettings.classList.add('hidden'); btnSettings.classList.remove('flex');
+                btnLogout.classList.add('hidden'); btnLogout.classList.remove('flex');
+                btnQuickAdmin.classList.remove('hidden'); btnQuickAdmin.classList.add('flex');
                 thAction.classList.add('hidden');
-                widgetAdmin.classList.add('hidden');
-                widgetVisitor.classList.remove('hidden');
+                widgetAdmin.classList.add('hidden'); widgetVisitor.classList.remove('hidden');
             }
 
             renderStats();
@@ -1007,25 +1134,28 @@
         }
 
         window.renderStats = function() {
-            // Pelawat Hari Ini
             const todayCount = state.visitors.filter(v => v.date === todayStr).length;
             document.getElementById('stat-today').innerText = todayCount;
             
-            // Jumlah Pelawat (Berdasarkan Penapis)
-            const filterValue = document.getElementById('stat-time-filter').value;
+            const filterValue = state.statsFilter || 'month';
             let totalCount = 0;
+            let label = 'Jumlah Pelawat (Bulan Ini)';
             
             if (filterValue === 'month') {
                 const currentMonthPrefix = todayStr.substring(0, 7);
                 totalCount = state.visitors.filter(v => v.date.startsWith(currentMonthPrefix)).length;
+                label = 'Jumlah Pelawat (Bulan Ini)';
             } else if (filterValue === 'week') {
                 totalCount = state.visitors.filter(v => isWithinLast7Days(v.date)).length;
+                label = 'Jumlah Pelawat (Minggu Ini)';
             } else {
-                // 'all'
                 totalCount = state.visitors.length;
+                label = 'Jumlah Pelawat (Keseluruhan)';
             }
             
             document.getElementById('stat-total').innerText = totalCount;
+            const widgetLabel = document.getElementById('widget-stat-label');
+            if(widgetLabel) widgetLabel.innerText = label;
         }
 
         function renderTable() {
@@ -1058,7 +1188,6 @@
                     `;
                 }
 
-                // Format Kategori/Jabatan Paparan
                 const agensi = v.agency ? ` - ${v.agency}` : '';
                 const tagKategori = `<span class="text-xs text-gray-700 font-extrabold">${v.department || '-'}${agensi}</span>`;
 
@@ -1098,8 +1227,6 @@
             renderCalendar();
             renderTable();
             
-            // Scroll ke jadual untuk memudahkan pengguna melihat apabila ditekan pada widget
-            // Hanya aktif jika bukan auto-load pada mula-mula buka
             if (preventScroll !== true) {
                 const tableTitle = document.getElementById('table-title');
                 if (tableTitle) tableTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1118,16 +1245,16 @@
 
             const daysInMonth = new Date(year, month + 1, 0).getDate();
             let firstDay = new Date(year, month, 1).getDay();
-            let startDay = firstDay === 0 ? 6 : firstDay - 1; // Align to Monday
+            let startDay = firstDay === 0 ? 6 : firstDay - 1;
 
             for (let i = 0; i < startDay; i++) {
-                grid.innerHTML += `<div class="h-9 bg-gray-50 rounded-lg"></div>`;
+                grid.innerHTML += `<div class="h-8 bg-gray-50 rounded-lg border-2 border-transparent"></div>`;
             }
 
             for (let day = 1; day <= daysInMonth; day++) {
                 const currentDayObj = new Date(year, month, day);
                 const dayOfWeek = currentDayObj.getDay();
-                const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6); // 0 = Ahad, 6 = Sabtu
+                const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6); 
                 
                 const mo = String(month + 1).padStart(2, '0');
                 const da = String(day).padStart(2, '0');
@@ -1137,17 +1264,16 @@
                 const isSelected = (dateStr === state.selectedDate);
                 const hasVisitors = state.visitors.some(v => v.date === dateStr);
 
-                let baseClass = "h-9 flex flex-col items-center justify-center rounded-lg cursor-pointer transition-all border-2 ";
+                let baseClass = "h-8 flex flex-col items-center justify-center rounded-lg cursor-pointer transition-all border-2 text-[11px] ";
                 
                 if (isSelected) {
                     baseClass += "bg-blue-100 border-blue-500 text-blue-800 font-black shadow-inner";
                 } else if (isToday) {
                     baseClass += "bg-gray-100 border-gray-400 text-gray-800 font-bold hover:border-gray-500";
                 } else if (isWeekend) {
-                    // Pewarnaan Kotak Hujung Minggu
-                    baseClass += "bg-orange-50/70 border-orange-100 text-orange-700 hover:border-orange-300 font-medium";
+                    baseClass += "bg-orange-50/70 border-orange-100 text-orange-700 hover:border-orange-300 font-bold";
                 } else {
-                    baseClass += "bg-white border-transparent hover:border-gray-300 font-medium";
+                    baseClass += "bg-white border-transparent hover:border-gray-300 font-bold text-gray-700";
                 }
 
                 let dotHtml = hasVisitors ? `<div class="w-1.5 h-1.5 bg-green-500 rounded-full mt-0.5 shadow-sm"></div>` : '';
@@ -1165,7 +1291,6 @@
         window.selectReport = function(type, element) {
             state.selectedReportType = type;
             
-            // Remove active style from all
             document.querySelectorAll('.report-btn').forEach(btn => {
                 btn.classList.remove('bg-blue-50', 'border-blue-300');
                 btn.classList.add('bg-gray-50', 'border-gray-200');
@@ -1175,7 +1300,6 @@
                 if (span) span.classList.replace('text-blue-800', 'text-gray-700');
             });
             
-            // Add active style to selected
             element.classList.add('bg-blue-50', 'border-blue-300');
             element.classList.remove('bg-gray-50', 'border-gray-200');
             const elIcon = element.querySelector('svg') || element.querySelector('i');
@@ -1220,6 +1344,16 @@
             document.getElementById('print-title').innerText = title;
             document.getElementById('print-timestamp').innerText = new Date().toLocaleString('ms-MY');
             
+            // Revert back table structure to standard report
+            const thead = document.querySelector('#print-header-row');
+            thead.innerHTML = `
+                <th class="border border-gray-800 p-3 text-left w-24">Tarikh</th>
+                <th class="border border-gray-800 p-3 text-left">Nama</th>
+                <th class="border border-gray-800 p-3 text-left w-24">No Pekerja</th>
+                <th class="border border-gray-800 p-3 text-left">Jawatan / Kategori</th>
+                <th class="border border-gray-800 p-3 text-left w-1/3">Tujuan Lawatan</th>
+            `;
+
             const tbody = document.getElementById('print-body');
             tbody.innerHTML = '';
             
