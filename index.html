@@ -15,7 +15,12 @@
         /* Custom Styles for Print and Base Elements */
         @media print {
             .no-print { display: none !important; }
-            body { background: white !important; }
+            body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            @page { margin: 1cm; }
+            table { page-break-inside: auto; }
+            tr    { page-break-inside: avoid; page-break-after: auto; }
+            thead { display: table-header-group; }
+            tfoot { display: table-footer-group; }
         }
         
         /* Smooth fade transition */
@@ -279,40 +284,44 @@
     <!-- ============================================== -->
     <!-- PAPARAN 3: CETAKAN PDF (PRINT VIEW)            -->
     <!-- ============================================== -->
-    <div id="view-print" class="hidden min-h-screen bg-white p-8 text-black fade-in">
-        <div class="flex justify-between items-center mb-8 border-b pb-4 no-print bg-gray-50 p-4 rounded-lg border-2 border-gray-200">
-            <div>
-                <h2 class="text-xl font-bold text-gray-800">Mod Prapapar Cetakan (PDF)</h2>
-                <p class="text-sm text-gray-500">Sila gunakan fungsi "Save as PDF" atau cetak di pelayar anda.</p>
+    <div id="view-print" class="hidden min-h-screen bg-gray-50 p-6 sm:p-12 text-black fade-in">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-8 border-b pb-4 no-print bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">Mod Prapapar Cetakan (PDF)</h2>
+                    <p class="text-sm text-gray-500">Sila gunakan fungsi "Save as PDF" atau cetak di pelayar anda.</p>
+                </div>
+                <button onclick="cancelPrint()" class="px-5 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 shadow-sm hover:shadow-md transition-colors">
+                    Batal & Kembali
+                </button>
             </div>
-            <button onclick="cancelPrint()" class="px-5 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 shadow-sm hover:shadow-md transition-colors">
-                Batal & Kembali
-            </button>
-        </div>
 
-        <div class="text-center mb-8">
-            <h1 class="text-2xl font-black uppercase mb-1 app-main-title">TAMU PUSAT SUMBER</h1>
-            <h2 class="text-lg font-bold text-gray-700 app-sub-title">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</h2>
-            <h3 id="print-title" class="text-md mt-4 font-bold border-b-2 border-black inline-block pb-1"></h3>
-        </div>
+            <div class="text-center mb-8 bg-white p-8 border border-gray-200 shadow-sm print:border-none print:shadow-none">
+                <h1 class="text-2xl font-black uppercase mb-1 app-main-title">TAMU PUSAT SUMBER</h1>
+                <h2 class="text-lg font-bold text-gray-700 app-sub-title">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</h2>
+                <h3 id="print-title" class="text-lg mt-4 font-black uppercase tracking-wide border-b-2 border-gray-800 inline-block pb-2"></h3>
+            </div>
 
-        <table class="w-full border-collapse border border-gray-800 text-sm">
-            <thead class="bg-gray-100">
-                <tr id="print-header-row">
-                    <th class="border border-gray-800 p-3 text-left w-24">Tarikh</th>
-                    <th class="border border-gray-800 p-3 text-left">Nama</th>
-                    <th class="border border-gray-800 p-3 text-left w-24">No Pekerja</th>
-                    <th class="border border-gray-800 p-3 text-left">Jawatan / Kategori</th>
-                    <th class="border border-gray-800 p-3 text-left w-1/3">Tujuan Lawatan</th>
-                </tr>
-            </thead>
-            <tbody id="print-body">
-                <!-- Disuntik melalui JS -->
-            </tbody>
-        </table>
-        
-        <div class="mt-12 text-sm text-gray-500 text-center font-medium">
-            <p>Laporan dijana secara automatik pada: <span id="print-timestamp"></span></p>
+            <div class="bg-white p-8 border border-gray-200 shadow-sm print:border-none print:shadow-none print:p-0">
+                <table class="w-full border-collapse border border-gray-800 text-sm">
+                    <thead class="bg-gray-100 text-gray-800">
+                        <tr id="print-header-row" class="uppercase text-xs tracking-widest">
+                            <th class="border border-gray-800 p-3 text-center w-12 bg-gray-200">No</th>
+                            <th class="border border-gray-800 p-3 text-left w-24 bg-gray-200">Tarikh</th>
+                            <th class="border border-gray-800 p-3 text-left bg-gray-200">Nama & ID Pelawat</th>
+                            <th class="border border-gray-800 p-3 text-left bg-gray-200">Jawatan & Kategori</th>
+                            <th class="border border-gray-800 p-3 text-left w-1/3 bg-gray-200">Tujuan Lawatan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="print-body" class="text-gray-800">
+                        <!-- Disuntik melalui JS -->
+                    </tbody>
+                </table>
+                
+                <div class="mt-12 text-sm text-gray-500 text-center font-medium">
+                    <p>Laporan dijana secara automatik pada: <span id="print-timestamp"></span></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -383,10 +392,6 @@
                         <h4 class="font-bold text-gray-800 flex items-center gap-2"><i data-lucide="database" class="h-5 w-5 text-blue-600"></i> Pangkalan Data Pelawat</h4>
                         <div class="flex items-center gap-2">
                             <span id="settings-table-count" class="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-md border border-blue-200">0 rekod</span>
-                            <!-- BUTANG BARU: Jana PDF dari Tetapan -->
-                            <button onclick="generateSettingsReport()" class="px-3 py-1 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors shadow-sm flex items-center gap-2 text-xs">
-                                <i data-lucide="printer" class="h-3 w-3"></i> Cetak Senarai
-                            </button>
                         </div>
                     </div>
                     
@@ -562,9 +567,9 @@
                         <label class="text-sm font-extrabold text-gray-900">Komen / Tujuan Lawatan *</label>
                         <textarea name="comment" required rows="3" class="w-full px-3 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 font-bold text-gray-900" placeholder="Sila nyatakan tujuan lawatan anda dalam satu perenggan..."></textarea>
                     </div>
-                    <div class="flex justify-end gap-3 mt-4 pt-4 border-t-2 border-gray-100">
-                        <button type="button" onclick="hideModal('modal-register')" class="px-5 py-2.5 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 shadow-sm hover:shadow-md transition-colors">Batal</button>
-                        <button type="submit" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 shadow-sm hover:shadow-md transition-colors">Daftar Pelawat</button>
+                    <div class="flex justify-end gap-3 mt-4 pt-4 border-t-2 border-gray-100 text-gray-900">
+                        <button type="button" onclick="hideModal('modal-register')" class="px-5 py-2.5 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 shadow-sm hover:shadow-md transition-colors text-xs uppercase">Batal</button>
+                        <button type="submit" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 shadow-sm hover:shadow-md transition-colors text-xs uppercase">Daftar Pelawat</button>
                     </div>
                 </form>
             </div>
@@ -572,14 +577,14 @@
     </div>
 
     <!-- Modal Edit -->
-    <div id="modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 fade-in">
-        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full border border-gray-200 max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="px-6 py-4 border-b-2 border-blue-100 flex justify-between items-center bg-blue-50 rounded-t-xl">
-                <h3 class="font-black text-blue-900 flex items-center gap-2"><i data-lucide="edit" class="h-5 w-5"></i> Kemaskini Data</h3>
+    <div id="modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 fade-in text-gray-900">
+        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full border border-gray-200 max-h-[90vh] flex flex-col overflow-hidden text-gray-900">
+            <div class="px-6 py-4 border-b-2 border-blue-100 flex justify-between items-center bg-blue-50 rounded-t-xl text-blue-900 uppercase">
+                <h3 class="font-black text-sm flex items-center gap-2 tracking-widest"><i data-lucide="edit" class="h-4 w-4"></i> Kemaskini Data</h3>
                 <button onclick="hideModal('modal-edit')" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
             </div>
-            <div class="overflow-y-auto p-6">
-                <form id="form-edit" class="space-y-4">
+            <div class="overflow-y-auto p-6 custom-scroll">
+                <form id="form-edit" class="space-y-4 text-gray-900">
                     <input type="hidden" id="edit-id" />
                     <div class="grid grid-cols-2 gap-4">
                         <div>
@@ -595,53 +600,47 @@
                         </div>
                         <div>
                             <label class="block text-xs font-extrabold text-gray-800 mb-1">No Pekerja / ID</label>
-                            <input id="edit-empNo" name="empNo" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-bold text-gray-900" />
+                            <input id="edit-empNo" name="empNo" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-semibold text-gray-900" />
                         </div>
                         <div>
                             <label class="block text-xs font-extrabold text-gray-800 mb-1">Nama Penuh</label>
-                            <input id="edit-name" name="name" required class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-bold text-gray-900" />
+                            <input id="edit-name" name="name" required class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-semibold text-gray-900" />
                         </div>
                         <div class="col-span-2">
                             <label class="block text-xs font-extrabold text-gray-800 mb-1">Jawatan</label>
-                            <input id="edit-position" name="position" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-bold text-gray-900" />
+                            <input id="edit-position" name="position" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-semibold text-gray-900" />
                         </div>
                         <div class="col-span-2 space-y-2">
                             <label class="block text-xs font-extrabold text-gray-800 mb-1">Bahagian / Kategori Pelawat *</label>
-                            <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 bg-white block font-bold text-gray-900">
+                            <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 bg-white block font-semibold text-gray-900">
                                 <option value="">Sila Pilih...</option>
                                 <option value="Pelawat Am">Pelawat Am</option>
                                 <option value="Penjawat Awam">Penjawat Awam</option>
                                 <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
                                 <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
                                 <option value="WISDEC Banting">WISDEC Banting</option>
                                 <option value="WISDEC Sabah">WISDEC Sabah</option>
-                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="FIDEC">FIDEC</option>
                                 <option value="Wilayah Timur">Wilayah Timur</option>
                                 <option value="Wilayah Tengah">Wilayah Tengah</option>
                                 <option value="Wilayah Utara">Wilayah Utara</option>
                                 <option value="Wilayah Selatan">Wilayah Selatan</option>
                                 <option value="Wilayah Sabah">Wilayah Sabah</option>
                             </select>
-                            <input id="edit-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full mt-2 p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-bold text-gray-900" />
+                            <input id="edit-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden w-full mt-2 p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-semibold text-gray-900" />
                         </div>
                     </div>
                     <div>
                         <label class="block text-xs font-extrabold text-gray-800 mb-1">Komen / Tujuan</label>
-                        <textarea id="edit-comment" name="comment" required rows="3" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-bold text-gray-900"></textarea>
+                        <textarea id="edit-comment" name="comment" required rows="3" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-semibold text-gray-900"></textarea>
                     </div>
                     <div class="flex flex-col-reverse sm:flex-row justify-between items-center mt-4 pt-4 border-t-2 border-gray-100 gap-4">
-                        <button type="button" onclick="hideModal('modal-edit'); deleteVisitor(document.getElementById('edit-id').value);" class="w-full sm:w-auto px-4 py-2 bg-red-50 text-red-600 border-2 border-red-200 rounded-lg font-bold hover:bg-red-100 flex justify-center items-center gap-2 shadow-sm hover:shadow-md transition-colors">
+                        <button type="button" onclick="deleteVisitorWrapper()" class="w-full sm:w-auto px-4 py-2 bg-red-50 text-red-600 border-2 border-red-200 rounded-lg font-bold hover:bg-red-100 flex justify-center items-center gap-2 shadow-sm hover:shadow-md transition-colors text-xs uppercase">
                             <i data-lucide="trash-2" class="h-4 w-4"></i> Padam
                         </button>
-                        <div class="flex w-full sm:w-auto gap-3">
-                            <button type="button" onclick="hideModal('modal-edit')" class="flex-1 sm:flex-none px-4 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 shadow-sm hover:shadow-md transition-colors">Batal</button>
-                            <button type="submit" class="flex-1 sm:flex-none px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 shadow-sm hover:shadow-md transition-colors">Simpan</button>
+                        <div class="flex w-full sm:w-auto gap-3 text-gray-900">
+                            <button type="button" onclick="hideModal('modal-edit')" class="flex-1 sm:flex-none px-4 py-2 border-2 border-gray-200 rounded-lg font-bold hover:bg-gray-50 shadow-sm transition-colors text-xs uppercase text-gray-900">Batal</button>
+                            <button type="submit" class="flex-1 sm:flex-none px-4 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 shadow-sm transition-colors text-xs uppercase">Simpan</button>
                         </div>
                     </div>
                 </form>
@@ -656,23 +655,36 @@
             <h3 class="text-xl font-black mb-2">Jana Laporan PDF</h3>
             <p class="text-sm text-gray-500 mb-6 font-medium">Pilih jenis laporan yang ingin dijana dan dicetak.</p>
             
-            <div class="space-y-3 mb-6">
-                <button onclick="selectReport('harian', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition-colors shadow-sm hover:shadow-md">
-                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Harian</span>
+            <div class="space-y-3 mb-6 text-left">
+                <button onclick="selectReport('harian', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center justify-between transition-colors shadow-sm hover:shadow-md">
+                    <span class="flex items-center gap-3"><i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Harian</span></span>
                 </button>
-                <button onclick="selectReport('mingguan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition-colors shadow-sm hover:shadow-md">
-                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Mingguan</span>
+                <button onclick="selectReport('mingguan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center justify-between transition-colors shadow-sm hover:shadow-md">
+                    <span class="flex items-center gap-3"><i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Mingguan</span></span>
                 </button>
-                <button onclick="selectReport('bulanan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center gap-3 transition-colors shadow-sm hover:shadow-md">
-                    <i data-lucide="calendar" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Bulanan</span>
-                </button>
+                
+                <div class="flex flex-col gap-2">
+                    <button onclick="selectReport('bulanan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center justify-between transition-colors shadow-sm hover:shadow-md">
+                        <span class="flex items-center gap-3"><i data-lucide="calendar-days" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Bulanan</span></span>
+                    </button>
+                    <!-- Month Picker -->
+                    <input type="month" id="report-month-picker" class="hidden w-full px-4 py-2 border-2 border-blue-200 rounded-lg outline-none focus:border-blue-500 font-bold text-gray-700 bg-blue-50" />
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <button onclick="selectReport('tahunan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center justify-between transition-colors shadow-sm hover:shadow-md">
+                        <span class="flex items-center gap-3"><i data-lucide="calendar-range" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Tahunan</span></span>
+                    </button>
+                    <!-- Year Picker -->
+                    <input type="number" min="2000" max="2100" id="report-year-picker" placeholder="Tahun (Contoh: 2024)" class="hidden w-full px-4 py-2 border-2 border-blue-200 rounded-lg outline-none focus:border-blue-500 font-bold text-gray-700 bg-blue-50" />
+                </div>
             </div>
 
             <button id="btn-print-trigger" onclick="generateReport()" class="hidden mb-3 w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold flex items-center justify-center gap-2 transition-colors shadow-sm hover:shadow-md">
                 <i data-lucide="printer" class="h-5 w-5"></i> Cetak PDF
             </button>
             
-            <button onclick="closeReportModal()" class="px-6 py-2.5 bg-gray-200 text-gray-800 hover:bg-gray-300 rounded-lg font-bold w-full transition-colors shadow-sm hover:shadow-md">Tutup</button>
+            <button onclick="closeReportModal()" class="px-6 py-2.5 bg-gray-200 text-gray-800 hover:bg-gray-300 rounded-lg font-bold w-full transition-colors shadow-sm hover:shadow-md text-xs uppercase">Tutup</button>
         </div>
     </div>
 
@@ -681,31 +693,22 @@
     <!-- ============================================== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, addDoc, doc, updateDoc, deleteDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // --- Konfigurasi Firebase ---
-        const providedConfig = {
-            apiKey: "AIzaSyDIC8-9XpAoqTeEihBvTWwEg9mRkqh7bTA",
+        const firebaseConfig = {
+            apiKey: "AIzaSyDa8r3krnNw5o6eWvjtQ3aZg3Dk7zlOjjU",
             authDomain: "tamu-pusat-sumber-6dfbc.firebaseapp.com",
             projectId: "tamu-pusat-sumber-6dfbc",
             storageBucket: "tamu-pusat-sumber-6dfbc.firebasestorage.app",
             messagingSenderId: "1029710193877",
             appId: "1:1029710193877:web:12f515e5cee3fd21fdae5c"
         };
-        const firebaseConfig = typeof window.__firebase_config !== 'undefined' ? JSON.parse(window.__firebase_config) : providedConfig;
-        const app = initializeApp(firebaseConfig);
         
-        try {
-            const analytics = getAnalytics(app);
-        } catch (e) {
-            console.warn("Analytics tidak disokong atau disekat oleh pelayar.");
-        }
-
+        const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const fbAppId = typeof window.__app_id !== 'undefined' ? window.__app_id : 'tamu-pusat-sumber-6dfbc';
 
         // --- Fungsi Helper Tarikh Lokal ---
         function getLocalTodayStr() {
@@ -738,8 +741,11 @@
 
         // Init date inputs and view
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('guest-visit-date').value = todayStr;
-            document.getElementById('admin-visit-date').value = todayStr;
+            const guestVisitDate = document.getElementById('guest-visit-date');
+            const adminVisitDate = document.getElementById('admin-visit-date');
+            if(guestVisitDate) guestVisitDate.value = todayStr;
+            if(adminVisitDate) adminVisitDate.value = todayStr;
+            
             switchView('dashboard'); 
             updateAppTitles();
             selectToday(true); 
@@ -750,13 +756,16 @@
         // --- Sistem Tunjuk Ralat ---
         window.showSystemError = function(msg) {
             const banner = document.getElementById('system-error-banner');
-            document.getElementById('system-error-text').innerText = msg;
-            banner.classList.remove('hidden');
+            if(banner) {
+                const textEl = document.getElementById('system-error-text');
+                if(textEl) textEl.innerText = msg;
+                banner.classList.remove('hidden');
+            }
             console.error("Firebase System Error:", msg);
         };
 
         // --- Fungsi Helper ---
-        function formatDateMalay(dateObj) {
+        window.formatDateMalay = function(dateObj) {
             const days = ['AHAD', 'ISNIN', 'SELASA', 'RABU', 'KHAMIS', 'JUMAAT', 'SABTU'];
             const months = ['JANUARI', 'FEBRUARI', 'MAC', 'APRIL', 'MEI', 'JUN', 'JULAI', 'OGOS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DISEMBER'];
             return `${days[dateObj.getDay()]}, ${dateObj.getDate()} ${months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
@@ -764,9 +773,11 @@
         
         window.showToast = function(msg) {
             const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3500);
+            if(toast) {
+                toast.innerText = msg;
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 3500);
+            }
         };
 
         const isWithinLast7Days = (dateString) => {
@@ -783,18 +794,33 @@
 
         // Custom Confirm
         window.customConfirm = function(msg, callback) {
-            document.getElementById('confirm-msg').innerText = msg;
-            document.getElementById('modal-confirm').classList.remove('hidden');
-            state.confirmActionCallback = callback;
+            const confirmMsg = document.getElementById('confirm-msg');
+            const modalConfirm = document.getElementById('modal-confirm');
+            
+            if(confirmMsg && modalConfirm) {
+                confirmMsg.innerText = msg;
+                modalConfirm.classList.remove('hidden');
+                state.confirmActionCallback = callback;
+            }
         };
-        document.getElementById('btn-confirm-cancel').onclick = () => {
-            document.getElementById('modal-confirm').classList.add('hidden');
-            state.confirmActionCallback = null;
-        };
-        document.getElementById('btn-confirm-ok').onclick = () => {
-            document.getElementById('modal-confirm').classList.add('hidden');
-            if (state.confirmActionCallback) state.confirmActionCallback();
-        };
+        
+        const btnConfirmCancel = document.getElementById('btn-confirm-cancel');
+        if(btnConfirmCancel) {
+            btnConfirmCancel.onclick = () => {
+                const modalConfirm = document.getElementById('modal-confirm');
+                if(modalConfirm) modalConfirm.classList.add('hidden');
+                state.confirmActionCallback = null;
+            };
+        }
+        
+        const btnConfirmOk = document.getElementById('btn-confirm-ok');
+        if(btnConfirmOk) {
+            btnConfirmOk.onclick = () => {
+                const modalConfirm = document.getElementById('modal-confirm');
+                if(modalConfirm) modalConfirm.classList.add('hidden');
+                if (state.confirmActionCallback) state.confirmActionCallback();
+            };
+        }
 
         // --- Toggle Agency Input ---
         window.toggleAgencyInput = function(selectEl, inputId) {
@@ -813,7 +839,9 @@
         window.searchEmployee = function(formType) {
             const formId = formType === 'guest' ? 'form-guest' : 'form-admin-register';
             const form = document.getElementById(formId);
-            const empNoInput = form.elements['empNo'].value.trim();
+            if(!form) return;
+            
+            const empNoInput = form.elements['empNo']?.value.trim();
 
             if (!empNoInput) {
                 showToast("Sila masukkan No Pekerja / ID untuk membuat carian.");
@@ -824,17 +852,20 @@
             const found = sortedVisitors.find(v => v.empNo && v.empNo.trim() === empNoInput);
 
             if (found) {
-                form.elements['name'].value = found.name || '';
-                form.elements['position'].value = found.position || '';
+                if(form.elements['name']) form.elements['name'].value = found.name || '';
+                if(form.elements['position']) form.elements['position'].value = found.position || '';
                 
                 const roleSelect = form.elements['visitorRole'];
                 if(roleSelect && found.visitorRole) roleSelect.value = found.visitorRole;
 
                 const deptSelect = form.elements['department'];
-                if([...deptSelect.options].some(o => o.value === found.department)) {
-                    deptSelect.value = found.department;
-                } else {
-                    deptSelect.value = '';
+                if(deptSelect) {
+                    if([...deptSelect.options].some(o => o.value === found.department)) {
+                        deptSelect.value = found.department;
+                    } else {
+                        deptSelect.value = '';
+                    }
+                    window.toggleAgencyInput(deptSelect, `${formType}-agency`);
                 }
 
                 const agencyInput = form.elements['agency'];
@@ -842,7 +873,6 @@
                     agencyInput.value = found.agency || '';
                 }
                 
-                window.toggleAgencyInput(deptSelect, `${formType}-agency`);
                 showToast(`Rekod dijumpai: ${found.name}`);
             } else {
                 showToast("Tiada rekod pernah hadir.");
@@ -852,36 +882,56 @@
         // --- Navigation Functions ---
         window.switchView = function(viewName) {
             state.view = viewName;
-            document.getElementById('view-guest-form').classList.add('hidden');
-            document.getElementById('view-dashboard').classList.add('hidden');
-            document.getElementById('view-print').classList.add('hidden');
+            
+            const views = ['view-guest-form', 'view-dashboard', 'view-print'];
+            views.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.classList.add('hidden');
+            });
             
             if (viewName === 'login' || viewName === 'dashboard') {
-                document.getElementById('view-dashboard').classList.remove('hidden');
+                const dashEl = document.getElementById('view-dashboard');
+                if(dashEl) dashEl.classList.remove('hidden');
                 updateDashboardUI();
             }
             else if (viewName === 'guestForm') {
-                document.getElementById('view-guest-form').classList.remove('hidden');
-                document.getElementById('guest-visit-date').value = todayStr; 
+                const guestEl = document.getElementById('view-guest-form');
+                if(guestEl) guestEl.classList.remove('hidden');
+                
+                const visitDateEl = document.getElementById('guest-visit-date');
+                if(visitDateEl) visitDateEl.value = todayStr; 
             }
             else if (viewName === 'print') {
-                document.getElementById('view-print').classList.remove('hidden');
+                const printEl = document.getElementById('view-print');
+                if(printEl) printEl.classList.remove('hidden');
             }
         };
 
         window.showModal = function(id) { 
             if(id === 'modal-register') {
-                document.getElementById('admin-visit-date').value = todayStr; 
+                const adminDateEl = document.getElementById('admin-visit-date');
+                if(adminDateEl) adminDateEl.value = todayStr; 
             }
-            document.getElementById(id).classList.remove('hidden'); 
+            const modalEl = document.getElementById(id);
+            if(modalEl) modalEl.classList.remove('hidden'); 
         };
-        window.hideModal = function(id) { document.getElementById(id).classList.add('hidden'); };
+        
+        window.hideModal = function(id) { 
+            const modalEl = document.getElementById(id);
+            if(modalEl) modalEl.classList.add('hidden'); 
+        };
 
         window.openSettingsModal = function() {
-            document.getElementById('setting-title').value = state.appTitle;
-            document.getElementById('setting-subtitle').value = state.appSubtitle;
-            document.getElementById('setting-successMsg').value = state.settings.successMsg;
-            document.getElementById('setting-maxRecords').value = state.settings.maxRecords;
+            const titleEl = document.getElementById('setting-title');
+            const subTitleEl = document.getElementById('setting-subtitle');
+            const successMsgEl = document.getElementById('setting-successMsg');
+            const maxRecEl = document.getElementById('setting-maxRecords');
+            
+            if(titleEl) titleEl.value = state.appTitle;
+            if(subTitleEl) subTitleEl.value = state.appSubtitle;
+            if(successMsgEl) successMsgEl.value = state.settings.successMsg;
+            if(maxRecEl) maxRecEl.value = state.settings.maxRecords;
+            
             renderSettingsTable();
             showModal('modal-settings');
         };
@@ -900,14 +950,19 @@
 
         // --- Logic Popup Statistik (Jumlah Pelawat & Top Visitors) ---
         window.openStatsModal = function() {
-            document.getElementById('modal-stat-filter').value = state.statsFilter;
-            document.getElementById('top-month-picker').value = todayStr.substring(0, 7); 
+            const statFilter = document.getElementById('modal-stat-filter');
+            const monthPicker = document.getElementById('top-month-picker');
+            
+            if(statFilter) statFilter.value = state.statsFilter;
+            if(monthPicker) monthPicker.value = todayStr.substring(0, 7); 
+            
             updateStatsModal();
             showModal('modal-stats');
         };
 
         window.updateStatsModal = function() {
-            const filter = document.getElementById('modal-stat-filter').value;
+            const filterEl = document.getElementById('modal-stat-filter');
+            const filter = filterEl ? filterEl.value : 'month';
             state.statsFilter = filter;
             renderStats(); 
 
@@ -920,19 +975,22 @@
             } else {
                 total = state.visitors.length;
             }
-            document.getElementById('modal-stat-total').innerText = total;
+            
+            const totalEl = document.getElementById('modal-stat-total');
+            if(totalEl) totalEl.innerText = total;
 
-            const topMonth = document.getElementById('top-month-picker').value; 
+            const monthPicker = document.getElementById('top-month-picker');
+            const topMonth = monthPicker && monthPicker.value ? monthPicker.value : todayStr.substring(0,7); 
             
             // LOGIK PENTING: KECUALIKAN URUSETIA DARI STATISTIK
             const monthData = state.visitors.filter(v => 
-                v.date.startsWith(topMonth) && 
+                v.date && v.date.startsWith(topMonth) && 
                 v.visitorRole !== 'Urusetia Pusat Sumber'
             );
             
             const counts = {};
             monthData.forEach(v => {
-                const nameKey = v.name.trim().toUpperCase();
+                const nameKey = v.name ? v.name.trim().toUpperCase() : 'UNKNOWN';
                 const dept = v.department || 'Pelawat Luar';
                 const agency = v.agency ? ` - ${v.agency}` : '';
                 const fullKey = `${nameKey}|${dept}${agency}`;
@@ -946,36 +1004,39 @@
             const topVisitors = Object.values(counts).sort((a,b) => b.count - a.count).slice(0, 10);
             
             const tbody = document.getElementById('top-visitors-body');
-            tbody.innerHTML = '';
-            
-            if(topVisitors.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-gray-500 font-bold">Tiada rekod pada bulan ini.</td></tr>';
-            } else {
-                topVisitors.forEach((v, index) => {
-                    tbody.innerHTML += `
-                        <tr class="border-b-2 border-gray-100 hover:bg-gray-50 transition-colors">
-                            <td class="p-2 sm:p-3 text-center font-bold text-gray-800">${index + 1}</td>
-                            <td class="p-2 sm:p-3 font-extrabold text-gray-900">${v.name}</td>
-                            <td class="p-2 sm:p-3 text-xs font-bold text-gray-600">${v.category}</td>
-                            <td class="p-2 sm:p-3 text-center font-black text-blue-600 text-lg">${v.count}</td>
-                        </tr>
-                    `;
-                });
+            if(tbody) {
+                tbody.innerHTML = '';
+                
+                if(topVisitors.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-gray-500 font-bold">Tiada rekod pada bulan ini.</td></tr>';
+                } else {
+                    topVisitors.forEach((v, index) => {
+                        tbody.innerHTML += `
+                            <tr class="border-b-2 border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="p-2 sm:p-3 text-center font-bold text-gray-800">${index + 1}</td>
+                                <td class="p-2 sm:p-3 font-extrabold text-gray-900">${v.name}</td>
+                                <td class="p-2 sm:p-3 text-xs font-bold text-gray-600">${v.category}</td>
+                                <td class="p-2 sm:p-3 text-center font-black text-blue-600 text-lg">${v.count}</td>
+                            </tr>
+                        `;
+                    });
+                }
             }
         };
 
         window.generateTopVisitorsReport = function() {
-            const topMonth = document.getElementById('top-month-picker').value; 
+            const monthPicker = document.getElementById('top-month-picker');
+            const topMonth = monthPicker && monthPicker.value ? monthPicker.value : todayStr.substring(0,7); 
             
             // KECUALIKAN URUSETIA DARI LAPORAN STATISTIK
             const monthData = state.visitors.filter(v => 
-                v.date.startsWith(topMonth) && 
+                v.date && v.date.startsWith(topMonth) && 
                 v.visitorRole !== 'Urusetia Pusat Sumber'
             );
             
             const counts = {};
             monthData.forEach(v => {
-                const nameKey = v.name.trim().toUpperCase();
+                const nameKey = v.name ? v.name.trim().toUpperCase() : 'UNKNOWN';
                 const dept = v.department || 'Pelawat Luar';
                 const agency = v.agency ? ` - ${v.agency}` : '';
                 const fullKey = `${nameKey}|${dept}${agency}`;
@@ -986,34 +1047,46 @@
 
             const topVisitors = Object.values(counts).sort((a,b) => b.count - a.count);
 
-            document.getElementById('print-title').innerText = `Senarai Pelawat Paling Kerap Hadir (${topMonth})`;
-            document.getElementById('print-timestamp').innerText = new Date().toLocaleString('ms-MY');
+            const printTitle = document.getElementById('print-title');
+            if(printTitle) printTitle.innerText = `Senarai Pelawat Paling Kerap Hadir (${topMonth})`;
+            
+            const printTimestamp = document.getElementById('print-timestamp');
+            if(printTimestamp) printTimestamp.innerText = new Date().toLocaleString('ms-MY');
 
             const thead = document.querySelector('#print-header-row');
-            thead.innerHTML = `
-                <th class="border border-gray-800 p-3 text-center w-16">No</th>
-                <th class="border border-gray-800 p-3 text-left">Nama Pelawat</th>
-                <th class="border border-gray-800 p-3 text-left">Bahagian / Kategori</th>
-                <th class="border border-gray-800 p-3 text-center w-32">Jumlah Hadir</th>
-            `;
+            if(thead) {
+                thead.innerHTML = `
+                    <th class="border border-gray-800 p-3 text-center w-12 bg-gray-200">No</th>
+                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Nama Pelawat</th>
+                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Bahagian / Kategori</th>
+                    <th class="border border-gray-800 p-3 text-center w-32 bg-gray-200">Jumlah Hadir</th>
+                `;
+            }
             
             const tbody = document.getElementById('print-body');
-            tbody.innerHTML = '';
-            
-            if (topVisitors.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="border border-gray-800 p-6 text-center text-gray-500 font-bold">Tiada rekod dijumpai.</td></tr>`;
-            } else {
-                topVisitors.forEach((v, idx) => {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class="border border-gray-800 p-3 text-center font-bold">${idx + 1}</td>
-                            <td class="border border-gray-800 p-3 font-extrabold text-base">${v.name}</td>
-                            <td class="border border-gray-800 p-3 font-bold">${v.category}</td>
-                            <td class="border border-gray-800 p-3 text-center font-black text-lg">${v.count}</td>
-                        </tr>
-                    `;
-                });
+            if(tbody) {
+                tbody.innerHTML = '';
+                
+                if (topVisitors.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="4" class="border border-gray-800 p-6 text-center text-gray-500 font-bold">Tiada rekod dijumpai.</td></tr>`;
+                } else {
+                    topVisitors.forEach((v, idx) => {
+                        const bgClass = idx % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                        tbody.innerHTML += `
+                            <tr class="${bgClass}">
+                                <td class="border border-gray-800 p-3 text-center font-bold">${idx + 1}</td>
+                                <td class="border border-gray-800 p-3 font-extrabold text-base">${v.name}</td>
+                                <td class="border border-gray-800 p-3 font-bold">${v.category}</td>
+                                <td class="border border-gray-800 p-3 text-center font-black text-lg">${v.count}</td>
+                            </tr>
+                        `;
+                    });
+                }
             }
+
+            const printView = document.getElementById('view-print');
+            printView.classList.remove('p-8');
+            printView.classList.add('max-w-6xl', 'mx-auto', 'py-10');
 
             hideModal('modal-stats');
             switchView('print');
@@ -1029,7 +1102,10 @@
             if (isDbInitialized) return;
             isDbInitialized = true;
             
-            const visitorsRef = collection(db, 'artifacts', fbAppId, 'public', 'data', 'visitors');
+            // Baca Terus Dari Pangkalan Data Asal
+            const visitorsRef = collection(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors');
+            const settingsRef = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'settings', 'general');
+            
             onSnapshot(visitorsRef, (snapshot) => {
                 const data = [];
                 snapshot.forEach(doc => data.push({ id: doc.id, ...doc.data() }));
@@ -1037,16 +1113,20 @@
                 state.visitors = data;
                 
                 if (state.view === 'dashboard' || state.view === 'login') updateDashboardUI();
-                if (!document.getElementById('modal-settings').classList.contains('hidden')) {
+                
+                const settingsModal = document.getElementById('modal-settings');
+                if (settingsModal && !settingsModal.classList.contains('hidden')) {
                     renderSettingsTable();
                 }
-                document.getElementById('system-error-banner').classList.add('hidden'); 
+                
+                const errorBanner = document.getElementById('system-error-banner');
+                if(errorBanner) errorBanner.classList.add('hidden'); 
+                
             }, (err) => {
                 isDbInitialized = false; 
-                showSystemError(`Ralat Pangkalan Data (${err.code}): Sila pastikan Rules diset 'allow read, write: if true;' di Firebase Console.`);
+                showSystemError(`Ralat Pangkalan Data (${err.code}).`);
             });
 
-            const settingsRef = doc(db, 'artifacts', fbAppId, 'public', 'data', 'settings', 'general');
             onSnapshot(settingsRef, (docSnap) => {
                 if(docSnap.exists()){
                     const data = docSnap.data();
@@ -1060,14 +1140,11 @@
             });
         }
 
-        // --- Firebase Auth & Data Listeners ---
+        // --- Firebase Auth ---
         const initAuth = async () => {
             try {
-                if (typeof window.__initial_auth_token !== 'undefined' && window.__initial_auth_token) {
-                    await signInWithCustomToken(auth, window.__initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                // Sentiasa jalankan authentication
+                await signInAnonymously(auth);
             } catch (err) {
                 console.warn("Auth Gagal, cuba sambung terus ke pangkalan data...", err);
                 initDatabaseConnection(); 
@@ -1085,19 +1162,21 @@
         // --- Forms Submission ---
         window.saveSettings = async function(e) {
             e.preventDefault();
-            const newTitle = document.getElementById('setting-title').value;
-            const newSubtitle = document.getElementById('setting-subtitle').value;
-            const newSuccessMsg = document.getElementById('setting-successMsg').value;
-            const newMaxRecords = document.getElementById('setting-maxRecords').value;
+            const newTitle = document.getElementById('setting-title')?.value || state.appTitle;
+            const newSubtitle = document.getElementById('setting-subtitle')?.value || state.appSubtitle;
+            const newSuccessMsg = document.getElementById('setting-successMsg')?.value || state.settings.successMsg;
+            const newMaxRecords = document.getElementById('setting-maxRecords')?.value || 'all';
             
             try {
-                const settingsRef = doc(db, 'artifacts', fbAppId, 'public', 'data', 'settings', 'general');
+                const settingsRef = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'settings', 'general');
+                
                 await setDoc(settingsRef, { 
                     title: newTitle, 
                     subtitle: newSubtitle,
                     successMsg: newSuccessMsg,
                     maxRecords: newMaxRecords
                 }, { merge: true });
+                
                 hideModal('modal-settings');
                 showToast("Tetapan sistem berjaya disimpan.");
             } catch (err) {
@@ -1105,25 +1184,31 @@
             }
         };
 
-        document.getElementById('form-quick-login').onsubmit = (e) => {
-            e.preventDefault();
-            const pass = document.getElementById('quick-admin-pass').value;
+        const formQuickLogin = document.getElementById('form-quick-login');
+        if(formQuickLogin) {
+            formQuickLogin.onsubmit = (e) => {
+                e.preventDefault();
+                const passInput = document.getElementById('quick-admin-pass');
+                const pass = passInput ? passInput.value : '';
 
-            if (pass === 'pustakaMtib') {
-                state.role = 'admin';
-                hideModal('modal-admin-login');
-                updateDashboardUI(); 
-                showToast("Log masuk Admin berjaya.");
-                document.getElementById('quick-admin-pass').value = '';
-            } else {
-                showToast("Kata Laluan tidak sah.");
-            }
-        };
+                if (pass === 'pustakaMtib') {
+                    state.role = 'admin';
+                    hideModal('modal-admin-login');
+                    updateDashboardUI(); 
+                    showToast("Log masuk Admin berjaya.");
+                    if(passInput) passInput.value = '';
+                } else {
+                    showToast("Kata Laluan tidak sah.");
+                }
+            };
+        }
 
         const processRegistration = async (e, formId, isGuestForm) => {
             e.preventDefault();
             
             const form = document.getElementById(formId);
+            if(!form) return;
+            
             const formData = new FormData(form);
             const selectedVisitDate = formData.get('visit_date') || todayStr;
 
@@ -1136,23 +1221,32 @@
                 department: formData.get('department') || '',
                 agency: formData.get('agency') || '',
                 comment: formData.get('comment'),
-                timestamp: Date.now()
+                timestamp: Date.now() 
             };
 
             const btn = form.querySelector('button[type="submit"]');
-            const oriTxt = btn.innerText;
-            btn.innerText = "Menyimpan..."; 
-            btn.disabled = true;
+            let oriTxt = "Simpan";
+            if(btn) {
+                oriTxt = btn.innerText;
+                btn.innerText = "Menyimpan..."; 
+                btn.disabled = true;
+            }
 
             try {
-                await addDoc(collection(db, 'artifacts', fbAppId, 'public', 'data', 'visitors'), newVisitor);
+                const visitorsCol = collection(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors');
+                await addDoc(visitorsCol, newVisitor);
                 
-                btn.innerText = oriTxt; 
-                btn.disabled = false;
+                if(btn) {
+                    btn.innerText = oriTxt; 
+                    btn.disabled = false;
+                }
                 form.reset();
 
-                if (isGuestForm) window.toggleAgencyInput(form.querySelector('select[name="department"]'), 'guest-agency');
-                else window.toggleAgencyInput(form.querySelector('select[name="department"]'), 'admin-agency');
+                const deptSelect = form.querySelector('select[name="department"]');
+                if(deptSelect) {
+                    if (isGuestForm) window.toggleAgencyInput(deptSelect, 'guest-agency');
+                    else window.toggleAgencyInput(deptSelect, 'admin-agency');
+                }
 
                 if (isGuestForm) {
                     state.role = 'visitor';
@@ -1174,48 +1268,69 @@
                 }
             } catch (err) {
                 console.error(err);
-                btn.innerText = oriTxt; 
-                btn.disabled = false;
+                if(btn) {
+                    btn.innerText = oriTxt; 
+                    btn.disabled = false;
+                }
                 showSystemError(`Gagal Menyimpan Data (${err.code}). Pastikan Rules Firestore anda adalah 'true'.`);
                 showToast("Ralat menyimpan data ke Firebase.");
             }
         };
 
-        document.getElementById('form-guest').onsubmit = (e) => processRegistration(e, 'form-guest', true);
-        document.getElementById('form-admin-register').onsubmit = (e) => processRegistration(e, 'form-admin-register', false);
+        const formGuest = document.getElementById('form-guest');
+        if(formGuest) formGuest.onsubmit = (e) => processRegistration(e, 'form-guest', true);
+        
+        const formAdminRegister = document.getElementById('form-admin-register');
+        if(formAdminRegister) formAdminRegister.onsubmit = (e) => processRegistration(e, 'form-admin-register', false);
 
-        document.getElementById('form-edit').onsubmit = async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('edit-id').value;
-            
-            const updatedData = {
-                date: document.getElementById('edit-date').value,
-                name: document.getElementById('edit-name').value,
-                empNo: document.getElementById('edit-empNo').value,
-                visitorRole: document.getElementById('edit-visitorRole').value,
-                position: document.getElementById('edit-position').value,
-                department: document.getElementById('edit-department').value,
-                agency: document.getElementById('edit-agency').value,
-                comment: document.getElementById('edit-comment').value
+        const formEdit = document.getElementById('form-edit');
+        if(formEdit) {
+            formEdit.onsubmit = async (e) => {
+                e.preventDefault();
+                const idInput = document.getElementById('edit-id');
+                if(!idInput) return;
+                const id = idInput.value;
+                
+                const updatedData = {
+                    date: document.getElementById('edit-date')?.value || todayStr,
+                    name: document.getElementById('edit-name')?.value || '',
+                    empNo: document.getElementById('edit-empNo')?.value || '',
+                    visitorRole: document.getElementById('edit-visitorRole')?.value || 'Pelawat Biasa',
+                    position: document.getElementById('edit-position')?.value || '',
+                    department: document.getElementById('edit-department')?.value || '',
+                    agency: document.getElementById('edit-agency')?.value || '',
+                    comment: document.getElementById('edit-comment')?.value || ''
+                };
+                
+                try {
+                    const docReference = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors', id);
+                    await updateDoc(docReference, updatedData);
+                    hideModal('modal-edit');
+                    showToast("Data pelawat dikemaskini.");
+                } catch (err) {
+                    showSystemError(`Gagal Mengemaskini Data (${err.code}).`);
+                    showToast("Ralat kemaskini data.");
+                }
             };
-            
-            try {
-                await updateDoc(doc(db, 'artifacts', fbAppId, 'public', 'data', 'visitors', id), updatedData);
-                hideModal('modal-edit');
-                showToast("Data pelawat dikemaskini.");
-            } catch (err) {
-                showSystemError(`Gagal Mengemaskini Data (${err.code}).`);
-                showToast("Ralat kemaskini data.");
-            }
-        };
+        }
 
-        window.deleteVisitor = function(id) {
+        // FUNGSI UNTUK PADAM REKOD YANG SEBELUM INI TIADA
+        window.deleteVisitorWrapper = function() {
+            const idInput = document.getElementById('edit-id');
+            if(!idInput) return;
+            const id = idInput.value;
+            
             customConfirm("AMARAN: Adakah anda pasti untuk memadam rekod pelawat ini? Data yang dipadam tidak boleh dikembalikan.", async () => {
                 try {
-                    await deleteDoc(doc(db, 'artifacts', fbAppId, 'public', 'data', 'visitors', id));
+                    const docReference = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors', id);
+                    await deleteDoc(docReference);
+                    
+                    hideModal('modal-edit');
                     showToast("Rekod dipadam.");
-                    if (!document.getElementById('modal-settings').classList.contains('hidden')) {
-                        renderSettingsTable(); // Kemas kini jadual dalam tetapan jika dibuka
+                    
+                    const settingsModal = document.getElementById('modal-settings');
+                    if (settingsModal && !settingsModal.classList.contains('hidden')) {
+                        renderSettingsTable(); 
                     }
                 } catch(err) { 
                     showSystemError(`Gagal Memadam Data (${err.code}).`);
@@ -1227,35 +1342,44 @@
         window.openEditModal = function(id) {
             const visitor = state.visitors.find(v => v.id === id);
             if (!visitor) return;
-            document.getElementById('edit-id').value = visitor.id;
-            document.getElementById('edit-date').value = visitor.date || todayStr;
-            document.getElementById('edit-name').value = visitor.name || '';
-            document.getElementById('edit-empNo').value = visitor.empNo || '';
-            document.getElementById('edit-visitorRole').value = visitor.visitorRole || 'Pelawat Biasa';
-            document.getElementById('edit-position').value = visitor.position || '';
-            document.getElementById('edit-comment').value = visitor.comment || '';
+            
+            const editId = document.getElementById('edit-id'); if(editId) editId.value = visitor.id;
+            const editDate = document.getElementById('edit-date'); if(editDate) editDate.value = visitor.date || todayStr;
+            const editName = document.getElementById('edit-name'); if(editName) editName.value = visitor.name || '';
+            const editEmpNo = document.getElementById('edit-empNo'); if(editEmpNo) editEmpNo.value = visitor.empNo || '';
+            const editVisitorRole = document.getElementById('edit-visitorRole'); if(editVisitorRole) editVisitorRole.value = visitor.visitorRole || 'Pelawat Biasa';
+            const editPosition = document.getElementById('edit-position'); if(editPosition) editPosition.value = visitor.position || '';
+            const editComment = document.getElementById('edit-comment'); if(editComment) editComment.value = visitor.comment || '';
             
             const deptSelect = document.getElementById('edit-department');
-            deptSelect.value = visitor.department || '';
-            const agencyInput = document.getElementById('edit-agency');
-            agencyInput.value = visitor.agency || '';
+            if(deptSelect) deptSelect.value = visitor.department || '';
             
-            window.toggleAgencyInput(deptSelect, 'edit-agency');
+            const agencyInput = document.getElementById('edit-agency');
+            if(agencyInput) agencyInput.value = visitor.agency || '';
+            
+            if(deptSelect) window.toggleAgencyInput(deptSelect, 'edit-agency');
             showModal('modal-edit');
         };
 
-        // Fungsi Filter untuk Senarai dalam Tetapan
         function getSettingsFilteredData() {
-            const filterTime = document.getElementById('filter-settings-time')?.value || 'all';
-            const filterDept = document.getElementById('filter-settings-dept')?.value || 'all';
+            const filterTimeEl = document.getElementById('filter-settings-time');
+            const filterTime = filterTimeEl ? filterTimeEl.value : 'all';
+            
+            const filterDeptEl = document.getElementById('filter-settings-dept');
+            const filterDept = filterDeptEl ? filterDeptEl.value : 'all';
 
             let filteredData = state.visitors;
 
             if (filterTime === 'daily') {
                 filteredData = filteredData.filter(v => v.date === todayStr);
+            } else if (filterTime === 'weekly') {
+                filteredData = filteredData.filter(v => isWithinLast7Days(v.date));
             } else if (filterTime === 'monthly') {
                 const currentMonthPrefix = todayStr.substring(0, 7);
-                filteredData = filteredData.filter(v => v.date.startsWith(currentMonthPrefix));
+                filteredData = filteredData.filter(v => v.date && v.date.startsWith(currentMonthPrefix));
+            } else if (filterTime === 'yearly') {
+                const currentYearPrefix = todayStr.substring(0, 4);
+                filteredData = filteredData.filter(v => v.date && v.date.startsWith(currentYearPrefix));
             }
 
             if (filterDept !== 'all') {
@@ -1272,11 +1396,12 @@
             let filteredData = getSettingsFilteredData();
 
             const maxLimit = state.settings.maxRecords;
-            if (maxLimit !== 'all') {
+            if (maxLimit && maxLimit !== 'all') {
                 filteredData = filteredData.slice(0, parseInt(maxLimit, 10));
             }
             
-            document.getElementById('settings-table-count').innerText = `${filteredData.length} rekod`;
+            const countEl = document.getElementById('settings-table-count');
+            if(countEl) countEl.innerText = `${filteredData.length} rekod`;
 
             if (filteredData.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-gray-400 font-bold">Tiada rekod dijumpai.</td></tr>`;
@@ -1314,62 +1439,14 @@
             lucide.createIcons();
         }
 
-        // --- FUNGSI BARU: Cetak Senarai dari Tetapan ---
-        window.generateSettingsReport = function() {
-            const filteredData = getSettingsFilteredData();
-            const filterTime = document.getElementById('filter-settings-time').value;
-            const filterDept = document.getElementById('filter-settings-dept').value;
-
-            let timeTitle = "Pangkalan Data Keseluruhan";
-            if(filterTime === 'daily') timeTitle = `Pangkalan Data Harian (${todayStr})`;
-            else if(filterTime === 'monthly') timeTitle = `Pangkalan Data Bulanan (${todayStr.substring(0, 7)})`;
-
-            let deptTitle = filterDept === 'all' ? "" : ` - ${filterDept}`;
-            
-            document.getElementById('print-title').innerText = `${timeTitle}${deptTitle}`;
-            document.getElementById('print-timestamp').innerText = new Date().toLocaleString('ms-MY');
-
-            // Tetapkan semula header jadual asal
-            const thead = document.querySelector('#print-header-row');
-            thead.innerHTML = `
-                <th class="border border-gray-800 p-3 text-left w-24">Tarikh</th>
-                <th class="border border-gray-800 p-3 text-left">Nama</th>
-                <th class="border border-gray-800 p-3 text-left w-24">No Pekerja</th>
-                <th class="border border-gray-800 p-3 text-left">Jawatan / Kategori</th>
-                <th class="border border-gray-800 p-3 text-left w-1/3">Tujuan Lawatan</th>
-            `;
-
-            const tbody = document.getElementById('print-body');
-            tbody.innerHTML = '';
-            
-            if (filteredData.length === 0) {
-                tbody.innerHTML = `<tr><td colSpan="5" class="border border-gray-800 p-6 text-center text-gray-500 font-bold">Tiada rekod dijumpai.</td></tr>`;
-            } else {
-                filteredData.forEach(v => {
-                    const agensi = v.agency ? ` - ${v.agency}` : '';
-                    const kategoriDisplay = `${v.department || '-'}${agensi}`;
-                    const roleBadge = v.visitorRole === 'Urusetia Pusat Sumber' ? ' (Urusetia)' : '';
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class="border border-gray-800 p-3 font-bold">${v.date}</td>
-                            <td class="border border-gray-800 p-3 font-extrabold text-base">${v.name}${roleBadge}</td>
-                            <td class="border border-gray-800 p-3 font-bold">${v.empNo || '-'}</td>
-                            <td class="border border-gray-800 p-3"><span class="font-bold">${v.position}</span><br/><span class="text-xs text-gray-700 font-extrabold">${kategoriDisplay}</span></td>
-                            <td class="border border-gray-800 p-3 font-bold italic">"${v.comment}"</td>
-                        </tr>
-                    `;
-                });
-            }
-
-            hideModal('modal-settings');
-            switchView('print');
-            setTimeout(() => { window.print(); }, 500);
-        };
-
-        // --- Dashboard UI Renderers ---
         window.updateDashboardUI = function() {
-            document.getElementById('header-date').innerText = formatDateMalay(new Date());
-            document.getElementById('header-role').innerText = state.role === 'admin' ? 'Dashboard Admin' : 'Paparan Pelawat Sahaja';
+            const dateEl = document.getElementById('header-date');
+            // BESARKAN SAIZ TARIKH
+            if(dateEl) dateEl.className = "font-black text-blue-800 text-xl sm:text-2xl tracking-tight uppercase";
+            if(dateEl) dateEl.innerText = formatDateMalay(new Date());
+            
+            const roleEl = document.getElementById('header-role');
+            if(roleEl) roleEl.innerText = state.role === 'admin' ? 'Dashboard Admin' : 'Paparan Pelawat Sahaja';
             
             const btnReport = document.getElementById('btn-report-menu');
             const btnSettings = document.getElementById('btn-settings-menu');
@@ -1380,19 +1457,21 @@
             const widgetVisitor = document.getElementById('widget-visitor');
 
             if (state.role === 'admin') {
-                btnReport.classList.remove('hidden'); btnReport.classList.add('flex');
-                btnSettings.classList.remove('hidden'); btnSettings.classList.add('flex');
-                btnLogout.classList.remove('hidden'); btnLogout.classList.add('flex');
-                btnQuickAdmin.classList.add('hidden'); btnQuickAdmin.classList.remove('flex');
-                thAction.classList.remove('hidden');
-                widgetAdmin.classList.remove('hidden'); widgetVisitor.classList.add('hidden');
+                if(btnReport) { btnReport.classList.remove('hidden'); btnReport.classList.add('flex'); }
+                if(btnSettings) { btnSettings.classList.remove('hidden'); btnSettings.classList.add('flex'); }
+                if(btnLogout) { btnLogout.classList.remove('hidden'); btnLogout.classList.add('flex'); }
+                if(btnQuickAdmin) { btnQuickAdmin.classList.add('hidden'); btnQuickAdmin.classList.remove('flex'); }
+                if(thAction) thAction.classList.remove('hidden');
+                if(widgetAdmin) widgetAdmin.classList.remove('hidden'); 
+                if(widgetVisitor) widgetVisitor.classList.add('hidden');
             } else {
-                btnReport.classList.add('hidden'); btnReport.classList.remove('flex');
-                btnSettings.classList.add('hidden'); btnSettings.classList.remove('flex');
-                btnLogout.classList.add('hidden'); btnLogout.classList.remove('flex');
-                btnQuickAdmin.classList.remove('hidden'); btnQuickAdmin.classList.add('flex');
-                thAction.classList.add('hidden');
-                widgetAdmin.classList.add('hidden'); widgetVisitor.classList.remove('hidden');
+                if(btnReport) { btnReport.classList.add('hidden'); btnReport.classList.remove('flex'); }
+                if(btnSettings) { btnSettings.classList.add('hidden'); btnSettings.classList.remove('flex'); }
+                if(btnLogout) { btnLogout.classList.add('hidden'); btnLogout.classList.remove('flex'); }
+                if(btnQuickAdmin) { btnQuickAdmin.classList.remove('hidden'); btnQuickAdmin.classList.add('flex'); }
+                if(thAction) thAction.classList.add('hidden');
+                if(widgetAdmin) widgetAdmin.classList.add('hidden'); 
+                if(widgetVisitor) widgetVisitor.classList.remove('hidden');
             }
 
             renderStats();
@@ -1402,7 +1481,8 @@
 
         window.renderStats = function() {
             const todayCount = state.visitors.filter(v => v.date === todayStr).length;
-            document.getElementById('stat-today').innerText = todayCount;
+            const todayEl = document.getElementById('stat-today');
+            if(todayEl) todayEl.innerText = todayCount;
             
             const filterValue = state.statsFilter || 'month';
             let totalCount = 0;
@@ -1420,26 +1500,33 @@
                 label = 'Jumlah Pelawat (Keseluruhan)';
             }
             
-            document.getElementById('stat-total').innerText = totalCount;
+            const totalEl = document.getElementById('stat-total');
+            if(totalEl) totalEl.innerText = totalCount;
+            
             const widgetLabel = document.getElementById('widget-stat-label');
             if(widgetLabel) widgetLabel.innerText = label;
         }
 
         window.renderTable = function() {
             const tbody = document.getElementById('table-body');
+            if(!tbody) return;
+            
             tbody.innerHTML = '';
             
-            // Format jadual asal pada dashboard = hanya ikut tarikh kalendar dipilih
             let filteredData = state.visitors.filter(v => v.date === state.selectedDate);
             
-            document.getElementById('table-title').innerHTML = `<i data-lucide="calendar" class="h-5 w-5 text-blue-600"></i> Senarai Pelawat: ${state.selectedDate === todayStr ? 'Hari Ini' : state.selectedDate}`;
+            const tableTitle = document.getElementById('table-title');
+            if(tableTitle) {
+                tableTitle.innerHTML = `<i data-lucide="calendar" class="h-5 w-5 text-blue-600"></i> Senarai Pelawat: ${state.selectedDate === todayStr ? 'Hari Ini' : state.selectedDate}`;
+            }
             
             const maxLimit = state.settings.maxRecords;
-            if (maxLimit !== 'all') {
+            if (maxLimit && maxLimit !== 'all') {
                 filteredData = filteredData.slice(0, parseInt(maxLimit, 10));
             }
             
-            document.getElementById('table-count').innerText = `${filteredData.length} rekod`;
+            const countEl = document.getElementById('table-count');
+            if(countEl) countEl.innerText = `${filteredData.length} rekod`;
 
             if (filteredData.length === 0) {
                 const colSpan = state.role === 'admin' ? 4 : 3;
@@ -1471,8 +1558,8 @@
 
                 tr.innerHTML = `
                     <td class="p-4">
-                        <p class="font-black text-gray-900 text-base">${v.name} ${roleBadge}</p>
-                        <p class="text-xs text-gray-600 font-bold mt-0.5">ID: ${v.empNo || '-'}</p>
+                        <p class="font-bold text-gray-800">${v.name} ${roleBadge}</p>
+                        <p class="text-xs text-gray-500 font-bold mt-0.5">ID: ${v.empNo || '-'}</p>
                     </td>
                     <td class="p-4">
                         <p class="text-sm text-gray-900 font-extrabold mb-1">${v.position || '-'}</p>
@@ -1486,7 +1573,6 @@
             lucide.createIcons();
         }
 
-        // --- Calendar Logic ---
         window.changeMonth = function(offset) {
             const d = state.calendarDate;
             state.calendarDate = new Date(d.getFullYear(), d.getMonth() + offset, 1);
@@ -1516,9 +1602,12 @@
             const year = state.calendarDate.getFullYear();
             const month = state.calendarDate.getMonth();
             
-            document.getElementById('calendar-title').innerText = `${monthNames[month]} ${year}`;
+            const titleEl = document.getElementById('calendar-title');
+            if(titleEl) titleEl.innerText = `${monthNames[month]} ${year}`;
             
             const grid = document.getElementById('calendar-grid');
+            if(!grid) return;
+            
             grid.innerHTML = '';
 
             const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -1565,7 +1654,7 @@
             }
         }
 
-        // --- Reports / Print PDF ---
+        // --- Pilihan Laporan (Harian, Mingguan, Bulanan & Tahunan) ---
         window.selectReport = function(type, element) {
             state.selectedReportType = type;
             document.querySelectorAll('.report-btn').forEach(btn => {
@@ -1576,19 +1665,46 @@
                 const span = btn.querySelector('span');
                 if (span) span.classList.replace('text-blue-800', 'text-gray-700');
             });
-            element.classList.add('bg-blue-50', 'border-blue-300');
-            element.classList.remove('bg-gray-50', 'border-gray-200');
-            const elIcon = element.querySelector('svg') || element.querySelector('i');
-            if (elIcon) elIcon.classList.replace('text-gray-500', 'text-blue-600');
-            const elSpan = element.querySelector('span');
-            if (elSpan) elSpan.classList.replace('text-gray-700', 'text-blue-800');
-            document.getElementById('btn-print-trigger').classList.remove('hidden');
+            
+            const btnElement = element ? element.closest('.report-btn') : null;
+            if(btnElement) {
+                btnElement.classList.add('bg-blue-50', 'border-blue-300');
+                btnElement.classList.remove('bg-gray-50', 'border-gray-200');
+                const elIcon = btnElement.querySelector('svg') || btnElement.querySelector('i');
+                if (elIcon) elIcon.classList.replace('text-gray-500', 'text-blue-600');
+                const elSpan = btnElement.querySelector('span');
+                if (elSpan) elSpan.classList.replace('text-gray-700', 'text-blue-800');
+            }
+
+            const monthPicker = document.getElementById('report-month-picker');
+            const yearPicker = document.getElementById('report-year-picker');
+            
+            if(monthPicker) monthPicker.classList.add('hidden');
+            if(yearPicker) yearPicker.classList.add('hidden');
+
+            if (type === 'bulanan' && monthPicker) {
+                monthPicker.classList.remove('hidden');
+                if (!monthPicker.value) monthPicker.value = todayStr.substring(0, 7);
+            } else if (type === 'tahunan' && yearPicker) {
+                yearPicker.classList.remove('hidden');
+                if (!yearPicker.value) yearPicker.value = todayStr.substring(0, 4);
+            }
+            
+            const btnPrint = document.getElementById('btn-print-trigger');
+            if(btnPrint) btnPrint.classList.remove('hidden');
         };
 
         window.closeReportModal = function() {
             hideModal('modal-report');
             state.selectedReportType = null;
-            document.getElementById('btn-print-trigger').classList.add('hidden');
+            const btnPrint = document.getElementById('btn-print-trigger');
+            if(btnPrint) btnPrint.classList.add('hidden');
+            
+            const monthPicker = document.getElementById('report-month-picker');
+            const yearPicker = document.getElementById('report-year-picker');
+            if(monthPicker) monthPicker.classList.add('hidden');
+            if(yearPicker) yearPicker.classList.add('hidden');
+
             document.querySelectorAll('.report-btn').forEach(btn => {
                 btn.classList.remove('bg-blue-50', 'border-blue-300');
                 btn.classList.add('bg-gray-50', 'border-gray-200');
@@ -1599,6 +1715,7 @@
             });
         };
 
+        // --- Cetak PDF yang Lebih Kemas ---
         window.generateReport = function() {
             let filteredData = [];
             let title = "";
@@ -1611,44 +1728,79 @@
                 filteredData = state.visitors.filter(v => isWithinLast7Days(v.date));
                 title = "Laporan Mingguan (7 Hari Terkini)";
             } else if (type === 'bulanan') {
-                const currentMonthPrefix = todayStr.substring(0, 7);
-                filteredData = state.visitors.filter(v => v.date.startsWith(currentMonthPrefix));
-                title = `Laporan Bulanan (${currentMonthPrefix})`;
+                const monthPicker = document.getElementById('report-month-picker');
+                const selectedMonth = monthPicker && monthPicker.value ? monthPicker.value : todayStr.substring(0, 7);
+                filteredData = state.visitors.filter(v => v.date && v.date.startsWith(selectedMonth));
+                title = `Laporan Bulanan (${selectedMonth})`;
+            } else if (type === 'tahunan') {
+                const yearPicker = document.getElementById('report-year-picker');
+                const selectedYear = yearPicker && yearPicker.value ? yearPicker.value : todayStr.substring(0, 4);
+                filteredData = state.visitors.filter(v => v.date && v.date.startsWith(selectedYear));
+                title = `Laporan Tahunan (${selectedYear})`;
             }
 
-            document.getElementById('print-title').innerText = title;
-            document.getElementById('print-timestamp').innerText = new Date().toLocaleString('ms-MY');
+            const pTitle = document.getElementById('print-title');
+            if(pTitle) {
+                pTitle.innerText = title;
+                pTitle.className = "text-xl mt-4 font-black uppercase tracking-wide border-b-2 border-gray-800 inline-block pb-2 text-gray-800";
+            }
+            
+            const pTime = document.getElementById('print-timestamp');
+            if(pTime) pTime.innerText = new Date().toLocaleString('ms-MY');
             
             const thead = document.querySelector('#print-header-row');
-            thead.innerHTML = `
-                <th class="border border-gray-800 p-3 text-left w-24">Tarikh</th>
-                <th class="border border-gray-800 p-3 text-left">Nama</th>
-                <th class="border border-gray-800 p-3 text-left w-24">No Pekerja</th>
-                <th class="border border-gray-800 p-3 text-left">Jawatan / Kategori</th>
-                <th class="border border-gray-800 p-3 text-left w-1/3">Tujuan Lawatan</th>
-            `;
+            if(thead) {
+                thead.innerHTML = `
+                    <th class="border border-gray-800 p-3 text-center w-12 bg-gray-200">No</th>
+                    <th class="border border-gray-800 p-3 text-left w-24 bg-gray-200">Tarikh</th>
+                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Nama & ID Pelawat</th>
+                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Jawatan & Kategori</th>
+                    <th class="border border-gray-800 p-3 text-left w-1/3 bg-gray-200">Tujuan Lawatan</th>
+                `;
+            }
 
             const tbody = document.getElementById('print-body');
-            tbody.innerHTML = '';
-            
-            if (filteredData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="border border-gray-800 p-6 text-center text-gray-500 font-medium">Tiada rekod dijumpai bagi tempoh ini.</td></tr>`;
-            } else {
-                filteredData.forEach(v => {
-                    const agensi = v.agency ? ` - ${v.agency}` : '';
-                    const kategoriDisplay = `${v.department || '-'}${agensi}`;
-                    const roleBadge = v.visitorRole === 'Urusetia Pusat Sumber' ? ' (Urusetia)' : '';
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class="border border-gray-800 p-3 font-bold">${v.date}</td>
-                            <td class="border border-gray-800 p-3 font-extrabold text-base">${v.name}${roleBadge}</td>
-                            <td class="border border-gray-800 p-3 font-bold">${v.empNo || '-'}</td>
-                            <td class="border border-gray-800 p-3"><span class="font-bold">${v.position}</span><br/><span class="text-xs text-gray-700 font-extrabold">${kategoriDisplay}</span></td>
-                            <td class="border border-gray-800 p-3 font-bold italic">"${v.comment}"</td>
-                        </tr>
-                    `;
-                });
+            if(tbody) {
+                tbody.innerHTML = '';
+                
+                if (filteredData.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" class="border border-gray-800 p-6 text-center text-gray-500 font-bold">Tiada rekod dijumpai bagi tempoh ini.</td></tr>`;
+                } else {
+                    filteredData.forEach((v, index) => {
+                        const agensi = v.agency ? ` - ${v.agency}` : '';
+                        const kategoriDisplay = `${v.department || '-'}${agensi}`;
+                        const roleBadge = v.visitorRole === 'Urusetia Pusat Sumber' ? ' (Urusetia)' : '';
+                        
+                        const safeDate = v.date || '-';
+                        const safeName = v.name || '-';
+                        const safeEmpNo = v.empNo || '-';
+                        const safePos = v.position || '-';
+                        const safeComment = v.comment || '-';
+                        
+                        const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+
+                        tbody.innerHTML += `
+                            <tr class="${bgClass}">
+                                <td class="border border-gray-800 p-3 text-center font-bold">${index + 1}</td>
+                                <td class="border border-gray-800 p-3 font-bold">${safeDate}</td>
+                                <td class="border border-gray-800 p-3">
+                                    <span class="font-extrabold text-base">${safeName}${roleBadge}</span><br/>
+                                    <span class="text-xs text-gray-600 font-bold">ID: ${safeEmpNo}</span>
+                                </td>
+                                <td class="border border-gray-800 p-3">
+                                    <span class="font-bold">${safePos}</span><br/>
+                                    <span class="text-xs text-gray-700 font-extrabold">${kategoriDisplay}</span>
+                                </td>
+                                <td class="border border-gray-800 p-3 font-bold italic">"${safeComment}"</td>
+                            </tr>
+                        `;
+                    });
+                }
             }
+
+            const printView = document.getElementById('view-print');
+            printView.classList.remove('p-8');
+            printView.classList.add('max-w-6xl', 'mx-auto', 'py-10');
 
             closeReportModal();
             switchView('print');
