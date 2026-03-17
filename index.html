@@ -284,44 +284,40 @@
     <!-- ============================================== -->
     <!-- PAPARAN 3: CETAKAN PDF (PRINT VIEW)            -->
     <!-- ============================================== -->
-    <div id="view-print" class="hidden min-h-screen bg-gray-50 p-6 sm:p-12 text-black fade-in">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex justify-between items-center mb-8 border-b pb-4 no-print bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-800">Mod Prapapar Cetakan (PDF)</h2>
-                    <p class="text-sm text-gray-500">Sila gunakan fungsi "Save as PDF" atau cetak di pelayar anda.</p>
-                </div>
-                <button onclick="cancelPrint()" class="px-5 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 shadow-sm hover:shadow-md transition-colors">
-                    Batal & Kembali
-                </button>
+    <div id="view-print" class="hidden min-h-screen bg-white p-8 text-black fade-in">
+        <div class="flex justify-between items-center mb-8 border-b pb-4 no-print bg-gray-50 p-4 rounded-lg border-2 border-gray-200">
+            <div>
+                <h2 class="text-xl font-bold text-gray-800">Mod Prapapar Cetakan (PDF)</h2>
+                <p class="text-sm text-gray-500">Sila gunakan fungsi "Save as PDF" atau cetak di pelayar anda.</p>
             </div>
+            <button onclick="cancelPrint()" class="px-5 py-2.5 bg-red-600 text-white font-bold rounded-lg hover:bg-red-700 shadow-sm hover:shadow-md transition-colors">
+                Batal & Kembali
+            </button>
+        </div>
 
-            <div class="text-center mb-8 bg-white p-8 border border-gray-200 shadow-sm print:border-none print:shadow-none">
-                <h1 class="text-2xl font-black uppercase mb-1 app-main-title">TAMU PUSAT SUMBER</h1>
-                <h2 class="text-lg font-bold text-gray-700 app-sub-title">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</h2>
-                <h3 id="print-title" class="text-lg mt-4 font-black uppercase tracking-wide border-b-2 border-gray-800 inline-block pb-2"></h3>
-            </div>
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-black uppercase mb-1 app-main-title">TAMU PUSAT SUMBER</h1>
+            <h2 class="text-lg font-bold text-gray-700 app-sub-title">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</h2>
+            <h3 id="print-title" class="text-md mt-4 font-bold border-b-2 border-black inline-block pb-1"></h3>
+        </div>
 
-            <div class="bg-white p-8 border border-gray-200 shadow-sm print:border-none print:shadow-none print:p-0">
-                <table class="w-full border-collapse border border-gray-800 text-sm">
-                    <thead class="bg-gray-100 text-gray-800">
-                        <tr id="print-header-row" class="uppercase text-xs tracking-widest">
-                            <th class="border border-gray-800 p-3 text-center w-12 bg-gray-200">No</th>
-                            <th class="border border-gray-800 p-3 text-left w-24 bg-gray-200">Tarikh</th>
-                            <th class="border border-gray-800 p-3 text-left bg-gray-200">Nama & ID Pelawat</th>
-                            <th class="border border-gray-800 p-3 text-left bg-gray-200">Jawatan & Kategori</th>
-                            <th class="border border-gray-800 p-3 text-left w-1/3 bg-gray-200">Tujuan Lawatan</th>
-                        </tr>
-                    </thead>
-                    <tbody id="print-body" class="text-gray-800">
-                        <!-- Disuntik melalui JS -->
-                    </tbody>
-                </table>
-                
-                <div class="mt-12 text-sm text-gray-500 text-center font-medium">
-                    <p>Laporan dijana secara automatik pada: <span id="print-timestamp"></span></p>
-                </div>
-            </div>
+        <table class="w-full border-collapse border border-gray-800 text-sm">
+            <thead class="bg-gray-100">
+                <tr id="print-header-row">
+                    <th class="border border-gray-800 p-3 text-left w-24 bg-gray-200">Tarikh</th>
+                    <th class="border border-gray-800 p-3 text-center w-12 bg-gray-200">Bil.</th>
+                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Nama & ID Pelawat</th>
+                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Jawatan & Kategori</th>
+                    <th class="border border-gray-800 p-3 text-left w-1/3 bg-gray-200">Tujuan Lawatan</th>
+                </tr>
+            </thead>
+            <tbody id="print-body">
+                <!-- Disuntik melalui JS -->
+            </tbody>
+        </table>
+        
+        <div class="mt-12 text-sm text-gray-500 text-center font-medium">
+            <p>Laporan dijana secara automatik pada: <span id="print-timestamp"></span></p>
         </div>
     </div>
 
@@ -398,8 +394,10 @@
                     <div class="flex flex-col sm:flex-row gap-2 mb-4">
                         <select id="filter-settings-time" onchange="renderSettingsTable()" class="text-xs border-2 border-gray-200 rounded-lg p-2 font-bold outline-none cursor-pointer bg-white w-full sm:w-auto">
                             <option value="all">Semua Masa</option>
-                            <option value="monthly">Bulan Ini</option>
                             <option value="daily">Hari Ini</option>
+                            <option value="weekly">Minggu Ini</option>
+                            <option value="monthly">Bulan Ini</option>
+                            <option value="yearly">Tahun Ini</option>
                         </select>
                         <select id="filter-settings-dept" onchange="renderSettingsTable()" class="text-xs border-2 border-gray-200 rounded-lg p-2 font-bold outline-none cursor-pointer bg-white w-full flex-1">
                             <option value="all">Semua Bahagian / Kategori</option>
@@ -635,7 +633,7 @@
                         <textarea id="edit-comment" name="comment" required rows="3" class="w-full p-2 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-500 font-semibold text-gray-900"></textarea>
                     </div>
                     <div class="flex flex-col-reverse sm:flex-row justify-between items-center mt-4 pt-4 border-t-2 border-gray-100 gap-4">
-                        <button type="button" onclick="deleteVisitorWrapper()" class="w-full sm:w-auto px-4 py-2 bg-red-50 text-red-600 border-2 border-red-200 rounded-lg font-bold hover:bg-red-100 flex justify-center items-center gap-2 shadow-sm hover:shadow-md transition-colors text-xs uppercase">
+                        <button type="button" onclick="deleteVisitorWrapper();" class="w-full sm:w-auto px-4 py-2 bg-red-50 text-red-600 border-2 border-red-200 rounded-lg font-bold hover:bg-red-100 flex justify-center items-center gap-2 shadow-sm hover:shadow-md transition-colors text-xs uppercase">
                             <i data-lucide="trash-2" class="h-4 w-4"></i> Padam
                         </button>
                         <div class="flex w-full sm:w-auto gap-3 text-gray-900">
@@ -667,7 +665,7 @@
                     <button onclick="selectReport('bulanan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center justify-between transition-colors shadow-sm hover:shadow-md">
                         <span class="flex items-center gap-3"><i data-lucide="calendar-days" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Bulanan</span></span>
                     </button>
-                    <!-- Month Picker -->
+                    <!-- Month Picker Hidden by default -->
                     <input type="month" id="report-month-picker" class="hidden w-full px-4 py-2 border-2 border-blue-200 rounded-lg outline-none focus:border-blue-500 font-bold text-gray-700 bg-blue-50" />
                 </div>
 
@@ -675,7 +673,7 @@
                     <button onclick="selectReport('tahunan', this)" class="report-btn w-full py-3 px-4 bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 rounded-lg text-left flex items-center justify-between transition-colors shadow-sm hover:shadow-md">
                         <span class="flex items-center gap-3"><i data-lucide="calendar-range" class="h-5 w-5 text-gray-500"></i> <span class="font-bold text-gray-700">Senarai Tahunan</span></span>
                     </button>
-                    <!-- Year Picker -->
+                    <!-- Year Picker Hidden by default -->
                     <input type="number" min="2000" max="2100" id="report-year-picker" placeholder="Tahun (Contoh: 2024)" class="hidden w-full px-4 py-2 border-2 border-blue-200 rounded-lg outline-none focus:border-blue-500 font-bold text-gray-700 bg-blue-50" />
                 </div>
             </div>
@@ -1008,15 +1006,15 @@
                 tbody.innerHTML = '';
                 
                 if(topVisitors.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="4" class="text-center p-4 text-gray-500 font-bold">Tiada rekod pada bulan ini.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="4" class="text-center p-8 text-gray-400 font-bold uppercase tracking-widest text-xs">Tiada rekod pada bulan ini.</td></tr>';
                 } else {
                     topVisitors.forEach((v, index) => {
                         tbody.innerHTML += `
                             <tr class="border-b-2 border-gray-100 hover:bg-gray-50 transition-colors">
-                                <td class="p-2 sm:p-3 text-center font-bold text-gray-800">${index + 1}</td>
-                                <td class="p-2 sm:p-3 font-extrabold text-gray-900">${v.name}</td>
-                                <td class="p-2 sm:p-3 text-xs font-bold text-gray-600">${v.category}</td>
-                                <td class="p-2 sm:p-3 text-center font-black text-blue-600 text-lg">${v.count}</td>
+                                <td class="p-4 text-center font-bold text-gray-800">${index + 1}</td>
+                                <td class="p-4 font-black text-gray-900">${v.name}</td>
+                                <td class="p-4 text-xs font-bold text-gray-600">${v.category}</td>
+                                <td class="p-4 text-center font-black text-blue-600 text-lg">${v.count}</td>
                             </tr>
                         `;
                     });
@@ -1048,7 +1046,10 @@
             const topVisitors = Object.values(counts).sort((a,b) => b.count - a.count);
 
             const printTitle = document.getElementById('print-title');
-            if(printTitle) printTitle.innerText = `Senarai Pelawat Paling Kerap Hadir (${topMonth})`;
+            if(printTitle) {
+                printTitle.innerText = `Senarai Pelawat Paling Kerap Hadir (${topMonth})`;
+                printTitle.className = "text-xl mt-4 font-black uppercase text-gray-800 tracking-wide border-b-2 border-gray-800 inline-block pb-2";
+            }
             
             const printTimestamp = document.getElementById('print-timestamp');
             if(printTimestamp) printTimestamp.innerText = new Date().toLocaleString('ms-MY');
@@ -1056,31 +1057,34 @@
             const thead = document.querySelector('#print-header-row');
             if(thead) {
                 thead.innerHTML = `
-                    <th class="border border-gray-800 p-3 text-center w-12 bg-gray-200">No</th>
-                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Nama Pelawat</th>
-                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Bahagian / Kategori</th>
-                    <th class="border border-gray-800 p-3 text-center w-32 bg-gray-200">Jumlah Hadir</th>
+                    <th class="border border-gray-300 p-4 text-center w-16 bg-gray-200">No</th>
+                    <th class="border border-gray-300 p-4 text-left bg-gray-200">Nama Pelawat</th>
+                    <th class="border border-gray-300 p-4 text-left bg-gray-200">Bahagian / Kategori</th>
+                    <th class="border border-gray-300 p-4 text-center w-32 bg-gray-200">Jumlah Hadir</th>
                 `;
             }
             
             const tbody = document.getElementById('print-body');
+            const summary = document.getElementById('print-summary');
             if(tbody) {
                 tbody.innerHTML = '';
                 
                 if (topVisitors.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="4" class="border border-gray-800 p-6 text-center text-gray-500 font-bold">Tiada rekod dijumpai.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="4" class="border border-gray-300 p-8 text-center text-gray-500 font-bold tracking-widest uppercase text-sm">Tiada rekod dijumpai.</td></tr>`;
+                    if(summary) summary.innerText = "Jumlah Rekod: 0";
                 } else {
                     topVisitors.forEach((v, idx) => {
                         const bgClass = idx % 2 === 0 ? 'bg-white' : 'bg-gray-50';
                         tbody.innerHTML += `
                             <tr class="${bgClass}">
-                                <td class="border border-gray-800 p-3 text-center font-bold">${idx + 1}</td>
-                                <td class="border border-gray-800 p-3 font-extrabold text-base">${v.name}</td>
-                                <td class="border border-gray-800 p-3 font-bold">${v.category}</td>
-                                <td class="border border-gray-800 p-3 text-center font-black text-lg">${v.count}</td>
+                                <td class="border border-gray-300 p-3 text-center font-bold">${idx + 1}</td>
+                                <td class="border border-gray-300 p-3 font-extrabold text-base">${v.name}</td>
+                                <td class="border border-gray-300 p-3 font-bold">${v.category}</td>
+                                <td class="border border-gray-300 p-3 text-center font-black text-lg">${v.count}</td>
                             </tr>
                         `;
                     });
+                    if(summary) summary.innerText = `Jumlah Senarai: ${topVisitors.length}`;
                 }
             }
 
@@ -1124,7 +1128,7 @@
                 
             }, (err) => {
                 isDbInitialized = false; 
-                showSystemError(`Ralat Pangkalan Data (${err.code}).`);
+                showSystemError(`Ralat Pangkalan Data (${err.code}): Sila pastikan Rules diset 'allow read, write: if true;' di Firebase Console.`);
             });
 
             onSnapshot(settingsRef, (docSnap) => {
@@ -1184,26 +1188,23 @@
             }
         };
 
-        const formQuickLogin = document.getElementById('form-quick-login');
-        if(formQuickLogin) {
-            formQuickLogin.onsubmit = (e) => {
-                e.preventDefault();
-                const passInput = document.getElementById('quick-admin-pass');
-                const pass = passInput ? passInput.value : '';
+        window.handleQuickLogin = function(e) {
+            e.preventDefault();
+            const passInput = document.getElementById('quick-admin-pass');
+            const pass = passInput ? passInput.value : '';
 
-                if (pass === 'pustakaMtib') {
-                    state.role = 'admin';
-                    hideModal('modal-admin-login');
-                    updateDashboardUI(); 
-                    showToast("Log masuk Admin berjaya.");
-                    if(passInput) passInput.value = '';
-                } else {
-                    showToast("Kata Laluan tidak sah.");
-                }
-            };
-        }
+            if (pass === 'pustakaMtib') {
+                state.role = 'admin';
+                hideModal('modal-admin-login');
+                updateDashboardUI(); 
+                showToast("Log masuk Admin berjaya.");
+                if(passInput) passInput.value = '';
+            } else {
+                showToast("Kata Laluan tidak sah.");
+            }
+        };
 
-        const processRegistration = async (e, formId, isGuestForm) => {
+        window.processRegistration = async function(e, formId, isGuestForm) {
             e.preventDefault();
             
             const form = document.getElementById(formId);
@@ -1233,6 +1234,7 @@
             }
 
             try {
+                // SIMPAN TERUS KE KOLEKSI ASAL
                 const visitorsCol = collection(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors');
                 await addDoc(visitorsCol, newVisitor);
                 
@@ -1277,42 +1279,33 @@
             }
         };
 
-        const formGuest = document.getElementById('form-guest');
-        if(formGuest) formGuest.onsubmit = (e) => processRegistration(e, 'form-guest', true);
-        
-        const formAdminRegister = document.getElementById('form-admin-register');
-        if(formAdminRegister) formAdminRegister.onsubmit = (e) => processRegistration(e, 'form-admin-register', false);
-
-        const formEdit = document.getElementById('form-edit');
-        if(formEdit) {
-            formEdit.onsubmit = async (e) => {
-                e.preventDefault();
-                const idInput = document.getElementById('edit-id');
-                if(!idInput) return;
-                const id = idInput.value;
-                
-                const updatedData = {
-                    date: document.getElementById('edit-date')?.value || todayStr,
-                    name: document.getElementById('edit-name')?.value || '',
-                    empNo: document.getElementById('edit-empNo')?.value || '',
-                    visitorRole: document.getElementById('edit-visitorRole')?.value || 'Pelawat Biasa',
-                    position: document.getElementById('edit-position')?.value || '',
-                    department: document.getElementById('edit-department')?.value || '',
-                    agency: document.getElementById('edit-agency')?.value || '',
-                    comment: document.getElementById('edit-comment')?.value || ''
-                };
-                
-                try {
-                    const docReference = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors', id);
-                    await updateDoc(docReference, updatedData);
-                    hideModal('modal-edit');
-                    showToast("Data pelawat dikemaskini.");
-                } catch (err) {
-                    showSystemError(`Gagal Mengemaskini Data (${err.code}).`);
-                    showToast("Ralat kemaskini data.");
-                }
+        window.handleEditSubmit = async function(e) {
+            e.preventDefault();
+            const idInput = document.getElementById('edit-id');
+            if(!idInput) return;
+            const id = idInput.value;
+            
+            const updatedData = {
+                date: document.getElementById('edit-date')?.value || todayStr,
+                name: document.getElementById('edit-name')?.value || '',
+                empNo: document.getElementById('edit-empNo')?.value || '',
+                visitorRole: document.getElementById('edit-visitorRole')?.value || 'Pelawat Biasa',
+                position: document.getElementById('edit-position')?.value || '',
+                department: document.getElementById('edit-department')?.value || '',
+                agency: document.getElementById('edit-agency')?.value || '',
+                comment: document.getElementById('edit-comment')?.value || ''
             };
-        }
+            
+            try {
+                const docReference = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors', id);
+                await updateDoc(docReference, updatedData);
+                hideModal('modal-edit');
+                showToast("Data pelawat dikemaskini.");
+            } catch (err) {
+                showSystemError(`Gagal Mengemaskini Data (${err.code}).`);
+                showToast("Ralat kemaskini data.");
+            }
+        };
 
         // FUNGSI UNTUK PADAM REKOD YANG SEBELUM INI TIADA
         window.deleteVisitorWrapper = function() {
@@ -1404,7 +1397,7 @@
             if(countEl) countEl.innerText = `${filteredData.length} rekod`;
 
             if (filteredData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-gray-400 font-bold">Tiada rekod dijumpai.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-gray-400 font-bold uppercase tracking-widest text-xs">Tiada rekod dijumpai.</td></tr>`;
                 lucide.createIcons();
                 return;
             }
@@ -1423,13 +1416,13 @@
                 const roleBadge = v.visitorRole === 'Urusetia Pusat Sumber' 
                     ? `<span class="bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded text-[10px] ml-1">Urusetia</span>` 
                     : '';
-                const tagKategori = `<span class="text-[10px] text-gray-500 font-extrabold">${v.department || '-'}${agensi}</span>`;
+                const tagKategori = `<span class="text-[10px] text-gray-500 font-extrabold uppercase tracking-wider">${v.department || '-'}${agensi}</span>`;
 
                 tr.innerHTML = `
                     <td class="p-3 text-xs font-bold text-gray-600">${v.date}</td>
                     <td class="p-3">
                         <p class="font-black text-gray-900 text-sm">${v.name} ${roleBadge}</p>
-                        <p class="text-[10px] text-gray-500 font-bold mt-0.5">ID: ${v.empNo || '-'}</p>
+                        <p class="text-[10px] text-gray-500 font-bold mt-0.5 uppercase tracking-widest">ID: ${v.empNo || '-'}</p>
                     </td>
                     <td class="p-3">${tagKategori}</td>
                     ${actionTd}
@@ -1441,8 +1434,6 @@
 
         window.updateDashboardUI = function() {
             const dateEl = document.getElementById('header-date');
-            // BESARKAN SAIZ TARIKH
-            if(dateEl) dateEl.className = "font-black text-blue-800 text-xl sm:text-2xl tracking-tight uppercase";
             if(dateEl) dateEl.innerText = formatDateMalay(new Date());
             
             const roleEl = document.getElementById('header-role');
@@ -1513,6 +1504,7 @@
             
             tbody.innerHTML = '';
             
+            // Format jadual asal pada dashboard = hanya ikut tarikh kalendar dipilih
             let filteredData = state.visitors.filter(v => v.date === state.selectedDate);
             
             const tableTitle = document.getElementById('table-title');
@@ -1530,21 +1522,21 @@
 
             if (filteredData.length === 0) {
                 const colSpan = state.role === 'admin' ? 4 : 3;
-                tbody.innerHTML = `<tr><td colspan="${colSpan}" class="p-8 text-center text-gray-400 font-bold">Tiada rekod pelawat pada tarikh ini.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="${colSpan}" class="p-8 text-center text-gray-400 font-bold tracking-widest text-sm uppercase">Tiada rekod pelawat pada tarikh ini.</td></tr>`;
                 lucide.createIcons();
                 return;
             }
 
             filteredData.forEach(v => {
                 const tr = document.createElement('tr');
-                tr.className = "border-b-2 border-gray-100 hover:bg-blue-50 transition-colors";
+                tr.className = "border-b-2 border-gray-100 hover:bg-blue-50/50 transition-colors";
                 
                 let actionTd = '';
                 if (state.role === 'admin') {
                     actionTd = `
-                        <td class="p-4">
+                        <td class="p-4 align-middle">
                             <div class="flex justify-center gap-2">
-                                <button onclick="openEditModal('${v.id}')" class="px-3 py-1.5 bg-white text-blue-600 hover:bg-blue-100 border-2 border-blue-200 rounded-lg font-bold text-xs flex items-center gap-1 transition-colors shadow-sm hover:shadow-md" title="Kemaskini Data"><i data-lucide="edit" class="h-3 w-3"></i> Kemaskini</button>
+                                <button onclick="openEditModal('${v.id}')" class="px-4 py-2 bg-white text-blue-600 hover:bg-blue-600 hover:text-white border-2 border-blue-200 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm hover:shadow-md hover:ring-4 hover:ring-blue-100 uppercase"><i data-lucide="edit" class="h-3 w-3 inline mr-1"></i>Pinda</button>
                             </div>
                         </td>
                     `;
@@ -1552,20 +1544,20 @@
 
                 const agensi = v.agency ? ` - ${v.agency}` : '';
                 const roleBadge = v.visitorRole === 'Urusetia Pusat Sumber' 
-                    ? `<span class="bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded text-[10px] ml-2">Urusetia</span>` 
+                    ? `<span class="bg-purple-100 text-purple-700 border border-purple-200 px-1.5 py-0.5 rounded text-[10px] ml-2 shadow-sm">Urusetia</span>` 
                     : '';
-                const tagKategori = `<span class="text-xs text-gray-700 font-extrabold">${v.department || '-'}${agensi}</span>`;
+                const tagKategori = `<span class="text-xs text-gray-500 font-black uppercase tracking-wider">${v.department || '-'}${agensi}</span>`;
 
                 tr.innerHTML = `
-                    <td class="p-4">
-                        <p class="font-bold text-gray-800">${v.name} ${roleBadge}</p>
-                        <p class="text-xs text-gray-500 font-bold mt-0.5">ID: ${v.empNo || '-'}</p>
+                    <td class="p-5 align-top">
+                        <p class="font-black text-[15px] text-gray-900">${v.name} ${roleBadge}</p>
+                        <p class="text-[11px] text-gray-400 font-bold mt-1 uppercase tracking-widest">ID: ${v.empNo || '-'}</p>
                     </td>
-                    <td class="p-4">
-                        <p class="text-sm text-gray-900 font-extrabold mb-1">${v.position || '-'}</p>
+                    <td class="p-5 align-top">
+                        <p class="text-sm text-gray-800 font-extrabold mb-1.5">${v.position || '-'}</p>
                         ${tagKategori}
                     </td>
-                    <td class="p-4 text-sm text-gray-800 font-bold italic">"${v.comment}"</td>
+                    <td class="p-5 text-sm text-gray-700 font-bold italic align-top">"${v.comment}"</td>
                     ${actionTd}
                 `;
                 tbody.appendChild(tr);
@@ -1615,7 +1607,7 @@
             let startDay = firstDay === 0 ? 6 : firstDay - 1;
 
             for (let i = 0; i < startDay; i++) {
-                grid.innerHTML += `<div class="h-8 bg-gray-50 rounded-lg border-2 border-transparent"></div>`;
+                grid.innerHTML += `<div class="h-10 bg-gray-50/50 rounded-xl border border-transparent"></div>`;
             }
 
             for (let day = 1; day <= daysInMonth; day++) {
@@ -1631,16 +1623,16 @@
                 const isSelected = (dateStr === state.selectedDate);
                 const hasVisitors = state.visitors.some(v => v.date === dateStr);
 
-                let baseClass = "h-8 flex flex-col items-center justify-center rounded-lg cursor-pointer transition-all border-2 text-[11px] ";
+                let baseClass = "h-10 flex flex-col items-center justify-center rounded-xl cursor-pointer transition-all border text-[12px] ";
                 
                 if (isSelected) {
-                    baseClass += "bg-blue-100 border-blue-500 text-blue-800 font-black shadow-inner";
+                    baseClass += "bg-blue-100 border-blue-500 text-blue-800 font-black shadow-inner ring-2 ring-blue-400 ring-offset-1";
                 } else if (isToday) {
-                    baseClass += "bg-gray-100 border-gray-400 text-gray-800 font-bold hover:border-gray-500";
+                    baseClass += "bg-gray-200 border-gray-400 text-gray-900 font-bold hover:border-gray-500 hover:ring-2 hover:ring-gray-300";
                 } else if (isWeekend) {
-                    baseClass += "bg-orange-50/70 border-orange-100 text-orange-700 hover:border-orange-300 font-bold";
+                    baseClass += "bg-red-50/30 border-red-100 text-red-500 hover:border-red-300 font-bold hover:bg-red-50 hover:ring-2 hover:ring-red-100";
                 } else {
-                    baseClass += "bg-white border-transparent hover:border-gray-300 font-bold text-gray-700";
+                    baseClass += "bg-white border-gray-100 hover:border-blue-300 hover:bg-blue-50 font-bold text-gray-700 hover:ring-2 hover:ring-blue-100";
                 }
 
                 let dotHtml = hasVisitors ? `<div class="w-1.5 h-1.5 bg-green-500 rounded-full mt-0.5 shadow-sm"></div>` : '';
@@ -1658,21 +1650,21 @@
         window.selectReport = function(type, element) {
             state.selectedReportType = type;
             document.querySelectorAll('.report-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-50', 'border-blue-300');
-                btn.classList.add('bg-gray-50', 'border-gray-200');
+                btn.classList.remove('bg-blue-50', 'border-blue-400', 'ring-4', 'ring-blue-100');
+                btn.classList.add('bg-white', 'border-gray-200');
                 const icon = btn.querySelector('svg') || btn.querySelector('i');
                 if (icon) icon.classList.replace('text-blue-600', 'text-gray-500');
-                const span = btn.querySelector('span');
+                const span = btn.querySelector('span.font-bold');
                 if (span) span.classList.replace('text-blue-800', 'text-gray-700');
             });
             
             const btnElement = element ? element.closest('.report-btn') : null;
             if(btnElement) {
-                btnElement.classList.add('bg-blue-50', 'border-blue-300');
-                btnElement.classList.remove('bg-gray-50', 'border-gray-200');
+                btnElement.classList.add('bg-blue-50', 'border-blue-400', 'ring-4', 'ring-blue-100');
+                btnElement.classList.remove('bg-white', 'border-gray-200');
                 const elIcon = btnElement.querySelector('svg') || btnElement.querySelector('i');
                 if (elIcon) elIcon.classList.replace('text-gray-500', 'text-blue-600');
-                const elSpan = btnElement.querySelector('span');
+                const elSpan = btnElement.querySelector('span.font-bold');
                 if (elSpan) elSpan.classList.replace('text-gray-700', 'text-blue-800');
             }
 
@@ -1706,17 +1698,141 @@
             if(yearPicker) yearPicker.classList.add('hidden');
 
             document.querySelectorAll('.report-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-50', 'border-blue-300');
-                btn.classList.add('bg-gray-50', 'border-gray-200');
+                btn.classList.remove('bg-blue-50', 'border-blue-400', 'ring-4', 'ring-blue-100');
+                btn.classList.add('bg-white', 'border-gray-200');
                 const icon = btn.querySelector('svg') || btn.querySelector('i');
                 if (icon) icon.classList.replace('text-blue-600', 'text-gray-500');
-                const span = btn.querySelector('span');
+                const span = btn.querySelector('span.font-bold');
                 if (span) span.classList.replace('text-blue-800', 'text-gray-700');
             });
         };
 
-        // --- Cetak PDF yang Lebih Kemas ---
-        window.generateReport = function() {
+        window.generateSettingsReport = function() {
+            const tbody = document.getElementById('settings-table-body');
+            const filterTimeEl = document.getElementById('filter-settings-time');
+            const filterTime = filterTimeEl ? filterTimeEl.value : 'all';
+            const filterDeptEl = document.getElementById('filter-settings-dept');
+            const filterDept = filterDeptEl ? filterDeptEl.value : 'all';
+
+            let timeTitle = "Keseluruhan";
+            if(filterTime === 'daily') timeTitle = `Harian (${todayStr})`;
+            else if(filterTime === 'weekly') timeTitle = `Mingguan (7 Hari Terkini)`;
+            else if(filterTime === 'monthly') timeTitle = `Bulanan (${todayStr.substring(0, 7)})`;
+            else if(filterTime === 'yearly') timeTitle = `Tahunan (${todayStr.substring(0, 4)})`;
+
+            let deptTitle = filterDept === 'all' ? "" : ` - ${filterDept}`;
+            
+            const printTitle = document.getElementById('print-title');
+            if(printTitle) {
+                printTitle.innerText = `Senarai Tapisan: ${timeTitle}${deptTitle}`;
+                printTitle.className = "text-xl mt-4 font-black uppercase text-gray-800 tracking-wide border-b-2 border-gray-800 inline-block pb-2";
+            }
+            
+            const printTimestamp = document.getElementById('print-timestamp');
+            if(printTimestamp) printTimestamp.innerText = new Date().toLocaleString('ms-MY');
+
+            const h = document.querySelector('#print-header-row');
+            if(h) h.innerHTML = '<th class="border border-gray-300 p-4 text-left w-24 bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Tarikh</th><th class="border border-gray-300 p-4 text-center w-12 bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Bil.</th><th class="border border-gray-300 p-4 text-left bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Nama & ID Pelawat</th><th class="border border-gray-300 p-4 text-left bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Jawatan & Kategori</th><th class="border border-gray-300 p-4 text-left w-1/3 bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Tujuan Lawatan</th>';
+            
+            const printBody = document.getElementById('print-body');
+            if (printBody && tbody) {
+                 let html = '';
+                 let fData = getSettingsFilteredData();
+                 if(state.settings.maxRecords && state.settings.maxRecords !== 'all') fData = fData.slice(0, parseInt(state.settings.maxRecords));
+                 
+                 // Susun mengikut tarikh (Lama ke Baru)
+                 fData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                 if(fData.length === 0){
+                     html = `<tr><td colspan="5" class="border border-gray-300 p-8 text-center text-gray-500 font-bold tracking-widest uppercase text-sm">Tiada rekod dijumpai.</td></tr>`;
+                 } else {
+                     let currentDateStr = '';
+                     let dailyCounter = 0;
+                     
+                     fData.forEach((v, index) => {
+                         let displayDate = '';
+                         if (v.date !== currentDateStr) {
+                             currentDateStr = v.date;
+                             dailyCounter = 1;
+                             displayDate = v.date;
+                         } else {
+                             dailyCounter++;
+                             displayDate = ''; // Kosongkan tarikh yang berulang
+                         }
+                     
+                         const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                         html += `<tr class="${bgClass}">
+                            <td class="border border-gray-300 p-4 font-bold text-center sm:text-left">${displayDate}</td>
+                            <td class="border border-gray-300 p-4 text-center font-bold">${dailyCounter}</td>
+                            <td class="border border-gray-300 p-4">
+                                <span class="font-extrabold text-base text-gray-900">${v.name}</span><br/>
+                                <span class="text-xs text-gray-600 font-bold tracking-widest uppercase mt-1 inline-block">ID: ${v.empNo || '-'}</span>
+                            </td>
+                            <td class="border border-gray-300 p-4">
+                                <span class="font-bold text-gray-800">${v.position || '-'}</span><br/>
+                                <span class="text-[11px] text-gray-700 font-extrabold uppercase tracking-wide mt-1 inline-block">${v.department}</span>
+                            </td>
+                            <td class="border border-gray-300 p-4 text-sm italic font-medium">"${v.comment}"</td>
+                        </tr>`;
+                     });
+                 }
+                 printBody.innerHTML = html;
+            }
+            
+            const printView = document.getElementById('view-print');
+            printView.classList.remove('p-8');
+            printView.classList.add('max-w-6xl', 'mx-auto', 'py-10');
+            
+            hideModal('modal-settings'); switchView('print'); setTimeout(()=>window.print(), 500);
+        };
+
+
+        window.generateTopVisitorsReport = () => {
+            const body = document.getElementById('top-visitors-body');
+            const monthPicker = document.getElementById('top-month-picker');
+            const topMonth = monthPicker && monthPicker.value ? monthPicker.value : todayStr.substring(0,7); 
+
+            const pTitle = document.getElementById('print-title');
+            if (pTitle) {
+                pTitle.innerText = `Ranking Kedatangan (${topMonth})`;
+                pTitle.className = "text-xl mt-4 font-black uppercase text-gray-800 tracking-wide border-b-2 border-gray-800 inline-block pb-2";
+            }
+            
+            const pTime = document.getElementById('print-timestamp');
+            if (pTime) pTime.innerText = new Date().toLocaleString('ms-MY');
+
+            const h = document.querySelector('#print-header-row');
+            if (h) h.innerHTML = '<th class="border border-gray-300 p-4 text-center w-16 bg-gray-100 font-bold uppercase text-gray-700">No</th><th class="border border-gray-300 p-4 text-left bg-gray-100 font-bold uppercase text-gray-700">Nama Pelawat</th><th class="border border-gray-300 p-4 text-left bg-gray-100 font-bold uppercase text-gray-700">Kategori / Jabatan</th><th class="border border-gray-300 p-4 text-center w-32 bg-gray-100 font-bold uppercase text-gray-700">Jumlah Hadir</th><th class="border-0"></th>';
+            
+            let baseData = state.visitors.filter(v => v.visitorRole !== 'Urusetia Pusat Sumber' && v.date && v.date.startsWith(topMonth));
+            const counts = {};
+            baseData.forEach(v => { 
+                const k = v.name ? v.name.trim().toUpperCase() : 'UNKNOWN'; 
+                if(!counts[k]) counts[k] = { name: v.name, count: 0, dept: v.department || 'Pelawat Am' }; 
+                counts[k].count++; 
+            });
+            const topVisitors = Object.values(counts).sort((a,b)=>b.count-a.count).slice(0,10);
+
+            const printBody = document.getElementById('print-body');
+            if (printBody) {
+                if(topVisitors.length === 0){
+                    printBody.innerHTML = `<tr><td colspan="4" class="border border-gray-300 p-8 text-center text-gray-500 font-bold tracking-widest uppercase text-sm">Tiada rekod.</td><td class="border-0"></td></tr>`;
+                } else {
+                    printBody.innerHTML = topVisitors.map((v, i) => {
+                        const bgClass = i % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                        return `<tr class="${bgClass}"><td class="border border-gray-300 p-4 text-center font-bold">${i+1}</td><td class="border border-gray-300 p-4 font-black text-base">${v.name}</td><td class="border border-gray-300 p-4 font-bold text-gray-700">${v.dept}</td><td class="border border-gray-300 p-4 text-center font-black text-lg">${v.count}</td><td class="border-0"></td></tr>`;
+                    }).join('');
+                }
+            }
+            
+            const printView = document.getElementById('view-print');
+            printView.classList.remove('p-8');
+            printView.classList.add('max-w-6xl', 'mx-auto', 'py-10');
+
+            hideModal('modal-stats'); switchView('print'); setTimeout(()=>window.print(), 500);
+        };
+
+        window.generateReport = () => {
             let filteredData = [];
             let title = "";
             const type = state.selectedReportType;
@@ -1739,10 +1855,13 @@
                 title = `Laporan Tahunan (${selectedYear})`;
             }
 
+            // Susun data mengikut tarikh (Lama ke Baru)
+            filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
             const pTitle = document.getElementById('print-title');
             if(pTitle) {
                 pTitle.innerText = title;
-                pTitle.className = "text-xl mt-4 font-black uppercase tracking-wide border-b-2 border-gray-800 inline-block pb-2 text-gray-800";
+                pTitle.className = "text-xl mt-4 font-black uppercase text-gray-800 tracking-wide border-b-2 border-gray-800 inline-block pb-2";
             }
             
             const pTime = document.getElementById('print-timestamp');
@@ -1751,11 +1870,11 @@
             const thead = document.querySelector('#print-header-row');
             if(thead) {
                 thead.innerHTML = `
-                    <th class="border border-gray-800 p-3 text-center w-12 bg-gray-200">No</th>
-                    <th class="border border-gray-800 p-3 text-left w-24 bg-gray-200">Tarikh</th>
-                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Nama & ID Pelawat</th>
-                    <th class="border border-gray-800 p-3 text-left bg-gray-200">Jawatan & Kategori</th>
-                    <th class="border border-gray-800 p-3 text-left w-1/3 bg-gray-200">Tujuan Lawatan</th>
+                    <th class="border border-gray-300 p-4 text-left w-24 bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Tarikh</th>
+                    <th class="border border-gray-300 p-4 text-center w-12 bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Bil.</th>
+                    <th class="border border-gray-300 p-4 text-left bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Nama & ID Pelawat</th>
+                    <th class="border border-gray-300 p-4 text-left bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Jawatan & Kategori</th>
+                    <th class="border border-gray-300 p-4 text-left w-1/3 bg-gray-200 font-bold uppercase text-gray-800 tracking-wider">Tujuan Lawatan</th>
                 `;
             }
 
@@ -1764,14 +1883,27 @@
                 tbody.innerHTML = '';
                 
                 if (filteredData.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="5" class="border border-gray-800 p-6 text-center text-gray-500 font-bold">Tiada rekod dijumpai bagi tempoh ini.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="5" class="border border-gray-300 p-8 text-center text-gray-500 font-bold uppercase tracking-widest text-sm">Tiada rekod dijumpai bagi tempoh ini.</td></tr>`;
                 } else {
+                    let currentDateStr = '';
+                    let dailyCounter = 0;
+
                     filteredData.forEach((v, index) => {
+                        let displayDate = '';
+                        // Logik pengiraan bilangan harian dan kosongkan tarikh yang sama
+                        if (v.date !== currentDateStr) {
+                            currentDateStr = v.date;
+                            dailyCounter = 1;
+                            displayDate = v.date; // Papar tarikh untuk baris pertama hari tersebut
+                        } else {
+                            dailyCounter++;
+                            displayDate = ''; // Kosongkan tarikh bagi baris seterusnya pada hari yang sama
+                        }
+
                         const agensi = v.agency ? ` - ${v.agency}` : '';
                         const kategoriDisplay = `${v.department || '-'}${agensi}`;
                         const roleBadge = v.visitorRole === 'Urusetia Pusat Sumber' ? ' (Urusetia)' : '';
                         
-                        const safeDate = v.date || '-';
                         const safeName = v.name || '-';
                         const safeEmpNo = v.empNo || '-';
                         const safePos = v.position || '-';
@@ -1781,17 +1913,17 @@
 
                         tbody.innerHTML += `
                             <tr class="${bgClass}">
-                                <td class="border border-gray-800 p-3 text-center font-bold">${index + 1}</td>
-                                <td class="border border-gray-800 p-3 font-bold">${safeDate}</td>
-                                <td class="border border-gray-800 p-3">
-                                    <span class="font-extrabold text-base">${safeName}${roleBadge}</span><br/>
-                                    <span class="text-xs text-gray-600 font-bold">ID: ${safeEmpNo}</span>
+                                <td class="border border-gray-300 p-4 font-bold text-center sm:text-left">${displayDate}</td>
+                                <td class="border border-gray-300 p-4 text-center font-bold">${dailyCounter}</td>
+                                <td class="border border-gray-300 p-4">
+                                    <span class="font-extrabold text-base text-gray-900">${safeName}${roleBadge}</span><br/>
+                                    <span class="text-xs text-gray-600 font-bold tracking-widest uppercase mt-1 inline-block">ID: ${safeEmpNo}</span>
                                 </td>
-                                <td class="border border-gray-800 p-3">
-                                    <span class="font-bold">${safePos}</span><br/>
-                                    <span class="text-xs text-gray-700 font-extrabold">${kategoriDisplay}</span>
+                                <td class="border border-gray-300 p-4">
+                                    <span class="font-bold text-gray-800">${safePos}</span><br/>
+                                    <span class="text-[11px] text-gray-700 font-extrabold uppercase tracking-wide mt-1 inline-block">${kategoriDisplay}</span>
                                 </td>
-                                <td class="border border-gray-800 p-3 font-bold italic">"${safeComment}"</td>
+                                <td class="border border-gray-300 p-4 text-sm font-medium italic text-gray-700 leading-relaxed">"${safeComment}"</td>
                             </tr>
                         `;
                     });
@@ -1811,6 +1943,105 @@
             switchView('dashboard');
         };
 
+        document.addEventListener('DOMContentLoaded', () => {
+            const bindForm = (id, fn) => { const el = document.getElementById(id); if(el) el.onsubmit = fn; };
+            bindForm('form-settings', window.saveSettings);
+            
+            window.handleQuickLogin = function(e) {
+                e.preventDefault();
+                const passInput = document.getElementById('quick-admin-pass');
+                const pass = passInput ? passInput.value : '';
+
+                if (pass === 'pustakaMtib') {
+                    state.role = 'admin';
+                    hideModal('modal-admin-login');
+                    updateDashboardUI(); 
+                    showToast("Log masuk Admin berjaya.");
+                    if(passInput) passInput.value = '';
+                } else {
+                    showToast("Kata Laluan tidak sah.");
+                }
+            };
+            bindForm('form-quick-login', window.handleQuickLogin);
+            
+            window.processRegistration = async function(e, formId, isGuestForm) {
+                e.preventDefault();
+                const form = document.getElementById(formId);
+                if(!form) return;
+                
+                const formData = new FormData(form);
+                const selectedVisitDate = formData.get('visit_date') || todayStr;
+
+                const newVisitor = {
+                    date: selectedVisitDate,
+                    name: formData.get('name'),
+                    empNo: formData.get('empNo'),
+                    position: formData.get('position'),
+                    visitorRole: formData.get('visitorRole') || 'Pelawat Biasa',
+                    department: formData.get('department') || '',
+                    agency: formData.get('agency') || '',
+                    comment: formData.get('comment'),
+                    timestamp: Date.now() 
+                };
+
+                const btn = form.querySelector('button[type="submit"]');
+                let oriTxt = "Simpan";
+                if(btn) {
+                    oriTxt = btn.innerText;
+                    btn.innerText = "Menyimpan..."; 
+                    btn.disabled = true;
+                }
+
+                try {
+                    const visitorsCol = collection(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors');
+                    await addDoc(visitorsCol, newVisitor);
+                    
+                    if(btn) {
+                        btn.innerText = oriTxt; 
+                        btn.disabled = false;
+                    }
+                    form.reset();
+
+                    const deptSelect = form.querySelector('select[name="department"]');
+                    if(deptSelect) {
+                        if (isGuestForm) window.toggleAgencyInput(deptSelect, 'guest-agency');
+                        else window.toggleAgencyInput(deptSelect, 'admin-agency');
+                    }
+
+                    if (isGuestForm) {
+                        state.role = 'visitor';
+                        state.selectedDate = selectedVisitDate;
+                        state.calendarDate = new Date(selectedVisitDate);
+                        switchView('dashboard');
+                        showToast(state.settings.successMsg);
+                    } else {
+                        hideModal('modal-register');
+                        state.selectedDate = selectedVisitDate;
+                        state.calendarDate = new Date(selectedVisitDate);
+                        updateDashboardUI();
+                        
+                        if (state.role === 'admin') {
+                            showToast("Pelawat berjaya ditambah oleh Admin.");
+                        } else {
+                            showToast(state.settings.successMsg);
+                        }
+                    }
+                } catch (err) {
+                    console.error(err);
+                    if(btn) {
+                        btn.innerText = oriTxt; 
+                        btn.disabled = false;
+                    }
+                    showSystemError(`Gagal Menyimpan Data (${err.code}). Pastikan Rules Firestore anda adalah 'true'.`);
+                    showToast("Ralat menyimpan data ke Firebase.");
+                }
+            };
+            
+            const gF = document.getElementById('form-guest'); if(gF) gF.onsubmit = (e) => window.processRegistration(e, 'form-guest', true);
+            const aF = document.getElementById('form-admin-register'); if(aF) aF.onsubmit = (e) => window.processRegistration(e, 'form-admin-register', false);
+            bindForm('form-edit', window.handleEditSubmit);
+            window.updateAppTitles();
+        });
     </script>
 </body>
 </html>
