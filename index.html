@@ -137,19 +137,19 @@
         }
 
         .mac-table-header {
-            background: rgba(245, 245, 247, 0.8);
+            background: rgba(245, 245, 247, 0.9);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid #d2d2d7;
-            color: #86868b;
+            border-bottom: 2px solid #e0e7ff;
+            color: #4338ca;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding: 12px 14px;
         }
 
         .mac-table-row { transition: background-color 0.2s; }
-        .mac-table-row:hover { background-color: #f5f5f7; }
+        .mac-table-row:hover { background-color: #eef2ff; }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -220,17 +220,17 @@
             <div class="bg-white/80 p-6 sm:p-8 backdrop-blur-md">
                 <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-6">
                     <div class="flex items-center gap-4">
-                        <div class="p-3 bg-blue-50 rounded-2xl">
-                            <i data-lucide="file-text" class="h-8 w-8 text-[#007aff]"></i>
+                        <div class="p-3 bg-blue-50 rounded-2xl border border-blue-100">
+                            <i data-lucide="file-text" class="h-8 w-8 text-blue-600"></i>
                         </div>
-                        <div>
-                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Selamat Datang</h2>
-                            <p class="text-xs sm:text-sm text-gray-500 font-bold mt-1">Sila isikan butiran lawatan anda di bawah.</p>
+                        <div class="flex flex-col">
+                            <h2 class="text-xl sm:text-2xl font-black text-blue-900 tracking-tight">Selamat Datang</h2>
+                            <p class="text-xs sm:text-sm text-blue-600 font-bold mt-1">Sila isikan butiran lawatan anda di bawah.</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <label class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1 block">Tarikh</label>
-                        <input type="date" id="guest-visit-date" name="visit_date" class="mac-input font-bold text-gray-800 border-none bg-gray-100 py-2 px-3" required title="Pilih Tarikh Lawatan">
+                        <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 block">Tarikh</label>
+                        <input type="date" id="guest-visit-date" name="visit_date" class="mac-input font-bold text-blue-900 border-none bg-blue-50 py-2 px-3 shadow-inner" required title="Pilih Tarikh Lawatan">
                     </div>
                 </div>
                 
@@ -310,14 +310,18 @@
         <!-- Top Menu Bar -->
         <header class="bg-white/80 backdrop-blur-xl border-b border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)] px-6 py-3 flex justify-between items-center no-print fixed top-0 w-full z-50">
             <div class="flex items-center gap-4">
-                <i data-lucide="book-open" class="h-6 w-6 text-[#007aff]"></i>
-                <span class="font-bold text-sm sm:text-base text-gray-900 tracking-tight app-main-title">Pustaka MTIB</span>
-                <div class="h-5 w-px bg-gray-300 mx-1 hidden sm:block"></div>
-                <span class="text-xs sm:text-sm text-gray-600 font-bold hidden sm:block app-sub-title">Sistem Rekod Pelawat</span>
-                <span class="text-[11px] sm:text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full ml-2 border border-blue-100 shadow-sm" id="header-role">Mod Pelawat</span>
+                <div class="p-2 bg-blue-50 rounded-xl shadow-sm border border-blue-100 hidden sm:block">
+                    <i data-lucide="book-open" class="h-6 w-6 text-blue-600"></i>
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="font-black text-xl sm:text-2xl text-blue-900 tracking-tight app-main-title leading-none">PUSTAKA MTIB</h1>
+                    <p class="text-xs sm:text-sm text-blue-600 font-bold app-sub-title mt-1">Sistem Rekod Pelawat</p>
+                </div>
+                <span class="hidden text-[10px] sm:text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full border border-rose-200 shadow-sm ml-2" id="header-role">Mod Pentadbir Aktif</span>
             </div>
             <div class="flex items-center gap-3">
-                <span id="header-date" class="text-xs sm:text-sm font-bold text-gray-700 mr-2"></span>
+                <i data-lucide="wifi" class="h-4 w-4 text-emerald-500 animate-pulse" title="Sistem Dalam Talian"></i>
+                <span id="header-date" class="text-xs sm:text-sm font-black text-indigo-800 mr-2"></span>
                 <div class="h-5 w-px bg-gray-300 mr-1 hidden sm:block"></div>
                 
                 <button id="btn-quick-admin" onclick="showModal('modal-admin-login')" class="hidden items-center gap-1.5 text-gray-600 hover:text-blue-600 transition-colors text-xs font-bold bg-gray-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg" title="Akses Ke Mod Pentadbir">
@@ -337,28 +341,28 @@
         </header>
 
         <!-- Main Content Workspace -->
-        <main class="flex-1 p-4 sm:p-8 max-w-[1400px] mx-auto w-full flex flex-col gap-6 no-print mt-16">
+        <main class="flex-1 p-4 sm:p-8 max-w-[1400px] mx-auto w-full flex flex-col gap-6 no-print mt-20">
             
             <!-- Top Widgets -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Widget Pelawat Hari Ini -->
                 <div onclick="selectToday()" class="mac-window p-6 flex items-center justify-between cursor-pointer hover:shadow-lg transition-shadow group" title="Lihat pelawat hari ini">
                     <div>
-                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider group-hover:text-blue-600 transition-colors">Hari Ini</p>
-                        <p id="stat-today" class="text-4xl font-bold text-gray-900 mt-2 tracking-tight">0</p>
+                        <p class="text-xs font-bold text-blue-600 uppercase tracking-wider transition-colors">Hari Ini</p>
+                        <p id="stat-today" class="text-4xl font-black text-blue-900 mt-2 tracking-tight">0</p>
                     </div>
-                    <div class="bg-blue-50 p-4 rounded-2xl"><i data-lucide="users" class="h-8 w-8 text-[#007aff]"></i></div>
+                    <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100"><i data-lucide="users" class="h-8 w-8 text-blue-600"></i></div>
                 </div>
                 
                 <!-- Widget Jumlah Pelawat -->
                 <div onclick="openStatsModal()" class="mac-window p-6 flex flex-col justify-center cursor-pointer hover:shadow-lg transition-shadow group" title="Lihat statistik & ranking">
                     <div class="flex justify-between items-center mb-1">
-                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider group-hover:text-[#27c93f] transition-colors" id="widget-stat-label">Bulan Ini</p>
-                        <i data-lucide="pie-chart" class="h-4 w-4 text-[#27c93f]"></i>
+                        <p class="text-xs font-bold text-emerald-600 uppercase tracking-wider transition-colors" id="widget-stat-label">Bulan Ini</p>
+                        <i data-lucide="pie-chart" class="h-4 w-4 text-emerald-500"></i>
                     </div>
                     <div class="flex justify-between items-center mt-2">
-                        <p id="stat-total" class="text-4xl font-bold text-gray-900 tracking-tight">0</p>
-                        <div class="bg-green-50 p-4 rounded-2xl"><i data-lucide="book-open" class="h-8 w-8 text-[#27c93f]"></i></div>
+                        <p id="stat-total" class="text-4xl font-black text-emerald-900 tracking-tight">0</p>
+                        <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100"><i data-lucide="book-open" class="h-8 w-8 text-emerald-600"></i></div>
                     </div>
                 </div>
 
@@ -367,7 +371,7 @@
                     <button onclick="showModal('modal-register')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua" title="Daftar Rekod Baru Secara Manual">
                         <div>
                             <p class="text-xs font-bold text-blue-100 uppercase tracking-wider">Tindakan</p>
-                            <p class="text-2xl font-bold text-white mt-1">Daftar Baru</p>
+                            <p class="text-2xl font-black text-white mt-1 tracking-tight">Daftar Baru</p>
                         </div>
                         <div class="bg-white/20 p-4 rounded-2xl backdrop-blur-sm"><i data-lucide="plus-circle" class="h-8 w-8 text-white"></i></div>
                     </button>
@@ -377,7 +381,7 @@
                     <button onclick="switchView('guestForm')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua" title="Klik Di Sini Untuk Mendaftar!">
                         <div>
                             <p class="text-xs font-bold text-blue-100 uppercase tracking-wider">Borang</p>
-                            <p class="text-2xl font-bold text-white mt-1">Daftar Rekod</p>
+                            <p class="text-2xl font-black text-white mt-1 tracking-tight">Daftar Rekod</p>
                         </div>
                         <div class="bg-white/20 p-4 rounded-2xl backdrop-blur-sm"><i data-lucide="user-plus" class="h-8 w-8 text-white"></i></div>
                     </button>
@@ -390,24 +394,24 @@
                 <!-- Left Sidebar (Calendar) -->
                 <div class="mac-window w-full lg:w-[300px] flex flex-col bg-white/60">
                     <div class="mac-titlebar justify-between">
-                        <span class="text-xs text-gray-500 uppercase tracking-widest font-bold">Kalendar</span>
+                        <span class="text-xs text-indigo-900 uppercase tracking-widest font-black">Kalendar</span>
                     </div>
                     <div class="p-5 flex-col flex gap-4">
-                        <div class="flex justify-between items-center bg-white p-2 rounded-xl border border-gray-200 shadow-sm">
-                            <button onclick="changeMonth(-1)" class="mac-btn-secondary !p-2 !rounded-lg border-none shadow-none" title="Bulan Terdahulu"><i data-lucide="chevron-left" class="h-4 w-4 text-gray-600"></i></button>
-                            <h3 id="calendar-title" class="font-bold text-gray-800 text-sm"></h3>
-                            <button onclick="changeMonth(1)" class="mac-btn-secondary !p-2 !rounded-lg border-none shadow-none" title="Bulan Seterusnya"><i data-lucide="chevron-right" class="h-4 w-4 text-gray-600"></i></button>
+                        <div class="flex justify-between items-center bg-white p-2 rounded-xl border border-indigo-100 shadow-sm">
+                            <button onclick="changeMonth(-1)" class="mac-btn-secondary !p-2 !rounded-lg border-none shadow-none text-indigo-700" title="Bulan Terdahulu"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
+                            <h3 id="calendar-title" class="font-black text-indigo-900 text-sm"></h3>
+                            <button onclick="changeMonth(1)" class="mac-btn-secondary !p-2 !rounded-lg border-none shadow-none text-indigo-700" title="Bulan Seterusnya"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
                         </div>
                         
-                        <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <div class="bg-white p-4 rounded-xl border border-indigo-100 shadow-sm">
                             <div class="grid grid-cols-7 gap-1 text-center mb-2">
-                                <div class="text-[11px] font-bold text-gray-500">Is</div>
-                                <div class="text-[11px] font-bold text-gray-500">Se</div>
-                                <div class="text-[11px] font-bold text-gray-500">Ra</div>
-                                <div class="text-[11px] font-bold text-gray-500">Kh</div>
-                                <div class="text-[11px] font-bold text-gray-500">Ju</div>
-                                <div class="text-[11px] font-bold text-[#ff5f56]">Sa</div>
-                                <div class="text-[11px] font-bold text-[#ff5f56]">Ah</div>
+                                <div class="text-[10px] font-bold text-indigo-400">Is</div>
+                                <div class="text-[10px] font-bold text-indigo-400">Se</div>
+                                <div class="text-[10px] font-bold text-indigo-400">Ra</div>
+                                <div class="text-[10px] font-bold text-indigo-400">Kh</div>
+                                <div class="text-[10px] font-bold text-indigo-400">Ju</div>
+                                <div class="text-[10px] font-bold text-rose-500">Sa</div>
+                                <div class="text-[10px] font-bold text-rose-500">Ah</div>
                             </div>
                             
                             <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-sm font-bold">
@@ -415,7 +419,7 @@
                             </div>
                         </div>
 
-                        <button onclick="selectToday()" class="mac-btn-secondary w-full mt-auto py-3 font-bold uppercase tracking-wider text-xs" title="Kembali ke kalendar hari ini">
+                        <button onclick="selectToday()" class="mac-btn-secondary w-full mt-auto py-3 font-bold uppercase tracking-wider text-xs text-indigo-700 hover:text-indigo-900 hover:border-indigo-300 hover:bg-indigo-50" title="Kembali ke kalendar hari ini">
                             <i data-lucide="calendar" class="h-4 w-4"></i> Hari Ini
                         </button>
                     </div>
@@ -423,9 +427,9 @@
 
                 <!-- Main Content Area (Table) -->
                 <div class="mac-window flex-1 flex flex-col bg-white">
-                    <div class="mac-titlebar justify-between bg-gray-50/50">
-                        <span id="table-title" class="flex items-center gap-2 font-bold text-sm text-gray-800"><i data-lucide="list" class="h-4 w-4 text-gray-500"></i> Senarai Pelawat</span>
-                        <span id="table-count" class="bg-gray-200 text-gray-700 border border-gray-300 text-xs px-3 py-1 rounded-full font-bold shadow-inner">0 rekod</span>
+                    <div class="mac-titlebar justify-between bg-indigo-50/30">
+                        <span id="table-title" class="flex items-center gap-2 font-black text-sm text-indigo-900"><i data-lucide="list" class="h-4 w-4 text-indigo-600"></i> Senarai Pelawat</span>
+                        <span id="table-count" class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-xs px-3 py-1 rounded-full font-bold shadow-sm">0 rekod</span>
                     </div>
                     
                     <div class="flex-1 overflow-auto">
@@ -463,8 +467,8 @@
         </div>
 
         <div class="text-center mb-8">
-            <h1 class="text-2xl font-black uppercase mb-1 app-main-title">TAMU PUSAT SUMBER</h1>
-            <h2 class="text-sm text-gray-600 font-bold app-sub-title mb-4 uppercase tracking-widest">Sistem Rekod Pelawat Pusat Sumber & Perpustakaan</h2>
+            <h1 class="text-2xl font-black uppercase mb-1 app-main-title text-blue-900">PUSTAKA MTIB</h1>
+            <h2 class="text-sm text-blue-600 font-bold app-sub-title mb-4 uppercase tracking-widest">Sistem Rekod Pelawat</h2>
             <h3 id="print-title" class="text-lg font-bold border-b-2 border-gray-400 inline-block pb-1"></h3>
         </div>
 
@@ -519,7 +523,7 @@
     <div id="modal-settings" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[60] fade-in backdrop-blur-sm">
         <div class="mac-window max-w-6xl w-full max-h-[95vh] flex flex-col overflow-hidden bg-[#f5f5f7]">
             <div class="mac-titlebar">
-                Tetapan & Pangkalan Data Pelawat
+                <span class="text-blue-900">Tetapan & Pangkalan Data Pelawat</span>
                 <div class="mac-traffic-lights">
                     <div class="mac-dot mac-min"></div>
                     <div class="mac-dot mac-max"></div>
@@ -530,22 +534,22 @@
             <div class="overflow-y-auto p-0 flex flex-col h-full">
                 <!-- ATAS: Borang Tetapan (Kompak) -->
                 <div class="p-5 sm:p-6 bg-white border-b border-gray-200 z-10 relative">
-                    <h4 class="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2 text-xs uppercase tracking-widest"><i data-lucide="settings" class="h-4 w-4 text-gray-500"></i> Konfigurasi Sistem</h4>
+                    <h4 class="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2 text-xs uppercase tracking-widest"><i data-lucide="settings" class="h-4 w-4 text-blue-500"></i> Konfigurasi Sistem</h4>
                     <form id="form-settings" onsubmit="saveSettings(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 items-end">
                         <div class="space-y-1.5">
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Tajuk Besar</label>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider ml-1">Tajuk Besar</label>
                             <input id="setting-title" type="text" required class="mac-input w-full font-bold" title="Ubah tajuk utama" />
                         </div>
                         <div class="space-y-1.5">
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Tajuk Kecil</label>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider ml-1">Tajuk Kecil</label>
                             <input id="setting-subtitle" type="text" required class="mac-input w-full font-bold" title="Ubah tajuk kecil" />
                         </div>
                         <div class="space-y-1.5">
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Mesej Kejayaan</label>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider ml-1">Mesej Kejayaan</label>
                             <input id="setting-successMsg" type="text" required class="mac-input w-full font-bold" title="Notifikasi selepas mendaftar" />
                         </div>
                         <div class="space-y-1.5">
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Had Jadual</label>
+                            <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider ml-1">Had Jadual</label>
                             <select id="setting-maxRecords" class="mac-input w-full cursor-pointer font-bold" title="Tetapkan bilangan rekod dipaparkan">
                                 <option value="50">50 Rekod</option>
                                 <option value="100">100 Rekod</option>
@@ -569,13 +573,13 @@
                         </div>
                         
                         <div class="flex w-full sm:w-2/3 gap-3">
-                            <select id="filter-settings-time" onchange="renderSettingsTable()" class="mac-input w-1/3 cursor-pointer font-bold" title="Tapis mengikut masa">
+                            <select id="filter-settings-time" onchange="renderSettingsTable()" class="mac-input w-1/3 cursor-pointer font-bold text-indigo-800 border-indigo-200" title="Tapis mengikut masa">
                                 <option value="monthly" selected>Bulan Ini</option>
                                 <option value="daily">Hari Ini</option>
                                 <option value="weekly">Minggu Ini</option>
                                 <option value="yearly">Tahun Ini</option>
                             </select>
-                            <select id="filter-settings-dept" onchange="renderSettingsTable()" class="mac-input w-2/3 cursor-pointer font-bold" title="Tapis mengikut bahagian/kategori">
+                            <select id="filter-settings-dept" onchange="renderSettingsTable()" class="mac-input w-2/3 cursor-pointer font-bold text-indigo-800 border-indigo-200" title="Tapis mengikut bahagian/kategori">
                                 <option value="all">Semua Kategori</option>
                                 <option value="Pelawat Am">Pelawat Am</option>
                                 <option value="Penjawat Awam">Penjawat Awam</option>
@@ -599,7 +603,7 @@
                         </div>
                     </div>
 
-                    <div class="mac-window border border-gray-200 flex-1 overflow-y-auto bg-white max-h-[40vh] lg:max-h-[50vh] shadow-sm">
+                    <div class="mac-window border border-indigo-100 flex-1 overflow-y-auto bg-white max-h-[40vh] lg:max-h-[50vh] shadow-sm">
                         <table class="w-full text-left border-collapse min-w-[550px]">
                             <thead class="sticky top-0 z-10">
                                 <tr>
@@ -626,7 +630,7 @@
     <div id="modal-user-profile" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
         <div class="mac-window max-w-4xl w-full flex flex-col max-h-[90vh] overflow-hidden bg-white">
             <div class="mac-titlebar">
-                Profil Pelawat
+                <span class="text-blue-900">Profil Pelawat</span>
                 <div class="mac-traffic-lights">
                     <div class="mac-dot mac-min"></div>
                     <div class="mac-dot mac-max"></div>
@@ -641,7 +645,7 @@
                         <div class="inline-flex items-center justify-center w-24 h-24 bg-white text-[#007aff] rounded-full mb-4 shadow-sm border border-gray-200">
                             <i data-lucide="user" class="h-10 w-10"></i>
                         </div>
-                        <h4 id="profile-name" class="font-bold text-xl text-gray-900 leading-tight">Nama Pelawat</h4>
+                        <h4 id="profile-name" class="font-black text-xl text-gray-900 leading-tight">Nama Pelawat</h4>
                         <p id="profile-id" class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-1 bg-white inline-block px-2 py-0.5 rounded-full border border-gray-200 mt-2">ID: -</p>
                     </div>
                     
@@ -663,7 +667,7 @@
                     <div class="mt-auto">
                         <div class="bg-blue-50 border border-blue-100 py-4 px-4 rounded-2xl text-center">
                             <p class="text-[11px] font-bold text-blue-600 uppercase tracking-widest mb-1">Jumlah Hadir</p>
-                            <p id="profile-total-visits" class="text-4xl font-bold text-blue-700 leading-none">0</p>
+                            <p id="profile-total-visits" class="text-4xl font-black text-blue-700 leading-none">0</p>
                         </div>
                     </div>
                 </div>
@@ -674,21 +678,21 @@
                         <div class="flex flex-col gap-2 w-full sm:w-auto">
                             <label class="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Penapis Sejarah</label>
                             <div class="flex gap-2">
-                                <select id="profile-filter-type" onchange="handleProfileFilterChange()" class="mac-input cursor-pointer w-auto font-bold">
+                                <select id="profile-filter-type" onchange="handleProfileFilterChange()" class="mac-input cursor-pointer w-auto font-bold text-indigo-800">
                                     <option value="all">Semua Rekod</option>
                                     <option value="monthly">Bulanan</option>
                                     <option value="yearly">Tahunan</option>
                                 </select>
-                                <input type="month" id="profile-month-picker" onchange="renderUserProfileHistory()" class="hidden mac-input cursor-pointer w-auto font-bold">
-                                <input type="number" id="profile-year-picker" onchange="renderUserProfileHistory()" placeholder="Tahun" class="hidden w-24 mac-input font-bold">
+                                <input type="month" id="profile-month-picker" onchange="renderUserProfileHistory()" class="hidden mac-input cursor-pointer w-auto font-bold text-indigo-800">
+                                <input type="number" id="profile-year-picker" onchange="renderUserProfileHistory()" placeholder="Tahun" class="hidden w-24 mac-input font-bold text-indigo-800">
                             </div>
                         </div>
-                        <button onclick="generateUserProfileReport()" class="mac-btn-secondary text-[#007aff] font-bold" title="Cetak Rekod Individu">
+                        <button onclick="generateUserProfileReport()" class="mac-btn-secondary text-[#007aff] font-bold border-blue-200 hover:border-blue-400 hover:bg-blue-50" title="Cetak Rekod Individu">
                             <i data-lucide="printer" class="h-4 w-4"></i> Cetak
                         </button>
                     </div>
 
-                    <div class="mac-window border border-gray-200 flex-1 overflow-y-auto shadow-sm">
+                    <div class="mac-window border border-indigo-100 flex-1 overflow-y-auto shadow-sm">
                         <table class="w-full text-left border-collapse min-w-[400px]">
                             <thead class="sticky top-0 z-10">
                                 <tr>
@@ -703,7 +707,7 @@
                         </table>
                     </div>
                     <div class="mt-3 text-right">
-                        <p class="text-xs text-gray-500 font-medium">Menunjukkan <span id="profile-filtered-count" class="font-bold text-gray-900">0</span> rekod.</p>
+                        <p class="text-xs text-gray-500 font-medium">Menunjukkan <span id="profile-filtered-count" class="font-bold text-indigo-800">0</span> rekod.</p>
                     </div>
                 </div>
             </div>
@@ -714,7 +718,7 @@
     <div id="modal-stats" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
         <div class="mac-window max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7]">
             <div class="mac-titlebar">
-                Analitik Pelawat
+                <span class="text-blue-900">Analitik Pelawat</span>
                 <div class="mac-traffic-lights">
                     <div class="mac-dot mac-min"></div>
                     <div class="mac-dot mac-max"></div>
@@ -733,7 +737,7 @@
                             <option value="all">Keseluruhan</option>
                         </select>
                     </div>
-                    <p id="modal-stat-total" class="text-5xl font-bold text-[#27c93f] tracking-tight mt-2">0</p>
+                    <p id="modal-stat-total" class="text-5xl font-black text-[#27c93f] tracking-tight mt-2">0</p>
                 </div>
 
                 <!-- Top Visitors -->
@@ -765,7 +769,7 @@
             </div>
             
             <div class="p-5 border-t border-gray-200 bg-white flex justify-end gap-3">
-                <button onclick="generateTopVisitorsReport()" class="mac-btn-secondary text-[#007aff] font-bold" title="Cetak Senarai Top 10">
+                <button onclick="generateTopVisitorsReport()" class="mac-btn-secondary text-[#007aff] font-bold hover:bg-blue-50 hover:border-blue-300" title="Cetak Senarai Top 10">
                     <i data-lucide="printer" class="h-4 w-4"></i> Cetak Top 10
                 </button>
             </div>
@@ -776,7 +780,7 @@
     <div id="modal-register" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
         <div class="mac-window max-w-2xl w-full overflow-hidden max-h-[90vh] flex flex-col bg-[#f5f5f7]">
             <div class="mac-titlebar">
-                Daftar Pelawat (Admin)
+                <span class="text-blue-900">Daftar Pelawat (Admin)</span>
                 <div class="mac-traffic-lights">
                     <div class="mac-dot mac-min"></div>
                     <div class="mac-dot mac-max"></div>
@@ -855,7 +859,7 @@
     <div id="modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
         <div class="mac-window max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7]">
             <div class="mac-titlebar">
-                Kemaskini Pindaan
+                <span class="text-blue-900">Kemaskini Pindaan</span>
                 <div class="mac-traffic-lights">
                     <div class="mac-dot mac-min"></div>
                     <div class="mac-dot mac-max"></div>
@@ -935,7 +939,7 @@
     <div id="modal-report" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
         <div class="mac-window max-w-sm w-full text-center bg-white">
             <div class="mac-titlebar mb-4">
-                Jana PDF
+                <span class="text-blue-900">Jana PDF</span>
                 <div class="mac-traffic-lights">
                     <div class="mac-dot mac-min"></div>
                     <div class="mac-dot mac-max"></div>
@@ -1322,16 +1326,16 @@
                 tbody.innerHTML = '';
                 
                 if(topVisitors.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="4" class="text-center p-6 text-gray-500 font-bold text-sm">Tiada rekod pada bulan ini.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-gray-500 font-bold text-sm">Tiada rekod pada bulan ini.</td></tr>';
                 } else {
                     topVisitors.forEach((v, index) => {
                         const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
                         tbody.innerHTML += `
                             <tr class="${bgClass} border-b border-gray-100 hover:bg-gray-100 transition-colors">
                                 <td class="p-3 text-center font-bold text-gray-800">${index + 1}</td>
-                                <td class="p-3 font-bold text-gray-900">${v.name}</td>
+                                <td class="p-3 font-black text-gray-900">${v.name}</td>
                                 <td class="p-3 text-[11px] font-bold text-gray-600">${v.category}</td>
-                                <td class="p-3 text-center font-bold text-blue-600 text-lg">${v.count}</td>
+                                <td class="p-3 text-center font-black text-blue-600 text-lg">${v.count}</td>
                             </tr>
                         `;
                     });
@@ -1374,10 +1378,10 @@
             const thead = document.querySelector('#print-header-row');
             if(thead) {
                 thead.innerHTML = `
-                    <th class="border border-gray-400 p-3 text-center w-12 bg-gray-100">No</th>
-                    <th class="border border-gray-400 p-3 text-left bg-gray-100">Nama Pelawat</th>
-                    <th class="border border-gray-400 p-3 text-left bg-gray-100">Bahagian / Kategori</th>
-                    <th class="border border-gray-400 p-3 text-center w-24 bg-gray-100">Jumlah Hadir</th>
+                    <th class="border border-gray-400 p-3 text-center w-16 bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">No</th>
+                    <th class="border border-gray-400 p-3 text-left bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">Nama Pelawat</th>
+                    <th class="border border-gray-400 p-3 text-left bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">Bahagian / Kategori</th>
+                    <th class="border border-gray-400 p-3 text-center w-32 bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">Jumlah Hadir</th>
                 `;
             }
             
@@ -1395,9 +1399,9 @@
                         tbody.innerHTML += `
                             <tr class="${bgClass}">
                                 <td class="border border-gray-400 p-3 text-center font-bold">${idx + 1}</td>
-                                <td class="border border-gray-400 p-3 font-bold text-gray-900">${v.name}</td>
-                                <td class="border border-gray-400 p-3 font-medium text-gray-700">${v.category}</td>
-                                <td class="border border-gray-400 p-3 text-center font-bold text-lg">${v.count}</td>
+                                <td class="border border-gray-400 p-3 font-extrabold text-base text-gray-900">${v.name}</td>
+                                <td class="border border-gray-400 p-3 font-bold text-gray-700">${v.category}</td>
+                                <td class="border border-gray-400 p-3 text-center font-black text-lg text-gray-900">${v.count}</td>
                             </tr>
                         `;
                     });
@@ -1978,8 +1982,6 @@
             if(dateEl) dateEl.innerText = formatDateMalay(new Date());
             
             const roleEl = document.getElementById('header-role');
-            if(roleEl) roleEl.innerText = state.role === 'admin' ? 'Mod Pentadbir Aktif' : 'Mod Pelawat Sahaja';
-            
             const btnReport = document.getElementById('btn-report-menu');
             const btnSettings = document.getElementById('btn-settings-menu');
             const btnQuickAdmin = document.getElementById('btn-quick-admin');
@@ -1989,14 +1991,22 @@
             const widgetVisitor = document.getElementById('widget-visitor');
 
             if (state.role === 'admin') {
-                if(btnReport) { btnReport.classList.remove('hidden'); btnReport.classList.add('inline-flex'); }
-                if(btnSettings) { btnSettings.classList.remove('hidden'); btnSettings.classList.add('inline-flex'); }
-                if(btnLogout) { btnLogout.classList.remove('hidden'); btnLogout.classList.add('inline-flex'); }
-                if(btnQuickAdmin) { btnQuickAdmin.classList.add('hidden'); btnQuickAdmin.classList.remove('inline-flex'); }
+                if(roleEl) {
+                    roleEl.innerText = 'Mod Pentadbir Aktif';
+                    roleEl.className = "hidden sm:inline-block text-[10px] sm:text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full border border-rose-200 shadow-sm ml-2";
+                }
+                if(btnReport) { btnReport.classList.remove('hidden'); btnReport.classList.add('flex'); }
+                if(btnSettings) { btnSettings.classList.remove('hidden'); btnSettings.classList.add('flex'); }
+                if(btnLogout) { btnLogout.classList.remove('hidden'); btnLogout.classList.add('flex'); }
+                if(btnQuickAdmin) { btnQuickAdmin.classList.add('hidden'); btnQuickAdmin.classList.remove('flex'); }
                 if(thAction) thAction.classList.remove('hidden');
                 if(widgetAdmin) widgetAdmin.classList.remove('hidden'); 
                 if(widgetVisitor) widgetVisitor.classList.add('hidden');
             } else {
+                if(roleEl) {
+                    roleEl.classList.add('hidden');
+                    roleEl.classList.remove('inline-block');
+                }
                 if(btnReport) { btnReport.classList.add('hidden'); btnReport.classList.remove('flex'); }
                 if(btnSettings) { btnSettings.classList.add('hidden'); btnSettings.classList.remove('flex'); }
                 if(btnLogout) { btnLogout.classList.add('hidden'); btnLogout.classList.remove('flex'); }
@@ -2043,7 +2053,7 @@
             
             const tableTitle = document.getElementById('table-title');
             if(tableTitle) {
-                tableTitle.innerHTML = `<i data-lucide="calendar" class="h-4 w-4 text-gray-500"></i> Senarai Pelawat: ${state.selectedDate === todayStr ? 'Hari Ini' : state.selectedDate}`;
+                tableTitle.innerHTML = `<i data-lucide="calendar" class="h-4 w-4 text-indigo-500"></i> Senarai Pelawat: ${state.selectedDate === todayStr ? 'Hari Ini' : state.selectedDate}`;
             }
             
             const maxLimit = state.settings.maxRecords;
@@ -2063,7 +2073,7 @@
 
             filteredData.forEach(v => {
                 const tr = document.createElement('tr');
-                tr.className = "border-b border-gray-200 hover:bg-[#f5f5f7] transition-colors mac-table-row";
+                tr.className = "border-b border-gray-200 hover:bg-indigo-50 transition-colors mac-table-row";
                 
                 let actionTd = '';
                 if (state.role === 'admin') {
@@ -2078,18 +2088,18 @@
                 const roleBadge = v.visitorRole === 'Urusetia Pusat Sumber' 
                     ? `<span class="bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded text-[11px] ml-2 border border-gray-200 shadow-sm font-bold">Urusetia</span>` 
                     : '';
-                const tagKategori = `<span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">${v.department || '-'}${agensi}</span>`;
+                const tagKategori = `<span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider">${v.department || '-'}${agensi}</span>`;
 
                 tr.innerHTML = `
                     <td class="p-4 align-top">
-                        <p class="font-bold text-[14px] sm:text-[15px] text-gray-900">${v.name} ${roleBadge}</p>
-                        <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mt-1">ID: ${v.empNo || '-'}</p>
+                        <p class="font-black text-[14px] sm:text-[15px] text-slate-900">${v.name} ${roleBadge}</p>
+                        <p class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mt-1">ID: ${v.empNo || '-'}</p>
                     </td>
                     <td class="p-4 align-top">
-                        <p class="text-xs sm:text-sm text-gray-800 font-bold mb-1">${v.position || '-'}</p>
+                        <p class="text-xs sm:text-sm text-slate-800 font-bold mb-1">${v.position || '-'}</p>
                         ${tagKategori}
                     </td>
-                    <td class="p-4 text-[11px] sm:text-xs text-gray-600 font-medium italic align-top">"${v.comment}"</td>
+                    <td class="p-4 text-[11px] sm:text-xs text-slate-700 font-medium italic align-top">"${v.comment}"</td>
                     ${actionTd}
                 `;
                 tbody.appendChild(tr);
@@ -2158,16 +2168,16 @@
                 let baseClass = "h-8 flex flex-col items-center justify-center rounded-lg cursor-pointer transition-all border text-[11px] sm:text-xs font-bold ";
                 
                 if (isSelected) {
-                    baseClass += "bg-blue-100 border-blue-500 text-blue-700 shadow-sm";
+                    baseClass += "bg-blue-600 border-blue-700 text-white shadow-md";
                 } else if (isToday) {
-                    baseClass += "bg-gray-100 border-gray-300 text-gray-900 hover:border-gray-400";
+                    baseClass += "bg-indigo-100 border-indigo-300 text-indigo-900 hover:border-indigo-400";
                 } else if (isWeekend) {
-                    baseClass += "bg-transparent border-transparent text-red-500 hover:bg-gray-50 hover:border-gray-200";
+                    baseClass += "bg-transparent border-transparent text-rose-600 hover:bg-rose-50 hover:border-rose-200";
                 } else {
-                    baseClass += "bg-transparent border-transparent hover:bg-gray-50 hover:border-gray-200 text-gray-700";
+                    baseClass += "bg-transparent border-transparent hover:bg-indigo-50 hover:border-indigo-200 text-indigo-900";
                 }
 
-                let dotHtml = hasVisitors ? `<div class="w-1 h-1 bg-gray-400 rounded-full mt-0.5 ${isSelected ? 'bg-blue-600' : ''}"></div>` : '';
+                let dotHtml = hasVisitors ? `<div class="w-1.5 h-1.5 rounded-full mt-0.5 ${isSelected ? 'bg-white' : 'bg-blue-500'}"></div>` : '';
 
                 grid.innerHTML += `
                     <div onclick="selectDate('${dateStr}')" class="${baseClass}" title="Pilih Tarikh Ini">
@@ -2182,7 +2192,7 @@
         window.selectReport = function(type, element) {
             state.selectedReportType = type;
             document.querySelectorAll('.report-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-50', 'border-blue-300', 'shadow-sm');
+                btn.classList.remove('bg-blue-50', 'border-blue-400', 'ring-4', 'ring-blue-100');
                 btn.classList.add('bg-white', 'border-transparent');
                 const icon = btn.querySelector('svg') || btn.querySelector('i');
                 if (icon) icon.classList.replace('text-blue-600', 'text-gray-500');
@@ -2192,7 +2202,7 @@
             
             const btnElement = element ? element.closest('.report-btn') : null;
             if(btnElement) {
-                btnElement.classList.add('bg-blue-50', 'border-blue-300', 'shadow-sm');
+                btnElement.classList.add('bg-blue-50', 'border-blue-400', 'ring-4', 'ring-blue-100');
                 btnElement.classList.remove('bg-white', 'border-transparent');
                 const elIcon = btnElement.querySelector('svg') || btnElement.querySelector('i');
                 if (elIcon) elIcon.classList.replace('text-gray-500', 'text-blue-600');
@@ -2230,7 +2240,7 @@
             if(yearPicker) yearPicker.classList.add('hidden');
 
             document.querySelectorAll('.report-btn').forEach(btn => {
-                btn.classList.remove('bg-blue-50', 'border-blue-300', 'shadow-sm');
+                btn.classList.remove('bg-blue-50', 'border-blue-400', 'ring-4', 'ring-blue-100');
                 btn.classList.add('bg-white', 'border-transparent');
                 const icon = btn.querySelector('svg') || btn.querySelector('i');
                 if (icon) icon.classList.replace('text-blue-600', 'text-gray-500');
@@ -2269,7 +2279,7 @@
             const pTitle = document.getElementById('print-title');
             if(pTitle) {
                 pTitle.innerText = title;
-                pTitle.className = "text-xl mt-4 font-bold uppercase text-gray-800 tracking-wide border-b border-gray-400 inline-block pb-2";
+                pTitle.className = "text-xl mt-4 font-bold uppercase text-blue-900 tracking-wide border-b border-gray-400 inline-block pb-2";
             }
             
             const pTime = document.getElementById('print-timestamp');
@@ -2279,11 +2289,11 @@
             if(thead) {
                 // LAJUR TARIKH DIDAHULUKAN SEBELUM BIL.
                 thead.innerHTML = `
-                    <th class="border border-gray-400 p-3 text-left w-24 bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">Tarikh</th>
-                    <th class="border border-gray-400 p-3 text-center w-12 bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">Bil.</th>
-                    <th class="border border-gray-400 p-3 text-left bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">Nama Pelawat</th>
-                    <th class="border border-gray-400 p-3 text-left bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">Bahagian / Kategori</th>
-                    <th class="border border-gray-400 p-3 text-left w-1/3 bg-gray-100 font-bold uppercase text-gray-700 tracking-wider">Tujuan Lawatan</th>
+                    <th class="border border-gray-400 p-3 text-left w-24 bg-gray-100 font-bold uppercase text-indigo-900 tracking-wider">Tarikh</th>
+                    <th class="border border-gray-400 p-3 text-center w-12 bg-gray-100 font-bold uppercase text-indigo-900 tracking-wider">Bil.</th>
+                    <th class="border border-gray-400 p-3 text-left bg-gray-100 font-bold uppercase text-indigo-900 tracking-wider">Nama Pelawat</th>
+                    <th class="border border-gray-400 p-3 text-left bg-gray-100 font-bold uppercase text-indigo-900 tracking-wider">Bahagian / Kategori</th>
+                    <th class="border border-gray-400 p-3 text-left w-1/3 bg-gray-100 font-bold uppercase text-indigo-900 tracking-wider">Tujuan Lawatan</th>
                 `;
             }
 
