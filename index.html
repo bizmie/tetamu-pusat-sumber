@@ -25,15 +25,15 @@
             tfoot { display: table-footer-group; }
         }
         
-        /* Modern Mac OS Theme CSS */
+        /* Modern Mac OS Theme CSS (Default) */
         body {
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             background-attachment: fixed;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: #1d1d1f;
+            transition: background 0.3s;
         }
 
-        /* Glass Window Effect */
         .mac-window {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(24px);
@@ -42,9 +42,9 @@
             border-radius: 16px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05);
             overflow: hidden;
+            transition: all 0.3s;
         }
 
-        /* Modern Titlebar */
         .mac-titlebar {
             background: transparent;
             padding: 14px 20px;
@@ -56,9 +56,9 @@
             font-weight: 700;
             font-size: 15px;
             border-bottom: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.3s;
         }
 
-        /* Flat Traffic Lights - Moved to Right & Softened */
         .mac-traffic-lights {
             position: absolute;
             right: 20px;
@@ -72,10 +72,8 @@
             transition: all 0.2s ease;
         }
         /* Only Red has function and hover state */
-        .mac-close { background-color: #ff5f56; border: 1px solid #e0443e; cursor: pointer; }
+        .mac-close { background-color: #ff5f56; border: 1px solid #e0443e; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .mac-close:hover { transform: scale(1.15); filter: brightness(1.1); box-shadow: 0 0 6px rgba(255,95,86,0.5); }
-        
-        /* Softened Yellow & Green (Inactive) */
         .mac-min { background-color: #e5e5ea; border: 1px solid #d2d2d7; }
         .mac-max { background-color: #e5e5ea; border: 1px solid #d2d2d7; }
 
@@ -131,10 +129,7 @@
             transition: all 0.2s;
             box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
         }
-        .mac-input:focus {
-            border-color: #007aff;
-            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
-        }
+        .mac-input:focus { border-color: #007aff; box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2); }
 
         .mac-table-header {
             background: rgba(245, 245, 247, 0.9);
@@ -157,26 +152,136 @@
         ::-webkit-scrollbar-thumb { background: #d2d2d7; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #999999; }
 
-        /* Smooth fade transition */
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Pulse light animation (Modern Apple Blue) */
         @keyframes pulse-light-aqua {
             0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.5); }
             70% { box-shadow: 0 0 0 12px rgba(0, 122, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
         }
         .animate-pulse-aqua { animation: pulse-light-aqua 2s infinite; }
+
+        /* =========================================
+           WINDOWS 11 THEME OVERRIDES 
+           ========================================= */
+        body[data-theme="win11"] {
+            background: linear-gradient(135deg, #eaeff5 0%, #d8e2ed 100%); 
+            font-family: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+            color: #1a1a1a;
+        }
+        body[data-theme="win11"] .mac-window {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(0, 0, 0, 0.12); /* Outline yang lebih menarik */
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Kesan shadow 50% pada widget */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        /* Hover effect khusus untuk widget top (Hari Ini, Bulan Ini) dalam Windows 11 */
+        body[data-theme="win11"] .grid > .mac-window:hover {
+            box-shadow: 0 12px 35px rgba(0, 95, 184, 0.3), 0 6px 15px rgba(0, 0, 0, 0.5); /* Glow shadow + shadow 50% */
+            border-color: rgba(0, 95, 184, 0.4);
+            transform: translateY(-2px);
+        }
+
+        body[data-theme="win11"] .mac-titlebar {
+            background: linear-gradient(180deg, #f8fafd 0%, #f0f4f9 100%) !important; /* Latar warna pastel */
+            border-bottom: 1px solid #e2e8f0 !important;
+            color: #1e293b !important;
+            font-weight: 600;
+            justify-content: center;
+            padding: 12px 20px;
+            height: auto;
+            font-size: 13px;
+            border-radius: 12px 12px 0 0;
+        }
+        body[data-theme="win11"] .mac-titlebar span, body[data-theme="win11"] .mac-titlebar i {
+            color: #1e293b !important;
+        }
+        
+        body[data-theme="win11"] .mac-traffic-lights {
+            right: 0; left: auto; gap: 0; top: 0; height: 100%; align-items: center;
+        }
+        body[data-theme="win11"] .mac-dot {
+            border-radius: 0; width: 46px; height: 100%; border: none; box-shadow: none;
+            display: flex; justify-content: center; align-items: center;
+            background: transparent; color: #1a1a1a; font-family: sans-serif;
+            transition: background 0.1s;
+        }
+        body[data-theme="win11"] .mac-close::after { content: '✕'; font-size: 14px; }
+        
+        body[data-theme="win11"] .mac-close:hover { background: #e81123; color: white; transform: none; box-shadow: none; filter: none; }
+        
+        body[data-theme="win11"] .mac-btn-primary {
+            background: #005fb8; border: 1px solid transparent; color: white; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-weight: 500;
+        }
+        body[data-theme="win11"] .mac-btn-primary:hover { background: #0053a0; box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        body[data-theme="win11"] .mac-btn-secondary {
+            background: #fdfdfd; border: 1px solid #d1d1d1; color: #1a1a1a; border-radius: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-weight: 500;
+        }
+        body[data-theme="win11"] .mac-btn-secondary:hover { background: #f6f6f6; border-color: #c4c4c4; }
+        
+        body[data-theme="win11"] .mac-input {
+            border-radius: 6px; border: 1px solid #d1d1d1; border-bottom: 1px solid #8c8c8c; box-shadow: none; background: #ffffff; font-weight: normal;
+        }
+        body[data-theme="win11"] .mac-input:focus { border-color: #d1d1d1; border-bottom: 2px solid #005fb8; padding-bottom: 9px; box-shadow: none; }
+        
+        body[data-theme="win11"] .mac-table-header {
+            background: transparent; border-bottom: 1px solid #e5e5e5; color: #606060; font-family: "Segoe UI", sans-serif; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 13px;
+        }
+        body[data-theme="win11"] .mac-table-row { background-color: transparent; border-bottom: 1px solid #f0f0f0; transition: background 0.15s; }
+        body[data-theme="win11"] .mac-table-row:hover { background-color: rgba(0,0,0,0.03); color: #000; }
+        body[data-theme="win11"] .mac-table-row:hover * { color: inherit !important; }
+        
+        body[data-theme="win11"] header { 
+            background: rgba(255, 255, 255, 0.85) !important; 
+            border-bottom: 1px solid #e2e8f0; 
+            backdrop-filter: blur(24px); 
+            overflow: hidden;
+        }
+
+        /* Animasi Ombak (Wave) untuk Header Windows 11 */
+        body[data-theme="win11"] #view-dashboard header::before,
+        body[data-theme="win11"] #view-dashboard header::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 100%;
+            background-repeat: repeat-x;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        body[data-theme="win11"] #view-dashboard header::before {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath d='M0,50 C150,80 350,20 500,50 C650,80 850,20 1000,50 L1000,100 L0,100 Z' fill='rgba(0, 95, 184, 0.04)'/%3E%3C/svg%3E");
+            background-size: 1000px 100%;
+            animation: waveTranslate 18s linear infinite;
+        }
+
+        body[data-theme="win11"] #view-dashboard header::after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' preserveAspectRatio='none'%3E%3Cpath d='M0,40 C200,10 300,90 500,40 C700,-10 800,90 1000,40 L1000,100 L0,100 Z' fill='rgba(0, 95, 184, 0.06)'/%3E%3C/svg%3E");
+            background-size: 1000px 100%;
+            animation: waveTranslate 25s linear infinite reverse;
+        }
+
+        @keyframes waveTranslate {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 0; }
+        }
+
+        body[data-theme="win11"] .bg-white\/60, body[data-theme="win11"] .bg-white\/80 { background: transparent !important; }
+        body[data-theme="win11"] .rounded-2xl { border-radius: 10px !important; }
     </style>
 </head>
-<body>
+<body data-theme="mac" class="font-sans text-gray-800 bg-[#f4f4ec]">
 
     <!-- ============================================== -->
-    <!-- KOMPONEN UI GLOBAL (TOAST, PENGESAHAN & RALAT) -->
+    <!-- KOMPONEN UI GLOBAL (PENGESAHAN & RALAT) -->
     <!-- ============================================== -->
-    <div id="toast" class="hidden fixed top-8 right-8 z-[80] mac-window bg-black bg-opacity-80 text-white px-6 py-3 shadow-2xl transition-opacity duration-300 font-bold border-none backdrop-blur-md text-sm"></div>
-
     <div id="system-error-banner" class="hidden bg-red-500 text-white p-3 text-sm font-bold text-center z-[70] relative w-full shadow-sm">
         <span id="system-error-text">Ralat Sistem Pangkalan Data</span>
         <button onclick="document.getElementById('system-error-banner').classList.add('hidden')" class="ml-4 underline hover:text-white" title="Tutup Amaran">Tutup</button>
@@ -187,13 +292,11 @@
             <div class="mac-titlebar">
                 Pengesahan
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="document.getElementById('modal-confirm').classList.add('hidden')" title="Tutup"></div>
                 </div>
             </div>
             <div class="p-6 bg-white/50">
-                <div class="flex justify-center mb-4"><i data-lucide="alert-triangle" class="h-12 w-12 text-red-500"></i></div>
+                <div class="flex justify-center mb-3"><i data-lucide="alert-triangle" class="h-12 w-12 text-red-500"></i></div>
                 <p id="confirm-msg" class="mb-6 text-sm text-gray-800 font-bold">Adakah anda pasti untuk memadam rekod ini?</p>
                 <div class="flex justify-center gap-3">
                     <button id="btn-confirm-cancel" class="mac-btn-secondary" title="Batal Padam">Batal</button>
@@ -211,8 +314,6 @@
             <div class="mac-titlebar">
                 <span>Borang Pendaftaran Pelawat</span>
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="switchView('dashboard')" title="Tutup"></div>
                 </div>
             </div>
@@ -221,7 +322,7 @@
                 <div class="flex items-center justify-between border-b border-gray-200 pb-4 mb-6">
                     <div class="flex items-center gap-4">
                         <div class="p-3 bg-blue-50 rounded-2xl border border-blue-100">
-                            <i data-lucide="file-text" class="h-8 w-8 text-blue-600"></i>
+                            <i data-lucide="file-text" class="h-8 w-8 text-[#007aff]"></i>
                         </div>
                         <div class="flex flex-col">
                             <h2 class="text-xl sm:text-2xl font-black text-blue-900 tracking-tight">Selamat Datang</h2>
@@ -240,7 +341,7 @@
                             <label class="text-xs font-bold text-gray-700 ml-1">No Pekerja / ID</label>
                             <div class="flex gap-2">
                                 <input name="empNo" type="text" class="mac-input w-full" placeholder="Contoh: 12345" title="Masukkan No Pekerja atau ID untuk carian automatik" />
-                                <button type="button" onclick="searchEmployee('guest')" class="mac-btn-secondary flex-shrink-0 !py-2" title="Cari maklumat pekerja/ID sedia ada">Cari</button>
+                                <button type="button" onclick="searchEmployee('guest')" class="mac-btn-primary animate-pulse-aqua flex-shrink-0 px-6 font-bold" title="Sila buat carian nombor pekerja terlebih dahulu">Cari</button>
                             </div>
                         </div>
                         <div class="space-y-2">
@@ -290,11 +391,11 @@
                         <textarea name="comment" required rows="3" class="mac-input w-full mac-textarea resize-none" placeholder="Sila nyatakan tujuan lawatan anda..." title="Isikan tujuan lawatan anda dengan ringkas"></textarea>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row justify-end gap-3 pt-6 mt-4">
+                    <div class="flex flex-col sm:flex-row justify-end gap-3 pt-6 mt-4 border-t border-gray-200">
                         <button type="button" onclick="switchView('dashboard')" class="mac-btn-secondary w-full sm:w-auto" title="Kembali ke Dashboard utama">
                             Batal
                         </button>
-                        <button type="submit" id="btn-submit-guest" class="mac-btn-primary w-full sm:w-auto animate-pulse-aqua text-sm" title="Hantar dan rekodkan pendaftaran anda">
+                        <button type="submit" id="btn-submit-guest" class="mac-btn-primary w-full sm:w-auto animate-pulse-aqua text-sm px-8" title="Hantar dan rekodkan pendaftaran anda">
                             Daftar Pelawat
                         </button>
                     </div>
@@ -308,47 +409,57 @@
     <!-- ============================================== -->
     <div id="view-dashboard" class="hidden min-h-screen flex flex-col fade-in pb-10">
         <!-- Top Menu Bar -->
-        <header class="bg-white/80 backdrop-blur-xl border-b border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)] px-6 py-3 flex justify-between items-center no-print fixed top-0 w-full z-50">
-            <div class="flex items-center gap-4">
+        <header class="bg-white/80 backdrop-blur-xl border-b border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.05)] px-6 py-3 flex justify-between items-start no-print fixed top-0 w-full z-50">
+            <div class="flex items-center gap-4 mt-1 relative z-10">
                 <div class="p-2 bg-blue-50 rounded-xl shadow-sm border border-blue-100 hidden sm:block">
                     <i data-lucide="book-open" class="h-6 w-6 text-blue-600"></i>
                 </div>
                 <div class="flex flex-col">
                     <h1 class="font-black text-xl sm:text-2xl text-blue-900 tracking-tight app-main-title leading-none">PUSTAKA MTIB</h1>
-                    <p class="text-xs sm:text-sm text-blue-600 font-bold app-sub-title mt-1">Sistem Rekod Pelawat</p>
+                    <p class="text-xs sm:text-sm text-blue-600 font-bold app-sub-title mt-1.5">Sistem Rekod Pelawat</p>
                 </div>
-                <span class="hidden text-[10px] sm:text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full border border-rose-200 shadow-sm ml-2" id="header-role">Mod Pentadbir Aktif</span>
             </div>
-            <div class="flex items-center gap-3">
-                <i data-lucide="wifi" class="h-4 w-4 text-emerald-500 animate-pulse" title="Sistem Dalam Talian"></i>
-                <span id="header-date" class="text-xs sm:text-sm font-black text-indigo-800 mr-2"></span>
-                <div class="h-5 w-px bg-gray-300 mr-1 hidden sm:block"></div>
+            <div class="flex flex-col items-end gap-2.5 relative z-10">
+                <!-- Baris Atas Kanan: Status & Tarikh -->
+                <div class="flex items-center gap-3">
+                    <i data-lucide="wifi" class="h-4 w-4 text-emerald-500 animate-pulse" title="Sistem Dalam Talian"></i>
+                    <span class="hidden text-[10px] sm:text-xs font-black text-rose-700 bg-rose-50 px-3 py-1 rounded-full border border-rose-200 shadow-sm uppercase tracking-widest" id="header-role">Mod Pentadbir Aktif</span>
+                    <div class="h-4 w-px bg-gray-300 hidden sm:block"></div>
+                    <span id="header-date" class="text-xs sm:text-sm font-black text-indigo-800"></span>
+                </div>
                 
-                <button id="btn-quick-admin" onclick="showModal('modal-admin-login')" class="hidden items-center gap-1.5 text-gray-600 hover:text-blue-600 transition-colors text-xs font-bold bg-gray-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg" title="Akses Ke Mod Pentadbir">
-                    <i data-lucide="lock" class="h-4 w-4"></i> <span class="hidden sm:inline">Admin</span>
-                </button>
+                <!-- Baris Bawah Kanan: Butang Menu -->
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleTheme()" class="flex items-center gap-1.5 text-gray-600 hover:text-blue-600 transition-colors text-xs font-bold bg-gray-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm" title="Tukar Tema UI (Mac / Windows 11)">
+                        <i data-lucide="monitor" class="h-3.5 w-3.5"></i> <span class="hidden sm:inline">Tema</span>
+                    </button>
+                    
+                    <button id="btn-quick-admin" onclick="showModal('modal-admin-login')" class="hidden items-center gap-1.5 text-gray-600 hover:text-blue-600 transition-colors text-xs font-bold bg-gray-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm" title="Akses Ke Mod Pentadbir">
+                        <i data-lucide="lock" class="h-3.5 w-3.5"></i> <span class="hidden sm:inline">Admin</span>
+                    </button>
 
-                <button id="btn-settings-menu" onclick="openSettingsModal()" class="hidden items-center gap-1.5 text-gray-600 hover:text-blue-600 transition-colors text-xs font-bold bg-gray-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg" title="Buka Tetapan & Pangkalan Data">
-                    <i data-lucide="sliders" class="h-4 w-4"></i> <span class="hidden sm:inline">Tetapan</span>
-                </button>
-                <button id="btn-report-menu" onclick="showModal('modal-report')" class="hidden items-center gap-1.5 text-gray-600 hover:text-blue-600 transition-colors text-xs font-bold bg-gray-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg" title="Jana Laporan PDF">
-                    <i data-lucide="file-text" class="h-4 w-4"></i> <span class="hidden sm:inline">Laporan</span>
-                </button>
-                <button id="btn-logout" onclick="handleLogout()" class="hidden items-center gap-1.5 text-red-500 hover:text-red-700 transition-colors text-xs font-bold bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg ml-1" title="Log Keluar">
-                    <i data-lucide="log-out" class="h-4 w-4"></i> <span class="hidden sm:inline">Keluar</span>
-                </button>
+                    <button id="btn-settings-menu" onclick="openSettingsModal()" class="hidden items-center gap-1.5 text-gray-600 hover:text-blue-600 transition-colors text-xs font-bold bg-gray-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm" title="Buka Tetapan & Pangkalan Data">
+                        <i data-lucide="sliders" class="h-3.5 w-3.5"></i> <span class="hidden sm:inline">Tetapan</span>
+                    </button>
+                    <button id="btn-report-menu" onclick="showModal('modal-report')" class="hidden items-center gap-1.5 text-gray-600 hover:text-blue-600 transition-colors text-xs font-bold bg-gray-100 hover:bg-blue-50 px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm" title="Jana Laporan PDF">
+                        <i data-lucide="file-text" class="h-3.5 w-3.5"></i> <span class="hidden sm:inline">Laporan</span>
+                    </button>
+                    <button id="btn-logout" onclick="handleLogout()" class="hidden items-center gap-1.5 text-red-500 hover:text-red-700 transition-colors text-xs font-bold bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg border border-red-100 shadow-sm" title="Log Keluar">
+                        <i data-lucide="log-out" class="h-3.5 w-3.5"></i> <span class="hidden sm:inline">Keluar</span>
+                    </button>
+                </div>
             </div>
         </header>
 
         <!-- Main Content Workspace -->
-        <main class="flex-1 p-4 sm:p-8 max-w-[1400px] mx-auto w-full flex flex-col gap-6 no-print mt-20">
-            
+        <main class="flex-1 p-4 sm:p-8 max-w-[1400px] mx-auto w-full flex flex-col gap-6 no-print mt-24">
+
             <!-- Top Widgets -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Widget Pelawat Hari Ini -->
-                <div onclick="selectToday()" class="mac-window p-6 flex items-center justify-between cursor-pointer hover:shadow-lg transition-shadow group" title="Lihat pelawat hari ini">
+                <div onclick="selectToday()" class="mac-window p-6 flex items-center justify-between cursor-pointer hover:shadow-lg transition-shadow group" title="Lihat pelawat mengikut tarikh dipilih">
                     <div>
-                        <p class="text-xs font-bold text-blue-600 uppercase tracking-wider transition-colors">Hari Ini</p>
+                        <p id="widget-today-label" class="text-xs font-bold text-blue-600 uppercase tracking-wider transition-colors">Hari Ini</p>
                         <p id="stat-today" class="text-4xl font-black text-blue-900 mt-2 tracking-tight">0</p>
                     </div>
                     <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100"><i data-lucide="users" class="h-8 w-8 text-blue-600"></i></div>
@@ -368,22 +479,36 @@
 
                 <!-- Action Widget -->
                 <div id="widget-admin" class="hidden h-full">
-                    <button onclick="showModal('modal-register')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua" title="Daftar Rekod Baru Secara Manual">
-                        <div>
+                    <button onclick="showModal('modal-register')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua relative overflow-hidden group" title="Daftar Rekod Baru Secara Manual">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+                        <div class="relative z-10 transition-all duration-500 transform group-hover:-translate-y-10 group-hover:opacity-0">
                             <p class="text-xs font-bold text-blue-100 uppercase tracking-wider">Tindakan</p>
-                            <p class="text-2xl font-black text-white mt-1 tracking-tight">Daftar Baru</p>
+                            <p class="text-2xl font-black text-white mt-1 tracking-tight">Daftar Masuk</p>
                         </div>
-                        <div class="bg-white/20 p-4 rounded-2xl backdrop-blur-sm"><i data-lucide="plus-circle" class="h-8 w-8 text-white"></i></div>
+                        <div class="bg-white/20 p-4 rounded-2xl backdrop-blur-sm relative z-10 transition-all duration-500 transform group-hover:translate-x-12 group-hover:opacity-0">
+                            <i data-lucide="plus-circle" class="h-8 w-8 text-white"></i>
+                        </div>
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center transition-all duration-500 transform translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                            <i data-lucide="pencil" class="h-7 w-7 text-yellow-300 mb-2 drop-shadow-md animate-bounce"></i>
+                            <p class="text-sm font-black text-white uppercase tracking-widest text-center px-4 drop-shadow-md leading-relaxed">Klik Untuk Daftar<br/>Kehadiran Anda</p>
+                        </div>
                     </button>
                 </div>
 
                 <div id="widget-visitor" class="hidden h-full">
-                    <button onclick="switchView('guestForm')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua" title="Klik Di Sini Untuk Mendaftar!">
-                        <div>
+                    <button onclick="switchView('guestForm')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua relative overflow-hidden group" title="Klik Di Sini Untuk Mendaftar!">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
+                        <div class="relative z-10 transition-all duration-500 transform group-hover:-translate-y-10 group-hover:opacity-0">
                             <p class="text-xs font-bold text-blue-100 uppercase tracking-wider">Borang</p>
-                            <p class="text-2xl font-black text-white mt-1 tracking-tight">Daftar Rekod</p>
+                            <p class="text-2xl font-black text-white mt-1 tracking-tight">Daftar Masuk</p>
                         </div>
-                        <div class="bg-white/20 p-4 rounded-2xl backdrop-blur-sm"><i data-lucide="user-plus" class="h-8 w-8 text-white"></i></div>
+                        <div class="bg-white/20 p-4 rounded-2xl backdrop-blur-sm relative z-10 transition-all duration-500 transform group-hover:translate-x-12 group-hover:opacity-0">
+                            <i data-lucide="user-plus" class="h-8 w-8 text-white"></i>
+                        </div>
+                        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center transition-all duration-500 transform translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                            <i data-lucide="pencil" class="h-7 w-7 text-yellow-300 mb-2 drop-shadow-md animate-bounce"></i>
+                            <p class="text-sm font-black text-white uppercase tracking-widest text-center px-4 drop-shadow-md leading-relaxed">Klik Untuk Daftar<br/>Kehadiran Anda</p>
+                        </div>
                     </button>
                 </div>
             </div>
@@ -436,10 +561,10 @@
                         <table class="w-full text-left border-collapse min-w-[600px]">
                             <thead class="sticky top-0 z-10">
                                 <tr>
-                                    <th class="mac-table-header pl-6 w-1/4">Nama & ID</th>
-                                    <th class="mac-table-header w-1/4">Jawatan / Kategori</th>
-                                    <th class="mac-table-header w-1/3">Tujuan</th>
-                                    <th id="th-action" class="mac-table-header text-center hidden pr-6">Opsyen</th>
+                                    <th class="mac-table-header pl-6 w-1/4 text-indigo-900">Nama & ID</th>
+                                    <th class="mac-table-header w-1/4 text-indigo-900">Jawatan / Kategori</th>
+                                    <th class="mac-table-header w-1/3 text-indigo-900">Tujuan</th>
+                                    <th id="th-action" class="mac-table-header text-center hidden pr-6 text-indigo-900">Opsyen</th>
                                 </tr>
                             </thead>
                             <tbody id="table-body" class="text-sm">
@@ -467,9 +592,9 @@
         </div>
 
         <div class="text-center mb-8">
-            <h1 class="text-2xl font-black uppercase mb-1 app-main-title text-blue-900">PUSTAKA MTIB</h1>
+            <h1 class="text-3xl font-black uppercase mb-2 app-main-title text-blue-900">PUSTAKA MTIB</h1>
             <h2 class="text-sm text-blue-600 font-bold app-sub-title mb-4 uppercase tracking-widest">Sistem Rekod Pelawat</h2>
-            <h3 id="print-title" class="text-lg font-bold border-b-2 border-gray-400 inline-block pb-1"></h3>
+            <h3 id="print-title" class="text-lg font-bold border-b-2 border-gray-400 inline-block pb-1 mt-4"></h3>
         </div>
 
         <table class="w-full border-collapse border border-gray-300 text-sm">
@@ -495,11 +620,8 @@
     <!-- Modal Quick Admin Login -->
     <div id="modal-admin-login" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[60] fade-in backdrop-blur-sm">
         <div class="mac-window max-w-sm w-full text-center">
-            <div class="mac-titlebar">
-                Log Masuk Ahli
+            <div class="mac-titlebar" style="min-height: 42px;">
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="hideModal('modal-admin-login')" title="Batal"></div>
                 </div>
             </div>
@@ -525,8 +647,6 @@
             <div class="mac-titlebar">
                 <span class="text-blue-900">Tetapan & Pangkalan Data Pelawat</span>
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="hideModal('modal-settings')" title="Tutup Paparan"></div>
                 </div>
             </div>
@@ -607,10 +727,10 @@
                         <table class="w-full text-left border-collapse min-w-[550px]">
                             <thead class="sticky top-0 z-10">
                                 <tr>
-                                    <th class="mac-table-header pl-5 w-28">Tarikh</th>
-                                    <th class="mac-table-header">Maklumat</th>
-                                    <th class="mac-table-header">Kategori</th>
-                                    <th class="mac-table-header text-center pr-5 w-24">Tindakan</th>
+                                    <th class="mac-table-header pl-5 w-28 text-indigo-900">Tarikh</th>
+                                    <th class="mac-table-header text-indigo-900">Maklumat</th>
+                                    <th class="mac-table-header text-indigo-900">Kategori</th>
+                                    <th class="mac-table-header text-center pr-5 w-24 text-indigo-900">Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody id="settings-table-body" class="text-sm">
@@ -619,7 +739,7 @@
                         </table>
                     </div>
                     <div class="mt-3 text-right">
-                        <span class="text-xs text-gray-500 font-bold uppercase tracking-wider">Menunjukkan <span id="settings-table-count" class="font-black text-gray-900">0</span> rekod</span>
+                        <span class="text-xs text-gray-500 font-bold uppercase tracking-wider">Menunjukkan <span id="settings-table-count" class="font-black text-indigo-900">0</span> rekod</span>
                     </div>
                 </div>
             </div>
@@ -632,8 +752,6 @@
             <div class="mac-titlebar">
                 <span class="text-blue-900">Profil Pelawat</span>
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="closeUserProfileModal()" title="Tutup Profil"></div>
                 </div>
             </div>
@@ -720,8 +838,6 @@
             <div class="mac-titlebar">
                 <span class="text-blue-900">Analitik Pelawat</span>
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="hideModal('modal-stats')" title="Tutup Statistik"></div>
                 </div>
             </div>
@@ -782,8 +898,6 @@
             <div class="mac-titlebar">
                 <span class="text-blue-900">Daftar Pelawat (Admin)</span>
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="hideModal('modal-register')" title="Batal & Tutup"></div>
                 </div>
             </div>
@@ -798,7 +912,7 @@
                             <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">No Pekerja / ID</label>
                             <div class="flex gap-2">
                                 <input name="empNo" type="text" class="mac-input w-full font-bold" placeholder="ID Pekerja" title="Masukkan ID Pekerja" />
-                                <button type="button" onclick="searchEmployee('admin')" class="mac-btn-secondary" title="Cari berdasarkan ID">Cari</button>
+                                <button type="button" onclick="searchEmployee('admin')" class="mac-btn-primary animate-pulse-aqua px-6 font-bold" title="Sila buat carian nombor pekerja terlebih dahulu">Cari</button>
                             </div>
                         </div>
                         <div class="space-y-1">
@@ -861,8 +975,6 @@
             <div class="mac-titlebar">
                 <span class="text-blue-900">Kemaskini Pindaan</span>
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="hideModal('modal-edit')" title="Tutup Paparan"></div>
                 </div>
             </div>
@@ -941,8 +1053,6 @@
             <div class="mac-titlebar mb-4">
                 <span class="text-blue-900">Jana PDF</span>
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="closeReportModal()"></div>
                 </div>
             </div>
@@ -1039,10 +1149,18 @@
             statsFilter: 'month',
             searchQuery: '',
             selectedUserProfile: null, 
+            theme: 'win11', // TEMA WINDOWS 11 SEBAGAI DEFAULT
             settings: {
                 successMsg: "Pendaftaran berjaya! Data direkodkan.",
                 maxRecords: "all"
             }
+        };
+
+        // --- Fungsi Tukar Tema Windows 11 / Mac ---
+        window.toggleTheme = function() {
+            state.theme = state.theme === 'mac' ? 'win11' : 'mac';
+            document.body.setAttribute('data-theme', state.theme);
+            localStorage.setItem('tamu_theme', state.theme);
         };
 
         // Init date inputs and view
@@ -1051,6 +1169,15 @@
             const adminVisitDate = document.getElementById('admin-visit-date');
             if(guestVisitDate) guestVisitDate.value = todayStr;
             if(adminVisitDate) adminVisitDate.value = todayStr;
+            
+            // Load saved theme (Default Win11)
+            const savedTheme = localStorage.getItem('tamu_theme');
+            if (savedTheme) {
+                state.theme = savedTheme;
+            } else {
+                state.theme = 'win11'; // Set win11 as default if none saved
+            }
+            document.body.setAttribute('data-theme', state.theme);
             
             switchView('dashboard'); 
             updateAppTitles();
@@ -1084,15 +1211,6 @@
             const months = ['JANUARI', 'FEBRUARI', 'MAC', 'APRIL', 'MEI', 'JUN', 'JULAI', 'OGOS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DISEMBER'];
             return `${days[dateObj.getDay()]}, ${dateObj.getDate()} ${months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
         }
-        
-        window.showToast = function(msg) {
-            const toast = document.getElementById('toast');
-            if(toast) {
-                toast.innerText = msg;
-                toast.classList.remove('hidden');
-                setTimeout(() => toast.classList.add('hidden'), 3500);
-            }
-        };
 
         const isWithinLast7Days = (dateString) => {
             const d = new Date(dateString);
@@ -1158,7 +1276,6 @@
             const empNoInput = form.elements['empNo']?.value.trim();
 
             if (!empNoInput) {
-                showToast("Sila masukkan No Pekerja / ID untuk membuat carian.");
                 return;
             }
 
@@ -1186,10 +1303,8 @@
                 if(agencyInput) {
                     agencyInput.value = found.agency || '';
                 }
-                
-                showToast(`Rekod dijumpai: ${found.name}`);
             } else {
-                showToast("Tiada rekod pernah hadir.");
+                // Tiada rekod, diamkan sahaja
             }
         };
 
@@ -1257,7 +1372,6 @@
         window.handleLogout = function() {
             state.role = 'visitor'; 
             switchView('dashboard');
-            showToast("Berjaya log keluar.");
         };
 
         window.viewAsGuest = function() {
@@ -1326,16 +1440,16 @@
                 tbody.innerHTML = '';
                 
                 if(topVisitors.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-gray-500 font-bold text-sm">Tiada rekod pada bulan ini.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-gray-500 font-bold uppercase tracking-widest text-xs">Tiada rekod pada bulan ini.</td></tr>';
                 } else {
                     topVisitors.forEach((v, index) => {
                         const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
                         tbody.innerHTML += `
                             <tr class="${bgClass} border-b border-gray-100 hover:bg-gray-100 transition-colors">
                                 <td class="p-3 text-center font-bold text-gray-800">${index + 1}</td>
-                                <td class="p-3 font-black text-gray-900">${v.name}</td>
+                                <td class="p-3 font-bold text-gray-900">${v.name}</td>
                                 <td class="p-3 text-[11px] font-bold text-gray-600">${v.category}</td>
-                                <td class="p-3 text-center font-black text-blue-600 text-lg">${v.count}</td>
+                                <td class="p-3 text-center font-bold text-blue-600 text-lg">${v.count}</td>
                             </tr>
                         `;
                     });
@@ -1369,7 +1483,7 @@
             const printTitle = document.getElementById('print-title');
             if(printTitle) {
                 printTitle.innerText = `Senarai Pelawat Paling Kerap Hadir (${topMonth})`;
-                printTitle.className = "text-xl mt-4 font-bold uppercase text-gray-800 tracking-wide border-b-2 border-gray-400 inline-block pb-2";
+                printTitle.className = "text-xl mt-4 font-bold uppercase text-gray-800 tracking-wide border-b border-gray-400 inline-block pb-2";
             }
             
             const printTimestamp = document.getElementById('print-timestamp');
@@ -1401,7 +1515,7 @@
                                 <td class="border border-gray-400 p-3 text-center font-bold">${idx + 1}</td>
                                 <td class="border border-gray-400 p-3 font-extrabold text-base text-gray-900">${v.name}</td>
                                 <td class="border border-gray-400 p-3 font-bold text-gray-700">${v.category}</td>
-                                <td class="border border-gray-400 p-3 text-center font-black text-lg text-gray-900">${v.count}</td>
+                                <td class="border border-gray-400 p-3 text-center font-bold text-lg">${v.count}</td>
                             </tr>
                         `;
                     });
@@ -1564,8 +1678,8 @@
             const thead = document.querySelector('#print-header-row');
             if(thead) {
                 thead.innerHTML = `
-                    <th class="border border-gray-400 p-2 text-left w-32 bg-gray-100 font-bold">Tarikh</th>
                     <th class="border border-gray-400 p-2 text-center w-12 bg-gray-100 font-bold">Bil.</th>
+                    <th class="border border-gray-400 p-2 text-left w-32 bg-gray-100 font-bold">Tarikh</th>
                     <th class="border border-gray-400 p-2 text-left bg-gray-100 font-bold">Jawatan & Kategori</th>
                     <th class="border border-gray-400 p-2 text-left w-1/2 bg-gray-100 font-bold">Tujuan Lawatan</th>
                 `;
@@ -1586,8 +1700,8 @@
                          const kategoriDisplay = `${v.department || '-'}${agensi}`;
 
                          html += `<tr class="${bgClass}">
-                            <td class="border border-gray-400 p-2 font-bold text-center sm:text-left whitespace-nowrap">${dayName},<br/>${formattedDate}</td>
                             <td class="border border-gray-400 p-2 text-center font-bold">${index + 1}</td>
+                            <td class="border border-gray-400 p-2 font-bold text-center sm:text-left whitespace-nowrap">${dayName},<br/>${formattedDate}</td>
                             <td class="border border-gray-400 p-2">
                                 <strong>${v.position || '-'}</strong><br/>
                                 <span class="text-[10px] text-gray-600">${kategoriDisplay}</span>
@@ -1638,6 +1752,9 @@
                 if (profileModal && !profileModal.classList.contains('hidden')) {
                     renderUserProfileHistory();
                 }
+                
+                // Panggil renderStats apabila data berubah (Penting supaya count "Hari Ini" dikemaskini berdasarkan tarikh dipilih)
+                renderStats();
                 
                 const errorBanner = document.getElementById('system-error-banner');
                 if(errorBanner) errorBanner.classList.add('hidden'); 
@@ -1698,9 +1815,8 @@
                 }, { merge: true });
                 
                 hideModal('modal-settings');
-                showToast("Tetapan sistem berjaya disimpan.");
             } catch (err) {
-                showToast("Gagal menyimpan tetapan. Ralat: " + err.code);
+                console.error("Gagal menyimpan tetapan. Ralat: " + err.code);
             }
         };
 
@@ -1713,10 +1829,9 @@
                 state.role = 'admin';
                 hideModal('modal-admin-login');
                 updateDashboardUI(); 
-                showToast("Log masuk Admin berjaya.");
                 if(passInput) passInput.value = '';
             } else {
-                showToast("Kata Laluan tidak sah.");
+                console.error("Kata Laluan tidak sah.");
             }
         };
 
@@ -1771,18 +1886,11 @@
                     state.selectedDate = selectedVisitDate;
                     state.calendarDate = new Date(selectedVisitDate);
                     switchView('dashboard');
-                    showToast(state.settings.successMsg);
                 } else {
                     hideModal('modal-register');
                     state.selectedDate = selectedVisitDate;
                     state.calendarDate = new Date(selectedVisitDate);
                     updateDashboardUI();
-                    
-                    if (state.role === 'admin') {
-                        showToast("Pelawat berjaya ditambah oleh Admin.");
-                    } else {
-                        showToast(state.settings.successMsg);
-                    }
                 }
             } catch (err) {
                 console.error(err);
@@ -1791,7 +1899,6 @@
                     btn.disabled = false;
                 }
                 showSystemError(`Gagal Menyimpan Data (${err.code}). Pastikan Rules Firestore anda adalah 'true'.`);
-                showToast("Ralat menyimpan data ke Firebase.");
             }
         };
 
@@ -1816,10 +1923,8 @@
                 const docReference = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors', id);
                 await updateDoc(docReference, updatedData);
                 hideModal('modal-edit');
-                showToast("Data pelawat dikemaskini.");
             } catch (err) {
                 showSystemError(`Gagal Mengemaskini Data (${err.code}).`);
-                showToast("Ralat kemaskini data.");
             }
         };
 
@@ -1835,7 +1940,6 @@
                     await deleteDoc(docReference);
                     
                     hideModal('modal-edit');
-                    showToast("Rekod dipadam.");
                     
                     const settingsModal = document.getElementById('modal-settings');
                     if (settingsModal && !settingsModal.classList.contains('hidden')) {
@@ -1843,7 +1947,6 @@
                     }
                 } catch(err) { 
                     showSystemError(`Gagal Memadam Data (${err.code}).`);
-                    showToast("Ralat memadam rekod."); 
                 }
             });
         };
@@ -1853,11 +1956,9 @@
                 try {
                     const docReference = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors', id);
                     await deleteDoc(docReference);
-                    showToast("Rekod berjaya dipadam.");
                     renderSettingsTable(); 
                 } catch(err) { 
                     showSystemError(`Gagal Memadam Data (${err.code}).`);
-                    showToast("Ralat memadam rekod."); 
                 }
             });
         };
@@ -1993,7 +2094,7 @@
             if (state.role === 'admin') {
                 if(roleEl) {
                     roleEl.innerText = 'Mod Pentadbir Aktif';
-                    roleEl.className = "hidden sm:inline-block text-[10px] sm:text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full border border-rose-200 shadow-sm ml-2";
+                    roleEl.className = "hidden sm:inline-block text-[10px] sm:text-xs font-black text-rose-700 bg-rose-50 px-3 py-1 rounded-full border border-rose-200 shadow-sm uppercase tracking-widest";
                 }
                 if(btnReport) { btnReport.classList.remove('hidden'); btnReport.classList.add('flex'); }
                 if(btnSettings) { btnSettings.classList.remove('hidden'); btnSettings.classList.add('flex'); }
@@ -2022,10 +2123,26 @@
         }
 
         window.renderStats = function() {
-            const todayCount = state.visitors.filter(v => v.date === todayStr).length;
+            // Widget Hari Ini (Bergantung pada state.selectedDate)
+            const selectedCount = state.visitors.filter(v => v.date === state.selectedDate).length;
             const todayEl = document.getElementById('stat-today');
-            if(todayEl) todayEl.innerText = todayCount;
+            if(todayEl) todayEl.innerText = selectedCount;
+
+            const todayLabelEl = document.getElementById('widget-today-label');
+            if(todayLabelEl) {
+                if(state.selectedDate === todayStr) {
+                    todayLabelEl.innerText = "HARI INI";
+                } else {
+                    const dObj = new Date(state.selectedDate);
+                    if (!isNaN(dObj.getTime())) {
+                        todayLabelEl.innerText = formatDateMalay(dObj);
+                    } else {
+                        todayLabelEl.innerText = "HARI INI";
+                    }
+                }
+            }
             
+            // Widget Bulan Ini / Keseluruhan
             const filterValue = state.statsFilter || 'month';
             let totalCount = 0;
             
@@ -2117,6 +2234,7 @@
             state.selectedDate = dateStr;
             renderCalendar();
             renderTable();
+            renderStats(); // Update widget Hari Ini
         };
 
         window.selectToday = function(preventScroll = false) {
@@ -2124,6 +2242,7 @@
             state.calendarDate = new Date();
             renderCalendar();
             renderTable();
+            renderStats(); // Update widget Hari Ini
             
             if (preventScroll !== true) {
                 const tableTitle = document.getElementById('table-title');
