@@ -182,18 +182,20 @@
             background: rgba(255, 255, 255, 0.95) !important;
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(0, 0, 0, 0.12); 
+            border: 1px solid rgba(0, 0, 0, 0.12); /* Outline yang lebih menarik */
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Kesan shadow 50% pada widget */
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         
+        /* Hover effect khusus untuk widget top (Hari Ini, Bulan Ini) dalam Windows 11 */
         body[data-theme="win11"] .grid > .mac-window:hover {
-            box-shadow: 0 12px 35px rgba(0, 95, 184, 0.3), 0 6px 15px rgba(0, 0, 0, 0.5); 
+            box-shadow: 0 12px 35px rgba(0, 95, 184, 0.3), 0 6px 15px rgba(0, 0, 0, 0.5); /* Glow shadow + shadow 50% */
             border-color: rgba(0, 95, 184, 0.4);
             transform: translateY(-2px);
         }
 
+        /* Shadow effect untuk butang Daftar Masuk supaya sama dengan widget lain */
         body[data-theme="win11"] #widget-admin button,
         body[data-theme="win11"] #widget-visitor button {
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
@@ -204,7 +206,7 @@
         }
 
         body[data-theme="win11"] .mac-titlebar {
-            background: linear-gradient(180deg, #f8fafd 0%, #f0f4f9 100%) !important; 
+            background: linear-gradient(180deg, #f8fafd 0%, #f0f4f9 100%) !important; /* Latar warna pastel */
             border-bottom: 1px solid #e2e8f0 !important;
             color: #1e293b !important;
             font-weight: 600;
@@ -257,10 +259,9 @@
         
         body[data-theme="win11"] header { 
             background: rgba(255, 255, 255, 0.85) !important; 
-            border-bottom: 1px solid #e2e8f0; 
+            border-bottom: 1px solid #e2e8f0 !important; 
             backdrop-filter: blur(24px); 
-            position: relative;
-            overflow: hidden;
+            overflow: hidden; /* Dibuang position: relative supaya kekal 'fixed' */
         }
 
         /* Animasi Ombak (Wave) untuk Header Windows 11 */
@@ -307,22 +308,20 @@
         <button onclick="document.getElementById('system-error-banner').classList.add('hidden')" class="ml-4 underline hover:text-white" title="Tutup Amaran">Tutup</button>
     </div>
 
-    <div id="modal-confirm" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[99] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-sm w-full text-center modal-animate-pop">
+    <div id="modal-confirm" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
+        <div class="mac-window max-w-sm w-full text-center">
             <div class="mac-titlebar">
                 Pengesahan
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="document.getElementById('modal-confirm').classList.add('hidden')" title="Tutup"></div>
                 </div>
             </div>
             <div class="p-6 bg-white/50">
                 <div class="flex justify-center mb-3"><i data-lucide="alert-triangle" class="h-12 w-12 text-red-500"></i></div>
-                <p id="confirm-msg" class="mb-6 text-sm text-gray-800 font-bold">Adakah anda pasti?</p>
+                <p id="confirm-msg" class="mb-6 text-sm text-gray-800 font-bold">Adakah anda pasti untuk memadam rekod ini?</p>
                 <div class="flex justify-center gap-3">
-                    <button id="btn-confirm-cancel" class="mac-btn-secondary" title="Batal">Batal</button>
-                    <button id="btn-confirm-ok" class="mac-btn-primary !bg-red-500 hover:!bg-red-600 shadow-sm" title="Sahkan">Ya, Pasti</button>
+                    <button id="btn-confirm-cancel" class="mac-btn-secondary" title="Batal Padam">Batal</button>
+                    <button id="btn-confirm-ok" class="mac-btn-primary !bg-red-500 hover:!bg-red-600" title="Sahkan Padam Rekod">Ya, Padam</button>
                 </div>
             </div>
         </div>
@@ -344,16 +343,99 @@
         </div>
     </div>
 
+    <!-- Modal Daftar Pelawat Sedia Ada (Poup 2) -->
+    <div id="modal-returning-visitor" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
+        <div class="mac-window max-w-2xl w-full overflow-hidden max-h-[90vh] flex flex-col bg-[#f5f5f7] modal-animate-pop">
+            <div class="mac-titlebar">
+                <span class="text-blue-900">Pendaftaran Pelawat Sedia Ada</span>
+                <div class="mac-traffic-lights">
+                    <div class="mac-dot mac-close" onclick="hideModal('modal-returning-visitor')" title="Batal & Tutup"></div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 sm:p-8 text-white flex items-center gap-5 shadow-inner">
+                <div class="p-3 bg-white/20 rounded-2xl shadow-sm backdrop-blur-sm border border-blue-400">
+                    <i data-lucide="user-check" class="h-10 w-10 text-white"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-black tracking-tight drop-shadow-sm">Selamat Kembali, <br className="sm:hidden"/><span id="returning-welcome-name" class="text-yellow-300"></span>!</h2>
+                    <p class="text-xs sm:text-sm font-semibold mt-1 text-blue-100 flex items-center gap-1.5"><i data-lucide="calendar-check" class="h-4 w-4"></i> Tarikh terakhir masuk: <span id="returning-last-visit" class="font-bold text-white"></span></p>
+                </div>
+            </div>
+
+            <div class="overflow-y-auto p-6 sm:p-8 bg-white/80 backdrop-blur-md">
+                <form id="form-returning-visitor" class="space-y-6">
+                    <input type="hidden" name="empNo" />
+                    <input type="hidden" id="returning-original-dept" />
+                    
+                    <!-- Tujuan Lawatan Dipindah Ke Atas -->
+                    <div class="space-y-2 bg-blue-50/50 p-4 rounded-xl border border-blue-200 shadow-sm">
+                        <label class="text-sm font-black text-blue-900 flex items-center gap-2"><i data-lucide="edit-3" class="h-4 w-4 text-blue-600"></i> Tujuan Lawatan Hari Ini <span class="text-red-500">*</span></label>
+                        <textarea name="comment" required rows="3" class="mac-input w-full resize-none font-bold shadow-sm border-blue-300" placeholder="Sila nyatakan tujuan lawatan terkini anda..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Nama Penuh <span class="text-red-500">*</span></label>
+                            <input name="name" type="text" required class="mac-input w-full font-bold bg-gray-50 text-gray-600 border-gray-300" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Jenis Pelawat <span class="text-red-500">*</span></label>
+                            <select name="visitorRole" required class="mac-input w-full cursor-pointer font-bold bg-gray-50 border-gray-300">
+                                <option value="Pelawat Biasa">Pelawat Biasa</option>
+                                <option value="Urusetia Pusat Sumber">Urusetia Pusat Sumber</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Jawatan</label>
+                            <input name="position" type="text" class="mac-input w-full font-bold bg-gray-50 text-gray-600 border-gray-300" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 block">Kategori Pelawat <span class="text-red-500">*</span></label>
+                            <select name="department" required onchange="handleReturningDeptChange(this)" class="mac-input w-full cursor-pointer font-bold bg-gray-50 border-gray-300">
+                                <option value="">Sila Pilih...</option>
+                                <option value="Pelawat Am">Pelawat Am</option>
+                                <option value="Penjawat Awam">Penjawat Awam</option>
+                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                                <option value="WISDEC Banting">WISDEC Banting</option>
+                                <option value="WISDEC Sabah">WISDEC Sabah</option>
+                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="Wilayah Timur">Wilayah Timur</option>
+                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                                <option value="Wilayah Utara">Wilayah Utara</option>
+                                <option value="Wilayah Selatan">Wilayah Selatan</option>
+                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            </select>
+                            <input id="returning-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden mac-input w-full mt-2 font-bold bg-gray-50 border-gray-300" />
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end gap-3 pt-6 border-t border-gray-200 mt-6">
+                        <button type="button" onclick="hideModal('modal-returning-visitor')" class="mac-btn-secondary shadow-sm font-bold">Batal</button>
+                        <button type="submit" class="mac-btn-primary animate-pulse-aqua px-8 shadow-sm font-bold">Daftar Kehadiran</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- ============================================== -->
     <!-- PAPARAN 1: BORANG PENDAFTARAN PELAWAT BARU     -->
+    <!-- ============================================== -->
+    <!-- PAPARAN 1: BORANG PENDAFTARAN PELAWAT          -->
     <!-- ============================================== -->
     <div id="view-guest-form" class="hidden min-h-screen py-8 sm:py-12 px-4 fade-in">
         <div class="max-w-2xl mx-auto mac-window shadow-2xl border-none modal-animate-pop">
             <div class="mac-titlebar">
                 <span>Borang Pendaftaran Pelawat</span>
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-min"></div>
-                    <div class="mac-dot mac-max"></div>
                     <div class="mac-dot mac-close" onclick="switchView('dashboard')" title="Tutup"></div>
                 </div>
             </div>
@@ -378,27 +460,30 @@
                 <form id="form-guest" class="space-y-5">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div class="space-y-2">
-                            <label class="text-xs font-bold text-gray-700 ml-1">No Pekerja / ID <span class="text-red-500">*</span></label>
-                            <input name="empNo" type="text" required class="mac-input w-full font-bold" placeholder="Contoh: 12345" />
+                            <label class="text-xs font-bold text-gray-700 ml-1">No Pekerja / ID</label>
+                            <div class="flex gap-2">
+                                <input name="empNo" type="text" class="mac-input w-full" placeholder="Contoh: 12345" title="Masukkan No Pekerja atau ID untuk carian automatik" />
+                                <button type="button" onclick="searchEmployee('guest')" class="mac-btn-primary animate-pulse-aqua flex-shrink-0 px-6 font-bold" title="Sila buat carian nombor pekerja terlebih dahulu">Cari</button>
+                            </div>
                         </div>
                         <div class="space-y-2">
                             <label class="text-xs font-bold text-gray-700 ml-1">Jenis Pelawat <span class="text-red-500">*</span></label>
-                            <select name="visitorRole" required class="mac-input w-full cursor-pointer font-bold">
+                            <select name="visitorRole" required class="mac-input w-full cursor-pointer" title="Pilih peranan pelawat">
                                 <option value="Pelawat Biasa">Pelawat Biasa</option>
                                 <option value="Urusetia Pusat Sumber">Urusetia Pusat Sumber</option>
                             </select>
                         </div>
                         <div class="space-y-2">
                             <label class="text-xs font-bold text-gray-700 ml-1">Nama Penuh <span class="text-red-500">*</span></label>
-                            <input name="name" type="text" required class="mac-input w-full font-bold" placeholder="Nama Penuh" />
+                            <input name="name" type="text" required class="mac-input w-full" placeholder="Nama Penuh" title="Sila masukkan nama penuh anda" />
                         </div>
                         <div class="space-y-2">
                             <label class="text-xs font-bold text-gray-700 ml-1">Jawatan</label>
-                            <input name="position" type="text" class="mac-input w-full font-bold" placeholder="Jawatan (Pilihan)" />
+                            <input name="position" type="text" class="mac-input w-full" placeholder="Jawatan" title="Jawatan pelawat (pilihan)" />
                         </div>
                         <div class="md:col-span-2 space-y-2">
                             <label class="text-xs font-bold text-gray-700 ml-1 block">Bahagian / Kategori Pelawat <span class="text-red-500">*</span></label>
-                            <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="mac-input w-full cursor-pointer font-bold">
+                            <select name="department" required onchange="toggleAgencyInput(this, 'guest-agency')" class="mac-input w-full cursor-pointer" title="Pilih kategori/bahagian anda">
                                 <option value="">Sila Pilih...</option>
                                 <option value="Pelawat Am">Pelawat Am</option>
                                 <option value="Penjawat Awam">Penjawat Awam</option>
@@ -419,20 +504,20 @@
                                 <option value="Wilayah Selatan">Wilayah Selatan</option>
                                 <option value="Wilayah Sabah">Wilayah Sabah</option>
                             </select>
-                            <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden mac-input w-full mt-2 font-bold" />
+                            <input id="guest-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden mac-input w-full mt-2" title="Sila nyatakan agensi atau syarikat" />
                         </div>
                     </div>
                     
                     <div class="space-y-2 pt-2">
                         <label class="text-xs font-bold text-gray-700 ml-1">Komen / Tujuan Lawatan <span class="text-red-500">*</span></label>
-                        <textarea name="comment" required rows="3" class="mac-input w-full mac-textarea resize-none font-bold" placeholder="Sila nyatakan tujuan lawatan anda..."></textarea>
+                        <textarea name="comment" required rows="3" class="mac-input w-full mac-textarea resize-none" placeholder="Sila nyatakan tujuan lawatan anda..." title="Isikan tujuan lawatan anda dengan ringkas"></textarea>
                     </div>
 
                     <div class="flex flex-col sm:flex-row justify-end gap-3 pt-6 mt-4 border-t border-gray-200">
-                        <button type="button" onclick="switchView('dashboard')" class="mac-btn-secondary w-full sm:w-auto shadow-sm" title="Kembali ke Dashboard utama">
+                        <button type="button" onclick="switchView('dashboard')" class="mac-btn-secondary w-full sm:w-auto" title="Kembali ke Dashboard utama">
                             Batal
                         </button>
-                        <button type="submit" id="btn-submit-guest" class="mac-btn-primary w-full sm:w-auto animate-pulse-aqua text-sm px-8 shadow-sm">
+                        <button type="submit" id="btn-submit-guest" class="mac-btn-primary w-full sm:w-auto animate-pulse-aqua text-sm px-8" title="Hantar dan rekodkan pendaftaran anda">
                             Daftar Pelawat
                         </button>
                     </div>
@@ -489,7 +574,7 @@
         </header>
 
         <!-- Main Content Workspace -->
-        <main class="flex-1 p-4 sm:p-8 max-w-[1400px] mx-auto w-full flex flex-col gap-6 no-print mt-24">
+        <main class="flex-1 p-4 sm:p-8 max-w-[1400px] mx-auto w-full flex flex-col gap-6 no-print mt-20">
 
             <!-- Top Widgets -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -581,7 +666,7 @@
                             </div>
                         </div>
 
-                        <button onclick="selectToday()" class="mac-btn-secondary w-full mt-auto py-3 font-bold uppercase tracking-wider text-xs text-indigo-700 hover:text-indigo-900 hover:border-indigo-300 hover:bg-indigo-50 shadow-sm" title="Kembali ke kalendar hari ini">
+                        <button onclick="selectToday()" class="mac-btn-secondary w-full mt-auto py-3 font-bold uppercase tracking-wider text-xs text-indigo-700 hover:text-indigo-900 hover:border-indigo-300 hover:bg-indigo-50" title="Kembali ke kalendar hari ini">
                             <i data-lucide="calendar" class="h-4 w-4"></i> Hari Ini
                         </button>
                     </div>
@@ -623,7 +708,7 @@
                 <h2 class="text-xl font-bold text-gray-900">Prapapar Laporan</h2>
                 <p class="text-sm text-gray-500 font-semibold">Sila gunakan fungsi "Save as PDF" di pelayar anda.</p>
             </div>
-            <button onclick="cancelPrint()" class="mac-btn-secondary text-red-500 font-bold hover:bg-red-50 shadow-sm" title="Batal Cetak">
+            <button onclick="cancelPrint()" class="mac-btn-secondary text-red-500 font-bold hover:bg-red-50" title="Batal Cetak">
                 Batal & Kembali
             </button>
         </div>
@@ -665,97 +750,14 @@
             <div class="p-8 bg-white/70">
                 <div class="flex justify-center mb-4"><div class="p-4 bg-blue-50 rounded-full shadow-sm"><i data-lucide="search" class="h-8 w-8 text-[#007aff]"></i></div></div>
                 <h3 class="text-lg font-bold mb-2 text-gray-800">Semakan ID Pelawat</h3>
-                <p class="text-xs text-gray-500 mb-6 font-bold">Sila masukkan No Pekerja/ID anda terlebih dahulu.</p>
+                <p class="text-xs text-gray-500 mb-6 font-bold">Sila masukkan No Pekerja/ID untuk log masuk pantas.</p>
                 <form id="form-check-id" class="space-y-4 text-left">
                     <div>
                         <input type="text" id="quick-check-id-input" placeholder="No Pekerja / ID" class="mac-input w-full text-center tracking-widest text-lg font-bold" required title="Masukkan No Pekerja atau ID anda"/>
                     </div>
                     <div class="flex justify-end gap-3 mt-6 pt-5 border-t border-gray-200">
-                        <button type="button" onclick="hideModal('modal-check-id')" class="mac-btn-secondary w-full shadow-sm font-bold" title="Batal proses">Batal</button>
-                        <button type="submit" class="mac-btn-primary w-full shadow-sm font-bold" title="Semak ID dalam pangkalan data">Semak</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Daftar Pelawat Sedia Ada (Poup 2) -->
-    <div id="modal-returning-visitor" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-2xl w-full overflow-hidden max-h-[90vh] flex flex-col bg-[#f5f5f7] modal-animate-pop">
-            <div class="mac-titlebar">
-                <span class="text-blue-900">Pendaftaran Pelawat Sedia Ada</span>
-                <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-close" onclick="hideModal('modal-returning-visitor')" title="Batal & Tutup"></div>
-                </div>
-            </div>
-            
-            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 sm:p-8 text-white flex items-center gap-5 shadow-inner">
-                <div class="p-3 bg-white/20 rounded-2xl shadow-sm backdrop-blur-sm border border-blue-400">
-                    <i data-lucide="user-check" class="h-10 w-10 text-white"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl sm:text-3xl font-black tracking-tight drop-shadow-sm">Selamat Kembali, <br className="sm:hidden"/><span id="returning-welcome-name" class="text-yellow-300"></span>!</h2>
-                    <p class="text-xs sm:text-sm font-semibold mt-1 text-blue-100 flex items-center gap-1.5"><i data-lucide="calendar-check" class="h-4 w-4"></i> Tarikh terakhir masuk: <span id="returning-last-visit" class="font-bold text-white"></span></p>
-                </div>
-            </div>
-
-            <div class="overflow-y-auto p-6 sm:p-8 bg-white/80 backdrop-blur-md">
-                <form id="form-returning-visitor" class="space-y-6">
-                    <input type="hidden" name="empNo" />
-                    <input type="hidden" id="returning-original-dept" />
-                    
-                    <!-- Tujuan Lawatan Dipindah Ke Atas -->
-                    <div class="space-y-2 bg-blue-50/50 p-4 rounded-xl border border-blue-200 shadow-sm">
-                        <label class="text-sm font-black text-blue-900 flex items-center gap-2"><i data-lucide="edit-3" class="h-4 w-4 text-blue-600"></i> Tujuan Lawatan Hari Ini <span class="text-red-500">*</span></label>
-                        <textarea name="comment" required rows="3" class="mac-input w-full resize-none font-bold shadow-sm border-blue-300" placeholder="Sila nyatakan tujuan lawatan terkini anda..."></textarea>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Nama Penuh <span class="text-red-500">*</span></label>
-                            <input name="name" type="text" required class="mac-input w-full font-bold bg-gray-50 text-gray-600 border-gray-300" />
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Jenis Pelawat <span class="text-red-500">*</span></label>
-                            <select name="visitorRole" required class="mac-input w-full cursor-pointer font-bold bg-gray-50 border-gray-300">
-                                <option value="Pelawat Biasa">Pelawat Biasa</option>
-                                <option value="Urusetia Pusat Sumber">Urusetia Pusat Sumber</option>
-                            </select>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Jawatan</label>
-                            <input name="position" type="text" class="mac-input w-full font-bold bg-gray-50 text-gray-600 border-gray-300" />
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 block">Kategori Pelawat <span class="text-red-500">*</span></label>
-                            <select name="department" required onchange="handleReturningDeptChange(this)" class="mac-input w-full cursor-pointer font-bold bg-gray-50 border-gray-300">
-                                <option value="">Sila Pilih...</option>
-                                <option value="Pelawat Am">Pelawat Am</option>
-                                <option value="Penjawat Awam">Penjawat Awam</option>
-                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
-                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
-                                <option value="WISDEC Banting">WISDEC Banting</option>
-                                <option value="WISDEC Sabah">WISDEC Sabah</option>
-                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
-                                <option value="Wilayah Timur">Wilayah Timur</option>
-                                <option value="Wilayah Tengah">Wilayah Tengah</option>
-                                <option value="Wilayah Utara">Wilayah Utara</option>
-                                <option value="Wilayah Selatan">Wilayah Selatan</option>
-                                <option value="Wilayah Sabah">Wilayah Sabah</option>
-                            </select>
-                            <input id="returning-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden mac-input w-full mt-2 font-bold bg-gray-50 border-gray-300" />
-                        </div>
-                    </div>
-                    
-                    <div class="flex justify-end gap-3 pt-6 border-t border-gray-200 mt-6">
-                        <button type="button" onclick="hideModal('modal-returning-visitor')" class="mac-btn-secondary shadow-sm font-bold">Batal</button>
-                        <button type="submit" class="mac-btn-primary animate-pulse-aqua px-8 shadow-sm font-bold">Daftar Kehadiran</button>
+                        <button type="button" onclick="hideModal('modal-check-id')" class="mac-btn-secondary w-full shadow-sm" title="Batal Pendaftaran">Batal</button>
+                        <button type="submit" class="mac-btn-primary w-full shadow-sm" title="Semak ID dalam pangkalan data">Semak</button>
                     </div>
                 </form>
             </div>
@@ -764,21 +766,22 @@
 
     <!-- Modal Quick Admin Login -->
     <div id="modal-admin-login" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[60] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-sm w-full text-center modal-animate-pop">
+        <div class="mac-window max-w-sm w-full text-center">
             <div class="mac-titlebar" style="min-height: 42px;">
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-close" onclick="hideModal('modal-admin-login')" title="Batal"></div>
+                    <div class="mac-dot mac-close" onclick="hideModal('modal-admin-login')" title="Tutup"></div>
                 </div>
             </div>
             <div class="p-8 bg-white/70">
                 <div class="flex justify-center mb-4"><div class="p-4 bg-blue-50 rounded-full shadow-sm"><i data-lucide="lock" class="h-8 w-8 text-[#007aff]"></i></div></div>
+                <h3 class="text-lg font-bold mb-6 text-gray-800">Akses Pentadbir</h3>
                 <form id="form-quick-login" class="space-y-4 text-left">
                     <div>
-                        <input type="password" id="quick-admin-pass" placeholder="Kata Laluan" class="mac-input w-full text-center tracking-widest text-lg font-bold shadow-sm" title="Masukkan kata laluan pentadbir"/>
+                        <input type="password" id="quick-admin-pass" placeholder="Kata Laluan" class="mac-input w-full text-center tracking-widest text-lg font-bold" title="Masukkan kata laluan pentadbir"/>
                     </div>
                     <div class="flex justify-end gap-3 mt-6 pt-5 border-t border-gray-200">
-                        <button type="button" onclick="hideModal('modal-admin-login')" class="mac-btn-secondary w-full shadow-sm font-bold" title="Batal log masuk">Batal</button>
-                        <button type="submit" class="mac-btn-primary w-full shadow-sm font-bold" title="Sahkan log masuk">Masuk</button>
+                        <button type="button" onclick="hideModal('modal-admin-login')" class="mac-btn-secondary w-full shadow-sm" title="Batal log masuk">Batal</button>
+                        <button type="submit" class="mac-btn-primary w-full shadow-sm" title="Sahkan log masuk">Masuk</button>
                     </div>
                 </form>
             </div>
@@ -787,7 +790,7 @@
 
     <!-- Modal Tetapan (Settings) Diperbesarkan & Ada Filter & Kompak -->
     <div id="modal-settings" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[60] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-6xl w-full max-h-[95vh] flex flex-col overflow-hidden bg-[#f5f5f7] modal-animate-pop">
+        <div class="mac-window max-w-6xl w-full max-h-[95vh] flex flex-col overflow-hidden bg-[#f5f5f7]">
             <div class="mac-titlebar">
                 <span class="text-blue-900">Tetapan & Pangkalan Data Pelawat</span>
                 <div class="mac-traffic-lights">
@@ -821,7 +824,7 @@
                             </select>
                         </div>
                         <div>
-                            <button type="submit" class="mac-btn-primary w-full py-2.5 shadow-sm font-bold" title="Simpan Konfigurasi">Simpan</button>
+                            <button type="submit" class="mac-btn-primary w-full py-2.5" title="Simpan Konfigurasi">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -832,18 +835,18 @@
                         <!-- Carian Nama / ID -->
                         <div class="relative w-full sm:w-1/3">
                             <i data-lucide="search" class="absolute left-3 top-[10px] h-4 w-4 text-gray-400"></i>
-                            <input type="text" id="search-settings-name" oninput="renderSettingsTable()" placeholder="Cari nama pelawat..." class="mac-input w-full pl-9 pr-8 font-bold shadow-sm" title="Carian rekod pelawat">
+                            <input type="text" id="search-settings-name" oninput="renderSettingsTable()" placeholder="Cari nama pelawat..." class="mac-input w-full pl-9 pr-8 font-bold" title="Carian rekod pelawat">
                             <button onclick="document.getElementById('search-settings-name').value=''; renderSettingsTable();" class="absolute right-2 top-2.5 text-gray-400 hover:text-gray-600 transition-colors" title="Padam Carian"><i data-lucide="x-circle" class="h-4 w-4"></i></button>
                         </div>
                         
                         <div class="flex w-full sm:w-2/3 gap-3">
-                            <select id="filter-settings-time" onchange="renderSettingsTable()" class="mac-input w-1/3 cursor-pointer font-bold text-indigo-800 border-indigo-200 shadow-sm" title="Tapis mengikut masa">
+                            <select id="filter-settings-time" onchange="renderSettingsTable()" class="mac-input w-1/3 cursor-pointer font-bold text-indigo-800 border-indigo-200" title="Tapis mengikut masa">
                                 <option value="monthly" selected>Bulan Ini</option>
                                 <option value="daily">Hari Ini</option>
                                 <option value="weekly">Minggu Ini</option>
                                 <option value="yearly">Tahun Ini</option>
                             </select>
-                            <select id="filter-settings-dept" onchange="renderSettingsTable()" class="mac-input w-2/3 cursor-pointer font-bold text-indigo-800 border-indigo-200 shadow-sm" title="Tapis mengikut bahagian/kategori">
+                            <select id="filter-settings-dept" onchange="renderSettingsTable()" class="mac-input w-2/3 cursor-pointer font-bold text-indigo-800 border-indigo-200" title="Tapis mengikut bahagian/kategori">
                                 <option value="all">Semua Kategori</option>
                                 <option value="Pelawat Am">Pelawat Am</option>
                                 <option value="Penjawat Awam">Penjawat Awam</option>
@@ -890,164 +893,9 @@
         </div>
     </div>
 
-    <!-- Modal Edit -->
-    <div id="modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7] modal-animate-pop">
-            <div class="mac-titlebar">
-                <span class="text-blue-900">Kemaskini Pindaan</span>
-                <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-close" onclick="hideModal('modal-edit')" title="Tutup Paparan"></div>
-                </div>
-            </div>
-            <div class="overflow-y-auto p-6 sm:p-8">
-                <form id="form-edit" class="space-y-4">
-                    <input type="hidden" id="edit-id" />
-                    <div class="grid grid-cols-2 gap-5">
-                        <div>
-                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Tarikh</label>
-                            <input type="date" id="edit-date" name="date" required class="mac-input w-full font-bold shadow-sm" title="Ubah Tarikh"/>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Peranan <span class="text-red-500">*</span></label>
-                            <select id="edit-visitorRole" name="visitorRole" required class="mac-input w-full cursor-pointer font-bold shadow-sm">
-                                <option value="Pelawat Biasa">Pelawat Biasa</option>
-                                <option value="Urusetia Pusat Sumber">Urusetia Pusat Sumber</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">No Pekerja / ID</label>
-                            <input id="edit-empNo" name="empNo" class="mac-input w-full font-bold shadow-sm" />
-                        </div>
-                        <div>
-                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Nama Penuh</label>
-                            <input id="edit-name" name="name" required class="mac-input w-full font-bold shadow-sm" />
-                        </div>
-                        <div class="col-span-2">
-                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Jawatan</label>
-                            <input id="edit-position" name="position" class="mac-input w-full font-bold shadow-sm" />
-                        </div>
-                        <div class="col-span-2 space-y-1">
-                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Bahagian / Kategori <span class="text-red-500">*</span></label>
-                            <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="mac-input w-full cursor-pointer font-bold shadow-sm">
-                                <option value="">Sila Pilih...</option>
-                                <option value="Pelawat Am">Pelawat Am</option>
-                                <option value="Penjawat Awam">Penjawat Awam</option>
-                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
-                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
-                                <option value="WISDEC Banting">WISDEC Banting</option>
-                                <option value="WISDEC Sabah">WISDEC Sabah</option>
-                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
-                                <option value="Wilayah Timur">Wilayah Timur</option>
-                                <option value="Wilayah Tengah">Wilayah Tengah</option>
-                                <option value="Wilayah Utara">Wilayah Utara</option>
-                                <option value="Wilayah Selatan">Wilayah Selatan</option>
-                                <option value="Wilayah Sabah">Wilayah Sabah</option>
-                            </select>
-                            <input id="edit-agency" name="agency" type="text" placeholder="Agensi/Syarikat" class="hidden mac-input w-full mt-2 font-bold shadow-sm" />
-                        </div>
-                    </div>
-                    <div class="pt-2">
-                        <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Komen / Tujuan</label>
-                        <textarea id="edit-comment" name="comment" required rows="3" class="mac-input w-full resize-none font-bold shadow-sm"></textarea>
-                    </div>
-                    <div class="flex justify-between items-center mt-6 pt-5 border-t border-gray-200">
-                        <button type="button" onclick="deleteVisitorWrapper();" class="mac-btn-secondary !text-red-500 hover:!bg-red-50 font-bold shadow-sm">Padam</button>
-                        <div class="flex gap-3">
-                            <button type="button" onclick="hideModal('modal-edit')" class="mac-btn-secondary font-bold shadow-sm">Batal</button>
-                            <button type="submit" class="mac-btn-primary px-6 font-bold shadow-sm">Simpan</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Admin Register -->
-    <div id="modal-register" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-2xl w-full overflow-hidden max-h-[90vh] flex flex-col bg-[#f5f5f7] modal-animate-pop">
-            <div class="mac-titlebar">
-                <span class="text-blue-900">Daftar Pelawat Baru (Admin)</span>
-                <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-close" onclick="hideModal('modal-register')" title="Batal & Tutup"></div>
-                </div>
-            </div>
-            <div class="overflow-y-auto p-6 sm:p-8">
-                <div class="mb-6 flex justify-end items-center gap-3">
-                     <label class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Tetapan Tarikh:</label>
-                     <input type="date" id="admin-visit-date" name="visit_date" form="form-admin-register" class="mac-input w-auto font-bold py-1.5 shadow-sm" required title="Pilih Tarikh Rekod">
-                </div>
-                <form id="form-admin-register" class="space-y-5">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">No Pekerja / ID</label>
-                            <div class="flex gap-2">
-                                <input name="empNo" type="text" class="mac-input w-full font-bold shadow-sm" placeholder="ID Pekerja" title="Masukkan ID Pekerja" />
-                                <button type="button" onclick="searchEmployee('admin')" class="mac-btn-primary flex-shrink-0 px-6 font-bold shadow-sm" title="Buat carian nombor pekerja">Cari</button>
-                            </div>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Jenis Pelawat <span class="text-red-500">*</span></label>
-                            <select name="visitorRole" required class="mac-input w-full cursor-pointer font-bold shadow-sm">
-                                <option value="Pelawat Biasa">Pelawat Biasa</option>
-                                <option value="Urusetia Pusat Sumber">Urusetia Pusat Sumber</option>
-                            </select>
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Nama Penuh <span class="text-red-500">*</span></label>
-                            <input name="name" type="text" required class="mac-input w-full font-bold shadow-sm" />
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Jawatan</label>
-                            <input name="position" type="text" class="mac-input w-full font-bold shadow-sm" />
-                        </div>
-                        <div class="md:col-span-2 space-y-1">
-                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 block">Kategori Pelawat <span class="text-red-500">*</span></label>
-                            <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="mac-input w-full cursor-pointer font-bold shadow-sm" title="Pilih kategori">
-                                <option value="">Sila Pilih...</option>
-                                <option value="Pelawat Am">Pelawat Am</option>
-                                <option value="Penjawat Awam">Penjawat Awam</option>
-                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
-                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
-                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
-                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
-                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
-                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
-                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
-                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
-                                <option value="WISDEC Banting">WISDEC Banting</option>
-                                <option value="WISDEC Sabah">WISDEC Sabah</option>
-                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
-                                <option value="Wilayah Timur">Wilayah Timur</option>
-                                <option value="Wilayah Tengah">Wilayah Tengah</option>
-                                <option value="Wilayah Utara">Wilayah Utara</option>
-                                <option value="Wilayah Selatan">Wilayah Selatan</option>
-                                <option value="Wilayah Sabah">Wilayah Sabah</option>
-                            </select>
-                            <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden mac-input w-full mt-2 font-bold shadow-sm" />
-                        </div>
-                    </div>
-                    <div class="space-y-1 pt-2">
-                        <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Tujuan Lawatan <span class="text-red-500">*</span></label>
-                        <textarea name="comment" required rows="3" class="mac-input w-full resize-none font-bold shadow-sm"></textarea>
-                    </div>
-                    <div class="flex justify-end gap-3 mt-8 pt-5 border-t border-gray-200">
-                        <button type="button" onclick="hideModal('modal-register')" class="mac-btn-secondary shadow-sm font-bold" title="Batal Pendaftaran">Batal</button>
-                        <button type="submit" class="mac-btn-primary px-8 shadow-sm font-bold" title="Sahkan dan Daftar Rekod">Daftar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Profil Pelawat (Profil View) -->
+    <!-- Modal Profil Pelawat -->
     <div id="modal-user-profile" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-4xl w-full flex flex-col max-h-[90vh] overflow-hidden bg-white modal-animate-pop">
+        <div class="mac-window max-w-4xl w-full flex flex-col max-h-[90vh] overflow-hidden bg-white">
             <div class="mac-titlebar">
                 <span class="text-blue-900">Profil Pelawat</span>
                 <div class="mac-traffic-lights">
@@ -1056,13 +904,14 @@
             </div>
             
             <div class="flex flex-col md:flex-row flex-1 overflow-hidden">
+                <!-- Info Profil (Kiri) -->
                 <div class="p-8 md:w-1/3 bg-[#f5f5f7] border-r border-gray-200 flex flex-col gap-6 overflow-y-auto">
                     <div class="text-center mt-2">
                         <div class="inline-flex items-center justify-center w-24 h-24 bg-white text-[#007aff] rounded-full mb-4 shadow-sm border border-gray-200">
                             <i data-lucide="user" class="h-10 w-10"></i>
                         </div>
                         <h4 id="profile-name" class="font-black text-xl text-gray-900 leading-tight">Nama Pelawat</h4>
-                        <p id="profile-id" class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-1 bg-white inline-block px-2 py-0.5 rounded-full border border-gray-200 mt-2 shadow-sm">ID: -</p>
+                        <p id="profile-id" class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-1 bg-white inline-block px-2 py-0.5 rounded-full border border-gray-200 mt-2">ID: -</p>
                     </div>
                     
                     <div class="space-y-4 bg-white p-5 rounded-2xl border border-gray-200 shadow-sm">
@@ -1081,25 +930,26 @@
                     </div>
                     
                     <div class="mt-auto">
-                        <div class="bg-blue-50 border border-blue-100 py-4 px-4 rounded-2xl text-center shadow-sm">
+                        <div class="bg-blue-50 border border-blue-100 py-4 px-4 rounded-2xl text-center">
                             <p class="text-[11px] font-bold text-blue-600 uppercase tracking-widest mb-1">Jumlah Hadir</p>
                             <p id="profile-total-visits" class="text-4xl font-black text-blue-700 leading-none">0</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Sejarah Kehadiran (Kanan) -->
                 <div class="p-6 md:w-2/3 bg-white flex flex-col flex-1 overflow-hidden">
                     <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-4 mb-4">
                         <div class="flex flex-col gap-2 w-full sm:w-auto">
                             <label class="text-xs font-bold text-gray-500 uppercase tracking-widest ml-1">Penapis Sejarah</label>
                             <div class="flex gap-2">
-                                <select id="profile-filter-type" onchange="handleProfileFilterChange()" class="mac-input cursor-pointer w-auto font-bold text-indigo-800 shadow-sm">
+                                <select id="profile-filter-type" onchange="handleProfileFilterChange()" class="mac-input cursor-pointer w-auto font-bold text-indigo-800">
                                     <option value="all">Semua Rekod</option>
                                     <option value="monthly">Bulanan</option>
                                     <option value="yearly">Tahunan</option>
                                 </select>
-                                <input type="month" id="profile-month-picker" onchange="renderUserProfileHistory()" class="hidden mac-input cursor-pointer w-auto font-bold text-indigo-800 shadow-sm">
-                                <input type="number" id="profile-year-picker" onchange="renderUserProfileHistory()" placeholder="Tahun" class="hidden w-24 mac-input font-bold text-indigo-800 shadow-sm">
+                                <input type="month" id="profile-month-picker" onchange="renderUserProfileHistory()" class="hidden mac-input cursor-pointer w-auto font-bold text-indigo-800">
+                                <input type="number" id="profile-year-picker" onchange="renderUserProfileHistory()" placeholder="Tahun" class="hidden w-24 mac-input font-bold text-indigo-800">
                             </div>
                         </div>
                         <button onclick="generateUserProfileReport()" class="mac-btn-secondary text-[#007aff] font-bold border-blue-200 hover:border-blue-400 hover:bg-blue-50 shadow-sm" title="Cetak Rekod Individu">
@@ -1117,6 +967,7 @@
                                 </tr>
                             </thead>
                             <tbody id="user-profile-history-body" class="text-sm">
+                                <!-- Disuntik melalui JS -->
                             </tbody>
                         </table>
                     </div>
@@ -1130,7 +981,7 @@
 
     <!-- Modal Statistik & Top Visitors -->
     <div id="modal-stats" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7] modal-animate-pop">
+        <div class="mac-window max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7]">
             <div class="mac-titlebar">
                 <span class="text-blue-900">Analitik Pelawat</span>
                 <div class="mac-traffic-lights">
@@ -1143,13 +994,13 @@
                 <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col gap-2">
                     <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                         <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">Ringkasan Kehadiran</label>
-                        <select id="modal-stat-filter" onchange="updateStatsModal()" class="mac-input w-auto text-sm py-1.5 font-bold cursor-pointer shadow-sm" title="Tukar tempoh statistik">
+                        <select id="modal-stat-filter" onchange="updateStatsModal()" class="mac-input w-auto text-sm py-1.5 font-bold cursor-pointer" title="Tukar tempoh statistik">
                             <option value="month">Bulan Ini</option>
                             <option value="week">Minggu Ini</option>
                             <option value="all">Keseluruhan</option>
                         </select>
                     </div>
-                    <p id="modal-stat-total" class="text-5xl font-black text-[#27c93f] tracking-tight mt-2 drop-shadow-sm">0</p>
+                    <p id="modal-stat-total" class="text-5xl font-black text-[#27c93f] tracking-tight mt-2">0</p>
                 </div>
 
                 <!-- Top Visitors -->
@@ -1158,7 +1009,7 @@
                         <h4 class="font-bold text-gray-900 text-sm flex items-center gap-2">
                             <i data-lucide="award" class="h-4 w-4 text-yellow-500"></i> Ranking Kehadiran
                         </h4>
-                        <input type="month" id="top-month-picker" onchange="updateStatsModal()" class="mac-input w-auto text-sm py-1.5 font-bold cursor-pointer shadow-sm" title="Pilih Bulan Ranking" />
+                        <input type="month" id="top-month-picker" onchange="updateStatsModal()" class="mac-input w-auto text-sm py-1.5 font-bold cursor-pointer" title="Pilih Bulan Ranking" />
                     </div>
                     
                     <div class="mac-window border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
@@ -1172,6 +1023,7 @@
                                 </tr>
                             </thead>
                             <tbody id="top-visitors-body">
+                                <!-- Disuntik melalui JS -->
                             </tbody>
                         </table>
                     </div>
@@ -1187,9 +1039,164 @@
         </div>
     </div>
 
+    <!-- Modal Admin Register -->
+    <div id="modal-register" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
+        <div class="mac-window max-w-2xl w-full overflow-hidden max-h-[90vh] flex flex-col bg-[#f5f5f7]">
+            <div class="mac-titlebar">
+                <span class="text-blue-900">Daftar Pelawat (Admin)</span>
+                <div class="mac-traffic-lights">
+                    <div class="mac-dot mac-close" onclick="hideModal('modal-register')" title="Batal & Tutup"></div>
+                </div>
+            </div>
+            <div class="overflow-y-auto p-6 sm:p-8">
+                <div class="mb-6 flex justify-end items-center gap-3">
+                     <label class="text-[11px] font-bold text-gray-500 uppercase tracking-widest">Tetapan Tarikh:</label>
+                     <input type="date" id="admin-visit-date" name="visit_date" form="form-admin-register" class="mac-input w-auto font-bold py-1.5" required title="Pilih Tarikh Rekod">
+                </div>
+                <form id="form-admin-register" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">No Pekerja / ID</label>
+                            <div class="flex gap-2">
+                                <input name="empNo" type="text" class="mac-input w-full font-bold" placeholder="ID Pekerja" title="Masukkan ID Pekerja" />
+                                <button type="button" onclick="searchEmployee('admin')" class="mac-btn-primary animate-pulse-aqua flex-shrink-0 px-6 font-bold shadow-sm" title="Sila buat carian nombor pekerja terlebih dahulu">Cari</button>
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Jenis Pelawat <span class="text-red-500">*</span></label>
+                            <select name="visitorRole" required class="mac-input w-full cursor-pointer font-bold" title="Pilih peranan">
+                                <option value="Pelawat Biasa">Pelawat Biasa</option>
+                                <option value="Urusetia Pusat Sumber">Urusetia Pusat Sumber</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Nama Penuh <span class="text-red-500">*</span></label>
+                            <input name="name" type="text" required class="mac-input w-full font-bold" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Jawatan</label>
+                            <input name="position" type="text" class="mac-input w-full font-bold" />
+                        </div>
+                        <div class="md:col-span-2 space-y-1">
+                            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 block">Kategori Pelawat <span class="text-red-500">*</span></label>
+                            <select name="department" required onchange="toggleAgencyInput(this, 'admin-agency')" class="mac-input w-full cursor-pointer font-bold" title="Pilih kategori">
+                                <option value="">Sila Pilih...</option>
+                                <option value="Pelawat Am">Pelawat Am</option>
+                                <option value="Penjawat Awam">Penjawat Awam</option>
+                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                                <option value="WISDEC Banting">WISDEC Banting</option>
+                                <option value="WISDEC Sabah">WISDEC Sabah</option>
+                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="Wilayah Timur">Wilayah Timur</option>
+                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                                <option value="Wilayah Utara">Wilayah Utara</option>
+                                <option value="Wilayah Selatan">Wilayah Selatan</option>
+                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            </select>
+                            <input id="admin-agency" name="agency" type="text" placeholder="Nyatakan (Agensi/Syarikat)" class="hidden mac-input w-full mt-2 font-bold" />
+                        </div>
+                    </div>
+                    <div class="space-y-1 pt-2">
+                        <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">Tujuan Lawatan <span class="text-red-500">*</span></label>
+                        <textarea name="comment" required rows="3" class="mac-input w-full resize-none font-bold"></textarea>
+                    </div>
+                    <div class="flex justify-end gap-3 mt-8 pt-5 border-t border-gray-200">
+                        <button type="button" onclick="hideModal('modal-register')" class="mac-btn-secondary shadow-sm" title="Batal Pendaftaran">Batal</button>
+                        <button type="submit" class="mac-btn-primary animate-pulse-aqua px-8 shadow-sm" title="Sahkan dan Daftar Rekod">Daftar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit -->
+    <div id="modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
+        <div class="mac-window max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7]">
+            <div class="mac-titlebar">
+                <span class="text-blue-900">Kemaskini Pindaan</span>
+                <div class="mac-traffic-lights">
+                    <div class="mac-dot mac-close" onclick="hideModal('modal-edit')" title="Tutup Paparan"></div>
+                </div>
+            </div>
+            <div class="overflow-y-auto p-6 sm:p-8">
+                <form id="form-edit" class="space-y-4">
+                    <input type="hidden" id="edit-id" />
+                    <div class="grid grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Tarikh</label>
+                            <input type="date" id="edit-date" name="date" required class="mac-input w-full font-bold" title="Ubah Tarikh"/>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Peranan <span class="text-red-500">*</span></label>
+                            <select id="edit-visitorRole" name="visitorRole" required class="mac-input w-full cursor-pointer font-bold">
+                                <option value="Pelawat Biasa">Pelawat Biasa</option>
+                                <option value="Urusetia Pusat Sumber">Urusetia Pusat Sumber</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">No Pekerja / ID</label>
+                            <input id="edit-empNo" name="empNo" class="mac-input w-full font-bold" />
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Nama Penuh</label>
+                            <input id="edit-name" name="name" required class="mac-input w-full font-bold" />
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Jawatan</label>
+                            <input id="edit-position" name="position" class="mac-input w-full font-bold" />
+                        </div>
+                        <div class="col-span-2 space-y-1">
+                            <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Bahagian / Kategori <span class="text-red-500">*</span></label>
+                            <select id="edit-department" name="department" required onchange="toggleAgencyInput(this, 'edit-agency')" class="mac-input w-full cursor-pointer font-bold">
+                                <option value="">Sila Pilih...</option>
+                                <option value="Pelawat Am">Pelawat Am</option>
+                                <option value="Penjawat Awam">Penjawat Awam</option>
+                                <option value="Pejabat Ketua Pengarah">Pejabat Ketua Pengarah</option>
+                                <option value="Bahagian Pembangunan Perdagangan">Bahagian Pembangunan Perdagangan</option>
+                                <option value="Bahagian Perancangan Strategik">Bahagian Perancangan Strategik</option>
+                                <option value="Bahagian Perladangan Hutan">Bahagian Perladangan Hutan</option>
+                                <option value="Bahagian Pembangunan Industri">Bahagian Pembangunan Industri</option>
+                                <option value="Bahagian Pemerkasaan Ekonomi Bumiputera">Bahagian Pemerkasaan Ekonomi Bumiputera</option>
+                                <option value="Bahagian Khidmat Pengurusan">Bahagian Khidmat Pengurusan</option>
+                                <option value="Bahagian Pelesenan & Inspektorat">Bahagian Pelesenan & Inspektorat</option>
+                                <option value="WISDEC Banting">WISDEC Banting</option>
+                                <option value="WISDEC Sabah">WISDEC Sabah</option>
+                                <option value="Pusat Bio Komposit & Gentian (FIDEC)">Pusat Bio Komposit & Gentian (FIDEC)</option>
+                                <option value="Wilayah Timur">Wilayah Timur</option>
+                                <option value="Wilayah Tengah">Wilayah Tengah</option>
+                                <option value="Wilayah Utara">Wilayah Utara</option>
+                                <option value="Wilayah Selatan">Wilayah Selatan</option>
+                                <option value="Wilayah Sabah">Wilayah Sabah</option>
+                            </select>
+                            <input id="edit-agency" name="agency" type="text" placeholder="Agensi/Syarikat" class="hidden mac-input w-full mt-2 font-bold" />
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1 mb-1">Komen / Tujuan</label>
+                        <textarea id="edit-comment" name="comment" required rows="3" class="mac-input w-full resize-none font-bold"></textarea>
+                    </div>
+                    <div class="flex justify-between items-center mt-6 pt-5 border-t border-gray-200">
+                        <button type="button" onclick="deleteVisitorWrapper();" class="mac-btn-secondary !text-red-500 hover:!bg-red-50 font-bold shadow-sm">Padam</button>
+                        <div class="flex gap-3">
+                            <button type="button" onclick="hideModal('modal-edit')" class="mac-btn-secondary font-bold shadow-sm">Batal</button>
+                            <button type="submit" class="mac-btn-primary px-6 font-bold shadow-sm">Simpan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Report -->
     <div id="modal-report" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-sm w-full text-center bg-white modal-animate-pop">
+        <div class="mac-window max-w-sm w-full text-center bg-white">
             <div class="mac-titlebar mb-4">
                 <span class="text-blue-900">Jana PDF</span>
                 <div class="mac-traffic-lights">
@@ -1284,7 +1291,6 @@
             calendarDate: new Date(), 
             selectedReportType: null,
             confirmActionCallback: null,
-            cancelActionCallback: null,
             appTitle: "PUSTAKA MTIB",
             appSubtitle: "Sistem Rekod Pelawat",
             statsFilter: 'month',
@@ -1331,10 +1337,6 @@
                     window.renderSettingsTable();
                 });
             }
-            
-            // Binding for processReturningRegistration
-            const bindForm = (id, fn) => { const el = document.getElementById(id); if(el) el.onsubmit = fn; };
-            bindForm('form-returning-visitor', window.processReturningRegistration);
         });
 
         lucide.createIcons();
@@ -1370,15 +1372,14 @@
         };
 
         // Custom Confirm
-        window.customConfirm = function(msg, callbackOk, callbackCancel = null) {
+        window.customConfirm = function(msg, callback) {
             const confirmMsg = document.getElementById('confirm-msg');
             const modalConfirm = document.getElementById('modal-confirm');
             
             if(confirmMsg && modalConfirm) {
                 confirmMsg.innerText = msg;
                 modalConfirm.classList.remove('hidden');
-                state.confirmActionCallback = callbackOk;
-                state.cancelActionCallback = callbackCancel;
+                state.confirmActionCallback = callback;
             }
         };
         
@@ -1387,9 +1388,7 @@
             btnConfirmCancel.onclick = () => {
                 const modalConfirm = document.getElementById('modal-confirm');
                 if(modalConfirm) modalConfirm.classList.add('hidden');
-                if (state.cancelActionCallback) state.cancelActionCallback();
                 state.confirmActionCallback = null;
-                state.cancelActionCallback = null;
             };
         }
         
@@ -1399,8 +1398,6 @@
                 const modalConfirm = document.getElementById('modal-confirm');
                 if(modalConfirm) modalConfirm.classList.add('hidden');
                 if (state.confirmActionCallback) state.confirmActionCallback();
-                state.confirmActionCallback = null;
-                state.cancelActionCallback = null;
             };
         }
 
@@ -1424,7 +1421,6 @@
         // --- Toggle Agency Input ---
         window.toggleAgencyInput = function(selectEl, inputId) {
             const inputEl = document.getElementById(inputId);
-            if (!inputEl) return;
             if (selectEl.value === 'Pelawat Am' || selectEl.value === 'Penjawat Awam') {
                 inputEl.classList.remove('hidden');
                 inputEl.required = true;
@@ -1509,7 +1505,7 @@
             } else {
                 window.toggleAgencyInput(selectEl, 'returning-agency');
             }
-        }
+        };
 
         window.processCheckId = function(e) {
             e.preventDefault();
@@ -1581,7 +1577,7 @@
                 });
             }
         };
-        
+
         window.processReturningRegistration = async function(e) {
             e.preventDefault();
             const form = document.getElementById('form-returning-visitor');
@@ -1591,7 +1587,7 @@
             const empNoInput = formData.get('empNo');
             const selectedVisitDate = todayStr;
 
-            // Semakan berganda keselamatan sebelum menyimpan ke pangkalan data
+            // Semakan berganda keselamatan sebelum menyimpan
             const hasRegisteredToday = state.visitors.some(v => v.empNo && v.empNo.trim() === empNoInput && v.date === selectedVisitDate);
             if (hasRegisteredToday) {
                 hideModal('modal-returning-visitor');
@@ -1866,7 +1862,197 @@
 
             const printView = document.getElementById('view-print');
             printView.classList.remove('p-8');
-            printView.classList.add('max-w-6xl', 'mx-auto', 'py-10'); // Lebar yang lebih sesuai untuk individu
+            printView.classList.add('max-w-6xl', 'mx-auto', 'py-10');
+
+            hideModal('modal-stats');
+            switchView('print');
+            
+            setTimeout(() => { window.print(); }, 500);
+        };
+
+
+        // --- FUNGSI PROFIL PELAWAT ---
+        window.openUserProfileModal = function(empNo, name) {
+            state.selectedUserProfile = { empNo, name };
+            
+            // Cari data asal untuk mengisi butiran asas
+            const userRecords = state.visitors.filter(v => 
+                (empNo && v.empNo === empNo) || 
+                (!empNo && v.name === name)
+            );
+            
+            if (userRecords.length > 0) {
+                const latestRecord = userRecords[0]; // Susunan asalnya adalah terbaru -> lama
+                document.getElementById('profile-name').innerText = latestRecord.name || '-';
+                document.getElementById('profile-id').innerText = `ID: ${latestRecord.empNo || '-'}`;
+                document.getElementById('profile-position').innerHTML = `<i data-lucide="briefcase" class="h-4 w-4 text-gray-400 mt-0.5"></i> <span>${latestRecord.position || '-'}</span>`;
+                
+                const agensi = latestRecord.agency ? ` - ${latestRecord.agency}` : '';
+                document.getElementById('profile-department').innerHTML = `<i data-lucide="building" class="h-4 w-4 text-gray-400 mt-0.5"></i> <span>${latestRecord.department || '-'}${agensi}</span>`;
+            }
+
+            // Set filter dropdown kembali ke asal (all)
+            document.getElementById('profile-filter-type').value = 'all';
+            document.getElementById('profile-month-picker').classList.add('hidden');
+            document.getElementById('profile-year-picker').classList.add('hidden');
+
+            renderUserProfileHistory();
+            lucide.createIcons();
+            showModal('modal-user-profile');
+        };
+
+        window.closeUserProfileModal = function() {
+            state.selectedUserProfile = null;
+            hideModal('modal-user-profile');
+        };
+
+        window.handleProfileFilterChange = function() {
+            const filterType = document.getElementById('profile-filter-type').value;
+            const monthPicker = document.getElementById('profile-month-picker');
+            const yearPicker = document.getElementById('profile-year-picker');
+
+            monthPicker.classList.add('hidden');
+            yearPicker.classList.add('hidden');
+
+            if (filterType === 'monthly') {
+                monthPicker.classList.remove('hidden');
+                if (!monthPicker.value) monthPicker.value = todayStr.substring(0, 7);
+            } else if (filterType === 'yearly') {
+                yearPicker.classList.remove('hidden');
+                if (!yearPicker.value) yearPicker.value = todayStr.substring(0, 4);
+            }
+
+            renderUserProfileHistory();
+        };
+
+        window.renderUserProfileHistory = function() {
+            if (!state.selectedUserProfile) return;
+            const { empNo, name } = state.selectedUserProfile;
+
+            // Cari semua rekod milik pelawat ini
+            let userRecords = state.visitors.filter(v => 
+                (empNo && v.empNo === empNo) || 
+                (!empNo && v.name === name)
+            );
+
+            // Filter mengikut bulan/tahun
+            const filterType = document.getElementById('profile-filter-type').value;
+            if (filterType === 'monthly') {
+                const month = document.getElementById('profile-month-picker').value;
+                if(month) userRecords = userRecords.filter(v => v.date && v.date.startsWith(month));
+            } else if (filterType === 'yearly') {
+                const year = document.getElementById('profile-year-picker').value;
+                if(year) userRecords = userRecords.filter(v => v.date && v.date.startsWith(year));
+            }
+
+            // Update Total keseluruhan (Tunjuk semua walaupun ditapis)
+            const allTimeRecordsCount = state.visitors.filter(v => (empNo && v.empNo === empNo) || (!empNo && v.name === name)).length;
+            document.getElementById('profile-total-visits').innerText = allTimeRecordsCount;
+            document.getElementById('profile-filtered-count').innerText = userRecords.length;
+
+            const tbody = document.getElementById('user-profile-history-body');
+            tbody.innerHTML = '';
+
+            if (userRecords.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="3" class="p-6 text-center text-gray-500 font-bold uppercase tracking-widest text-[11px] sm:text-xs">Tiada sejarah kehadiran.</td></tr>`;
+            } else {
+                userRecords.forEach((v, index) => {
+                    const dateParts = v.date ? v.date.split('-') : [];
+                    const formattedDate = dateParts.length === 3 ? `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}` : v.date;
+                    const dayName = getDayNameMalay(v.date);
+                    const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+
+                    tbody.innerHTML += `
+                        <tr class="${bgClass} border-b border-gray-100 hover:bg-gray-100 transition-colors">
+                            <td class="p-3 text-center font-bold text-gray-500 text-[11px] sm:text-xs">${userRecords.length - index}</td>
+                            <td class="p-3">
+                                <span class="font-bold text-gray-800 text-xs sm:text-sm">${formattedDate}</span>
+                                <div class="text-[11px] font-bold text-gray-500 uppercase">${dayName}</div>
+                            </td>
+                            <td class="p-3 font-medium italic text-gray-700 leading-relaxed text-[11px] sm:text-xs">"${v.comment || '-'}"</td>
+                        </tr>
+                    `;
+                });
+            }
+        };
+
+        window.generateUserProfileReport = function() {
+            if (!state.selectedUserProfile) return;
+            const { empNo, name } = state.selectedUserProfile;
+
+            let userRecords = state.visitors.filter(v => 
+                (empNo && v.empNo === empNo) || 
+                (!empNo && v.name === name)
+            );
+
+            let timeTitle = "Keseluruhan";
+            const filterType = document.getElementById('profile-filter-type').value;
+            if (filterType === 'monthly') {
+                const month = document.getElementById('profile-month-picker').value;
+                if(month) {
+                    userRecords = userRecords.filter(v => v.date && v.date.startsWith(month));
+                    timeTitle = `Bulan ${month}`;
+                }
+            } else if (filterType === 'yearly') {
+                const year = document.getElementById('profile-year-picker').value;
+                if(year) {
+                    userRecords = userRecords.filter(v => v.date && v.date.startsWith(year));
+                    timeTitle = `Tahun ${year}`;
+                }
+            }
+
+            // Susun dari Lama ke Baru untuk cetakan
+            userRecords.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const printTitle = document.getElementById('print-title');
+            if(printTitle) {
+                printTitle.innerHTML = `Profil: ${name} ${empNo ? `(${empNo})` : ''} - Tapisan: ${timeTitle}`;
+            }
+            
+            const printTimestamp = document.getElementById('print-timestamp');
+            if(printTimestamp) printTimestamp.innerText = new Date().toLocaleString('ms-MY');
+
+            const thead = document.querySelector('#print-header-row');
+            if(thead) {
+                thead.innerHTML = `
+                    <th class="border border-gray-400 p-2 text-center w-12 bg-gray-100 font-bold">Bil.</th>
+                    <th class="border border-gray-400 p-2 text-left w-32 bg-gray-100 font-bold">Tarikh</th>
+                    <th class="border border-gray-400 p-2 text-left bg-gray-100 font-bold">Jawatan & Kategori</th>
+                    <th class="border border-gray-400 p-2 text-left w-1/2 bg-gray-100 font-bold">Tujuan Lawatan</th>
+                `;
+            }
+            
+            const tbody = document.getElementById('print-body');
+            if (tbody) {
+                 let html = '';
+                 if(userRecords.length === 0){
+                     html = `<tr><td colspan="4" class="border border-gray-400 p-6 text-center text-gray-500 font-bold">Tiada rekod dijumpai.</td></tr>`;
+                 } else {
+                     userRecords.forEach((v, index) => {
+                         const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+                         const dateParts = v.date ? v.date.split('-') : [];
+                         const formattedDate = dateParts.length === 3 ? `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}` : v.date;
+                         const dayName = getDayNameMalay(v.date);
+                         const agensi = v.agency ? ` - ${v.agency}` : '';
+                         const kategoriDisplay = `${v.department || '-'}${agensi}`;
+
+                         html += `<tr class="${bgClass}">
+                            <td class="border border-gray-400 p-2 text-center font-bold">${index + 1}</td>
+                            <td class="border border-gray-400 p-2 font-bold text-center sm:text-left whitespace-nowrap">${dayName},<br/>${formattedDate}</td>
+                            <td class="border border-gray-400 p-2">
+                                <strong>${v.position || '-'}</strong><br/>
+                                <span class="text-[10px] text-gray-600">${kategoriDisplay}</span>
+                            </td>
+                            <td class="border border-gray-400 p-2 italic">"${v.comment}"</td>
+                        </tr>`;
+                     });
+                 }
+                 tbody.innerHTML = html;
+            }
+            
+            const printView = document.getElementById('view-print');
+            printView.classList.remove('p-8');
+            printView.classList.add('max-w-4xl', 'mx-auto', 'py-10'); // Lebar yang lebih sesuai untuk individu
             
             hideModal('modal-user-profile');
             hideModal('modal-settings');
