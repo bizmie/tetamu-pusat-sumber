@@ -152,8 +152,16 @@
         ::-webkit-scrollbar-thumb { background: #d2d2d7; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #999999; }
 
+        /* Smooth fade transition */
         .fade-in { animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Animasi Pop-in menarik untuk Borang dan Popup */
+        .modal-animate-pop { animation: modalPopIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes modalPopIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
 
         @keyframes pulse-light-aqua {
             0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.5); }
@@ -221,8 +229,11 @@
             background: transparent; color: #1a1a1a; font-family: sans-serif;
             transition: background 0.1s;
         }
+        body[data-theme="win11"] .mac-min::after { content: '—'; font-size: 11px; }
+        body[data-theme="win11"] .mac-max::after { content: '□'; font-size: 15px; }
         body[data-theme="win11"] .mac-close::after { content: '✕'; font-size: 14px; }
         
+        body[data-theme="win11"] .mac-min:hover, body[data-theme="win11"] .mac-max:hover { background: rgba(0,0,0,0.05); }
         body[data-theme="win11"] .mac-close:hover { background: #e81123; color: white; transform: none; box-shadow: none; filter: none; }
         
         body[data-theme="win11"] .mac-btn-primary {
@@ -316,11 +327,27 @@
         </div>
     </div>
 
+    <!-- Modal Info Popup (Rekod Tiada) -->
+    <div id="modal-info" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[90] fade-in backdrop-blur-sm">
+        <div class="mac-window max-w-sm w-full text-center">
+            <div class="mac-titlebar" style="min-height: 42px;">
+                <div class="mac-traffic-lights">
+                    <div class="mac-dot mac-close" onclick="closeInfoPopup()" title="Tutup"></div>
+                </div>
+            </div>
+            <div class="p-8 bg-white/70">
+                <div class="flex justify-center mb-4"><i data-lucide="info" class="h-12 w-12 text-blue-500"></i></div>
+                <p id="info-msg" class="mb-6 text-sm text-gray-800 font-bold">Rekod tiada, sila daftar baru.</p>
+                <button onclick="closeInfoPopup()" class="mac-btn-primary w-full shadow-sm">Baik, Teruskan</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ============================================== -->
     <!-- PAPARAN 1: BORANG PENDAFTARAN PELAWAT          -->
     <!-- ============================================== -->
     <div id="view-guest-form" class="hidden min-h-screen py-8 sm:py-12 px-4 fade-in">
-        <div class="max-w-2xl mx-auto mac-window shadow-2xl border-none">
+        <div class="max-w-2xl mx-auto mac-window shadow-2xl border-none modal-animate-pop">
             <div class="mac-titlebar">
                 <span>Borang Pendaftaran Pelawat</span>
                 <div class="mac-traffic-lights">
@@ -489,7 +516,7 @@
 
                 <!-- Action Widget -->
                 <div id="widget-admin" class="hidden h-full">
-                    <button onclick="showModal('modal-register')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua relative overflow-hidden group" title="Daftar Rekod Baru Secara Manual">
+                    <button onclick="openCheckIdPopup('admin')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua relative overflow-hidden group" title="Daftar Rekod Baru Secara Manual">
                         <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
                         <div class="relative z-10 transition-all duration-500 transform group-hover:-translate-y-10 group-hover:opacity-0">
                             <p class="text-xs font-bold text-blue-100 uppercase tracking-wider">Tindakan</p>
@@ -506,7 +533,7 @@
                 </div>
 
                 <div id="widget-visitor" class="hidden h-full">
-                    <button onclick="switchView('guestForm')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua relative overflow-hidden group" title="Klik Di Sini Untuk Mendaftar!">
+                    <button onclick="openCheckIdPopup('guest')" class="w-full h-full bg-[#007aff] rounded-2xl p-6 flex items-center justify-between text-left shadow-[0_4px_14px_rgba(0,122,255,0.3)] transition-transform duration-200 hover:scale-[1.02] animate-pulse-aqua relative overflow-hidden group" title="Klik Di Sini Untuk Mendaftar!">
                         <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 via-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
                         <div class="relative z-10 transition-all duration-500 transform group-hover:-translate-y-10 group-hover:opacity-0">
                             <p class="text-xs font-bold text-blue-100 uppercase tracking-wider">Borang</p>
@@ -627,12 +654,37 @@
     <!-- MODAL POPUPS (TAMBAH, EDIT, LAPORAN, TETAPAN)  -->
     <!-- ============================================== -->
 
+    <!-- Modal Semak ID Pelawat -->
+    <div id="modal-check-id" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[60] fade-in backdrop-blur-sm">
+        <div class="mac-window max-w-sm w-full text-center modal-animate-pop">
+            <div class="mac-titlebar" style="min-height: 42px;">
+                <div class="mac-traffic-lights">
+                    <div class="mac-dot mac-close" onclick="hideModal('modal-check-id')" title="Tutup"></div>
+                </div>
+            </div>
+            <div class="p-8 bg-white/70">
+                <div class="flex justify-center mb-4"><div class="p-4 bg-blue-50 rounded-full shadow-sm"><i data-lucide="search" class="h-8 w-8 text-[#007aff]"></i></div></div>
+                <h3 class="text-lg font-bold mb-2 text-gray-800">Semakan ID Pelawat</h3>
+                <p class="text-xs text-gray-500 mb-6 font-bold">Sila masukkan No Pekerja/ID untuk log masuk pantas.</p>
+                <form id="form-check-id" class="space-y-4 text-left">
+                    <div>
+                        <input type="text" id="quick-check-id-input" placeholder="No Pekerja / ID" class="mac-input w-full text-center tracking-widest text-lg font-bold" required title="Masukkan No Pekerja atau ID anda"/>
+                    </div>
+                    <div class="flex justify-end gap-3 mt-6 pt-5 border-t border-gray-200">
+                        <button type="button" onclick="hideModal('modal-check-id')" class="mac-btn-secondary w-full shadow-sm" title="Batal Pendaftaran">Batal</button>
+                        <button type="submit" class="mac-btn-primary w-full shadow-sm" title="Semak ID dalam pangkalan data">Semak</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Quick Admin Login -->
     <div id="modal-admin-login" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[60] fade-in backdrop-blur-sm">
         <div class="mac-window max-w-sm w-full text-center">
             <div class="mac-titlebar" style="min-height: 42px;">
                 <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-close" onclick="hideModal('modal-admin-login')" title="Batal"></div>
+                    <div class="mac-dot mac-close" onclick="hideModal('modal-admin-login')" title="Tutup"></div>
                 </div>
             </div>
             <div class="p-8 bg-white/70">
@@ -643,8 +695,8 @@
                         <input type="password" id="quick-admin-pass" placeholder="Kata Laluan" class="mac-input w-full text-center tracking-widest text-lg font-bold" title="Masukkan kata laluan pentadbir"/>
                     </div>
                     <div class="flex justify-end gap-3 mt-6 pt-5 border-t border-gray-200">
-                        <button type="button" onclick="hideModal('modal-admin-login')" class="mac-btn-secondary w-full" title="Batal log masuk">Batal</button>
-                        <button type="submit" class="mac-btn-primary w-full" title="Sahkan log masuk">Masuk</button>
+                        <button type="button" onclick="hideModal('modal-admin-login')" class="mac-btn-secondary w-full shadow-sm" title="Batal log masuk">Batal</button>
+                        <button type="submit" class="mac-btn-primary w-full shadow-sm" title="Sahkan log masuk">Masuk</button>
                     </div>
                 </form>
             </div>
@@ -815,7 +867,7 @@
                                 <input type="number" id="profile-year-picker" onchange="renderUserProfileHistory()" placeholder="Tahun" class="hidden w-24 mac-input font-bold text-indigo-800">
                             </div>
                         </div>
-                        <button onclick="generateUserProfileReport()" class="mac-btn-secondary text-[#007aff] font-bold border-blue-200 hover:border-blue-400 hover:bg-blue-50" title="Cetak Rekod Individu">
+                        <button onclick="generateUserProfileReport()" class="mac-btn-secondary text-[#007aff] font-bold border-blue-200 hover:border-blue-400 hover:bg-blue-50 shadow-sm" title="Cetak Rekod Individu">
                             <i data-lucide="printer" class="h-4 w-4"></i> Cetak
                         </button>
                     </div>
@@ -895,7 +947,7 @@
             </div>
             
             <div class="p-5 border-t border-gray-200 bg-white flex justify-end gap-3">
-                <button onclick="generateTopVisitorsReport()" class="mac-btn-secondary text-[#007aff] font-bold hover:bg-blue-50 hover:border-blue-300" title="Cetak Senarai Top 10">
+                <button onclick="generateTopVisitorsReport()" class="mac-btn-secondary text-[#007aff] font-bold hover:bg-blue-50 hover:border-blue-300 shadow-sm" title="Cetak Senarai Top 10">
                     <i data-lucide="printer" class="h-4 w-4"></i> Cetak Top 10
                 </button>
             </div>
@@ -922,7 +974,7 @@
                             <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider ml-1">No Pekerja / ID</label>
                             <div class="flex gap-2">
                                 <input name="empNo" type="text" class="mac-input w-full font-bold" placeholder="ID Pekerja" title="Masukkan ID Pekerja" />
-                                <button type="button" onclick="searchEmployee('admin')" class="mac-btn-primary animate-pulse-aqua px-6 font-bold" title="Sila buat carian nombor pekerja terlebih dahulu">Cari</button>
+                                <button type="button" onclick="searchEmployee('admin')" class="mac-btn-primary animate-pulse-aqua flex-shrink-0 px-6 font-bold shadow-sm" title="Sila buat carian nombor pekerja terlebih dahulu">Cari</button>
                             </div>
                         </div>
                         <div class="space-y-1">
@@ -971,8 +1023,8 @@
                         <textarea name="comment" required rows="3" class="mac-input w-full resize-none font-bold"></textarea>
                     </div>
                     <div class="flex justify-end gap-3 mt-8 pt-5 border-t border-gray-200">
-                        <button type="button" onclick="hideModal('modal-register')" class="mac-btn-secondary" title="Batal Pendaftaran">Batal</button>
-                        <button type="submit" class="mac-btn-primary animate-pulse-aqua px-8" title="Sahkan dan Daftar Rekod">Daftar</button>
+                        <button type="button" onclick="hideModal('modal-register')" class="mac-btn-secondary shadow-sm" title="Batal Pendaftaran">Batal</button>
+                        <button type="submit" class="mac-btn-primary animate-pulse-aqua px-8 shadow-sm" title="Sahkan dan Daftar Rekod">Daftar</button>
                     </div>
                 </form>
             </div>
@@ -980,7 +1032,7 @@
     </div>
 
     <!-- Modal Edit -->
-    <div id="modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-50 fade-in backdrop-blur-sm">
+    <div id="modal-edit" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
         <div class="mac-window max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7]">
             <div class="mac-titlebar">
                 <span class="text-blue-900">Kemaskini Pindaan</span>
@@ -1046,10 +1098,10 @@
                         <textarea id="edit-comment" name="comment" required rows="3" class="mac-input w-full resize-none font-bold"></textarea>
                     </div>
                     <div class="flex justify-between items-center mt-6 pt-5 border-t border-gray-200">
-                        <button type="button" onclick="deleteVisitorWrapper();" class="mac-btn-secondary !text-red-500 hover:!bg-red-50 font-bold">Padam</button>
+                        <button type="button" onclick="deleteVisitorWrapper();" class="mac-btn-secondary !text-red-500 hover:!bg-red-50 font-bold shadow-sm">Padam</button>
                         <div class="flex gap-3">
-                            <button type="button" onclick="hideModal('modal-edit')" class="mac-btn-secondary font-bold">Batal</button>
-                            <button type="submit" class="mac-btn-primary px-6 font-bold">Simpan</button>
+                            <button type="button" onclick="hideModal('modal-edit')" class="mac-btn-secondary font-bold shadow-sm">Batal</button>
+                            <button type="submit" class="mac-btn-primary px-6 font-bold shadow-sm">Simpan</button>
                         </div>
                     </div>
                 </form>
@@ -1091,8 +1143,8 @@
             </div>
 
             <div class="flex justify-end gap-3 px-6 pb-6">
-                <button onclick="closeReportModal()" class="mac-btn-secondary font-bold">Batal</button>
-                <button id="btn-print-trigger" onclick="generateReport()" class="hidden mac-btn-primary animate-pulse-aqua font-bold"><i data-lucide="printer" class="h-4 w-4"></i> Cetak</button>
+                <button onclick="closeReportModal()" class="mac-btn-secondary font-bold shadow-sm">Batal</button>
+                <button id="btn-print-trigger" onclick="generateReport()" class="hidden mac-btn-primary animate-pulse-aqua font-bold shadow-sm"><i data-lucide="printer" class="h-4 w-4"></i> Cetak</button>
             </div>
         </div>
     </div>
@@ -1264,6 +1316,23 @@
             };
         }
 
+        // Custom Info Popup for "Rekod Tiada"
+        window.infoPopupCallback = null;
+        window.showInfoPopup = function(msg, callback) {
+            const msgEl = document.getElementById('info-msg');
+            if(msgEl) msgEl.innerText = msg;
+            window.infoPopupCallback = callback;
+            showModal('modal-info');
+            lucide.createIcons();
+        };
+        window.closeInfoPopup = function() {
+            hideModal('modal-info');
+            if(window.infoPopupCallback) {
+                window.infoPopupCallback();
+                window.infoPopupCallback = null;
+            }
+        };
+
         // --- Toggle Agency Input ---
         window.toggleAgencyInput = function(selectEl, inputId) {
             const inputEl = document.getElementById(inputId);
@@ -1277,7 +1346,7 @@
             }
         };
 
-        // --- Carian No Pekerja (Auto-Isi) ---
+        // --- Carian No Pekerja (Dalam Borang Sedia Ada) ---
         window.searchEmployee = function(formType) {
             const formId = formType === 'guest' ? 'form-guest' : 'form-admin-register';
             const form = document.getElementById(formId);
@@ -1314,7 +1383,74 @@
                     agencyInput.value = found.agency || '';
                 }
             } else {
-                // Tiada rekod, diamkan sahaja
+                // Senyap jika tiada rekod
+            }
+        };
+
+        // --- LOGIK BARU: Popup Semak ID Daftar Masuk ---
+        window.targetRegistrationType = 'guest';
+
+        window.openCheckIdPopup = function(type) {
+            window.targetRegistrationType = type;
+            const input = document.getElementById('quick-check-id-input');
+            if (input) input.value = '';
+            showModal('modal-check-id');
+            lucide.createIcons();
+            setTimeout(() => { if(input) input.focus(); }, 100);
+        };
+
+        window.processCheckId = function(e) {
+            e.preventDefault();
+            const input = document.getElementById('quick-check-id-input');
+            const empNoInput = input ? input.value.trim() : '';
+
+            if(!empNoInput) return;
+
+            const sortedVisitors = [...state.visitors].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+            const found = sortedVisitors.find(v => v.empNo && v.empNo.trim() === empNoInput);
+
+            const formId = window.targetRegistrationType === 'guest' ? 'form-guest' : 'form-admin-register';
+            const form = document.getElementById(formId);
+            
+            if (form) {
+                form.reset();
+                const visitDateEl = form.elements['visit_date'];
+                if(visitDateEl) visitDateEl.value = todayStr;
+                
+                if (form.elements['empNo']) form.elements['empNo'].value = empNoInput;
+                
+                if (found) {
+                    // Autofill maklumat dijumpai
+                    if(form.elements['name']) form.elements['name'].value = found.name || '';
+                    if(form.elements['position']) form.elements['position'].value = found.position || '';
+                    const roleSelect = form.elements['visitorRole'];
+                    if(roleSelect && found.visitorRole) roleSelect.value = found.visitorRole;
+                    const deptSelect = form.elements['department'];
+                    if(deptSelect) {
+                        if([...deptSelect.options].some(o => o.value === found.department)) {
+                            deptSelect.value = found.department;
+                        } else {
+                            deptSelect.value = '';
+                        }
+                        window.toggleAgencyInput(deptSelect, `${window.targetRegistrationType}-agency`);
+                    }
+                    const agencyInput = form.elements['agency'];
+                    if(agencyInput) {
+                        agencyInput.value = found.agency || '';
+                    }
+                    
+                    hideModal('modal-check-id');
+                    if (window.targetRegistrationType === 'guest') switchView('guestForm');
+                    else showModal('modal-register');
+
+                } else {
+                    // Tiada Rekod
+                    hideModal('modal-check-id');
+                    window.showInfoPopup("Rekod tiada, sila daftar baru.", () => {
+                        if (window.targetRegistrationType === 'guest') switchView('guestForm');
+                        else showModal('modal-register');
+                    });
+                }
             }
         };
 
@@ -1336,9 +1472,6 @@
             else if (viewName === 'guestForm') {
                 const guestEl = document.getElementById('view-guest-form');
                 if(guestEl) guestEl.classList.remove('hidden');
-                
-                const visitDateEl = document.getElementById('guest-visit-date');
-                if(visitDateEl) visitDateEl.value = todayStr; 
             }
             else if (viewName === 'print') {
                 const printEl = document.getElementById('view-print');
@@ -2505,6 +2638,7 @@
             const aF = document.getElementById('form-admin-register'); if(aF) aF.onsubmit = (e) => window.processRegistration(e, 'form-admin-register', false);
             bindForm('form-quick-login', window.handleQuickLogin);
             bindForm('form-edit', window.handleEditSubmit);
+            bindForm('form-check-id', window.processCheckId);
             window.updateAppTitles();
         });
     </script>
