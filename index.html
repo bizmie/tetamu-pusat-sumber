@@ -514,15 +514,20 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row justify-end gap-3 pt-6 mt-4 border-t border-gray-200">
-                        <button type="button" onclick="switchView('dashboard')" class="mac-btn-secondary w-full sm:w-auto" title="Kembali ke Dashboard utama">
+                        <button type="button" onclick="switchView('dashboard')" class="mac-btn-secondary w-full sm:w-auto shadow-sm" title="Kembali ke Dashboard utama">
                             Batal
                         </button>
-                        <button type="submit" id="btn-submit-guest" class="mac-btn-primary w-full sm:w-auto animate-pulse-aqua text-sm px-8" title="Hantar dan rekodkan pendaftaran anda">
+                        <button type="submit" id="btn-submit-guest" class="mac-btn-primary w-full sm:w-auto animate-pulse-aqua text-sm px-8 shadow-sm">
                             Daftar Pelawat
                         </button>
                     </div>
                 </form>
             </div>
+        </div>
+        
+        <!-- Label Versi -->
+        <div class="text-center mt-10 text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest opacity-80">
+            Sistem Rekod Pelawat v5
         </div>
     </div>
 
@@ -697,6 +702,11 @@
                 </div>
             </div>
         </main>
+
+        <!-- Label Versi -->
+        <footer class="mt-auto text-center text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest no-print opacity-80 pt-6">
+            Sistem Rekod Pelawat v5
+        </footer>
     </div>
 
     <!-- ============================================== -->
@@ -732,6 +742,7 @@
         
         <div class="mt-12 text-xs text-gray-500 text-center font-bold">
             <p>Janaan automatik pada: <span id="print-timestamp" class="text-gray-800"></span></p>
+            <p class="mt-2 text-[10px] uppercase tracking-widest opacity-70">Sistem Rekod Pelawat v5</p>
         </div>
     </div>
 
@@ -801,7 +812,10 @@
             <div class="overflow-y-auto p-0 flex flex-col h-full">
                 <!-- ATAS: Borang Tetapan (Kompak) -->
                 <div class="p-5 sm:p-6 bg-white border-b border-gray-200 z-10 relative">
-                    <h4 class="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2 text-xs uppercase tracking-widest"><i data-lucide="settings" class="h-4 w-4 text-blue-500"></i> Konfigurasi Sistem</h4>
+                    <h4 class="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2 text-xs uppercase tracking-widest">
+                        <i data-lucide="settings" class="h-4 w-4 text-blue-500"></i> Konfigurasi Sistem
+                        <span class="ml-auto bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider">v5</span>
+                    </h4>
                     <form id="form-settings" onsubmit="saveSettings(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 items-end">
                         <div class="space-y-1.5">
                             <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider ml-1">Tajuk Besar</label>
@@ -1359,6 +1373,14 @@
             return `${days[dateObj.getDay()]}, ${dateObj.getDate()} ${months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
         }
 
+        // Format Huruf Besar Di Hadapan (Title Case)
+        window.toTitleCase = function(str) {
+            if (!str) return '';
+            return str.toLowerCase().split(' ').map(function(word) {
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            }).join(' ');
+        };
+
         const isWithinLast7Days = (dateString) => {
             const d = new Date(dateString);
             const t = new Date(todayStr);
@@ -1599,7 +1621,7 @@
 
             const newVisitor = {
                 date: selectedVisitDate,
-                name: formData.get('name'),
+                name: window.toTitleCase(formData.get('name')),
                 empNo: formData.get('empNo'),
                 position: formData.get('position'),
                 visitorRole: formData.get('visitorRole') || 'Pelawat Biasa',
@@ -2183,7 +2205,7 @@
 
             const newVisitor = {
                 date: selectedVisitDate,
-                name: formData.get('name'),
+                name: window.toTitleCase(formData.get('name')),
                 empNo: formData.get('empNo'),
                 position: formData.get('position'),
                 visitorRole: formData.get('visitorRole') || 'Pelawat Biasa',
@@ -2247,7 +2269,7 @@
             
             const updatedData = {
                 date: document.getElementById('edit-date')?.value || todayStr,
-                name: document.getElementById('edit-name')?.value || '',
+                name: window.toTitleCase(document.getElementById('edit-name')?.value || ''),
                 empNo: document.getElementById('edit-empNo')?.value || '',
                 visitorRole: document.getElementById('edit-visitorRole')?.value || 'Pelawat Biasa',
                 position: document.getElementById('edit-position')?.value || '',
@@ -2271,16 +2293,17 @@
             if(!idInput) return;
             const id = idInput.value;
             
+            // Tutup tetingkap kemaskini (edit) terlebih dahulu supaya pengesahan tidak terlindung
+            hideModal('modal-edit');
+            
             customConfirm("AMARAN: Adakah anda pasti untuk memadam rekod pelawat ini? Data yang dipadam tidak boleh dikembalikan.", async () => {
                 try {
                     const docReference = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors', id);
                     await deleteDoc(docReference);
                     
-                    hideModal('modal-edit');
-                    
-                    const settingsModal = document.getElementById('modal-settings');
-                    if (settingsModal && !settingsModal.classList.contains('hidden')) {
-                        renderSettingsTable(); 
+                    const dbModal = document.getElementById('modal-ahli');
+                    if (dbModal && !dbModal.classList.contains('hidden')) {
+                        renderAhliTable(); 
                     }
                 } catch(err) { 
                     showSystemError(`Gagal Memadam Data (${err.code}).`);
@@ -2421,6 +2444,7 @@
             
             const roleEl = document.getElementById('header-role');
             const btnReport = document.getElementById('btn-report-menu');
+            const btnAhli = document.getElementById('btn-ahli-menu');
             const btnSettings = document.getElementById('btn-settings-menu');
             const btnQuickAdmin = document.getElementById('btn-quick-admin');
             const btnLogout = document.getElementById('btn-logout');
@@ -2434,6 +2458,7 @@
                     roleEl.className = "hidden sm:inline-block text-[10px] sm:text-xs font-black text-rose-700 bg-rose-50 px-3 py-1 rounded-full border border-rose-200 shadow-sm uppercase tracking-widest";
                 }
                 if(btnReport) { btnReport.classList.remove('hidden'); btnReport.classList.add('flex'); }
+                if(btnAhli) { btnAhli.classList.remove('hidden'); btnAhli.classList.add('flex'); }
                 if(btnSettings) { btnSettings.classList.remove('hidden'); btnSettings.classList.add('flex'); }
                 if(btnLogout) { btnLogout.classList.remove('hidden'); btnLogout.classList.add('flex'); }
                 if(btnQuickAdmin) { btnQuickAdmin.classList.add('hidden'); btnQuickAdmin.classList.remove('flex'); }
@@ -2442,10 +2467,10 @@
                 if(widgetVisitor) widgetVisitor.classList.add('hidden');
             } else {
                 if(roleEl) {
-                    roleEl.classList.add('hidden');
-                    roleEl.classList.remove('inline-block');
+                    roleEl.className = 'hidden';
                 }
                 if(btnReport) { btnReport.classList.add('hidden'); btnReport.classList.remove('flex'); }
+                if(btnAhli) { btnAhli.classList.add('hidden'); btnAhli.classList.remove('flex'); }
                 if(btnSettings) { btnSettings.classList.add('hidden'); btnSettings.classList.remove('flex'); }
                 if(btnLogout) { btnLogout.classList.add('hidden'); btnLogout.classList.remove('flex'); }
                 if(btnQuickAdmin) { btnQuickAdmin.classList.remove('hidden'); btnQuickAdmin.classList.add('flex'); }
