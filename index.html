@@ -169,6 +169,20 @@
         }
         .animate-pulse-aqua { animation: pulse-light-aqua 2s infinite; }
 
+        /* Rich Text Editor Styles */
+        .rich-content b, .rich-content strong { font-weight: 900 !important; }
+        .rich-content i, .rich-content em { font-style: italic !important; }
+        .rich-content u { text-decoration: underline !important; }
+        .rich-content s, .rich-content strike { text-decoration: line-through !important; }
+        .rich-content a { color: #007aff !important; text-decoration: underline !important; cursor: pointer; }
+        
+        [contenteditable="true"]:empty:before {
+            content: attr(placeholder);
+            color: #9ca3af;
+            pointer-events: none;
+            display: block;
+        }
+
         /* =========================================
            WINDOWS 11 THEME OVERRIDES 
            ========================================= */
@@ -436,7 +450,7 @@
             </div>
         </div>
         <div class="text-center mt-10 text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest opacity-80">
-            Sistem Rekod Pelawat v5.10
+            Sistem Rekod Pelawat v5.11
         </div>
     </div>
 
@@ -628,7 +642,7 @@
         </main>
         <!-- Label Versi -->
         <footer class="mt-auto text-center text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest no-print opacity-80 pt-6">
-            Sistem Rekod Pelawat v5.10
+            Sistem Rekod Pelawat v5.11
         </footer>
     </div>
 
@@ -665,7 +679,7 @@
         
         <div class="mt-12 text-xs text-gray-500 text-center font-bold">
             <p>Janaan automatik pada: <span id="print-timestamp" class="text-gray-800"></span></p>
-            <p class="mt-2 text-[10px] uppercase tracking-widest opacity-70">Sistem Rekod Pelawat v5.10</p>
+            <p class="mt-2 text-[10px] uppercase tracking-widest opacity-70">Sistem Rekod Pelawat v5.11</p>
         </div>
     </div>
 
@@ -692,18 +706,29 @@
                     </button>
                 </div>
 
-                <!-- Form Tambah Pengumuman (Admin Only) - Bucu Tajam -->
+                <!-- Form Tambah/Edit Pengumuman (Admin Only) - Bucu Tajam -->
                 <div id="form-announcement-container" class="hidden bg-blue-50 p-6 rounded-none border border-blue-200 mb-6 shadow-inner">
                     <form id="form-announcement" class="space-y-4">
+                        <input type="hidden" id="announce-id" value="" />
                         <div>
                             <input type="text" id="announce-title" required placeholder="Tajuk Pengumuman" class="mac-input w-full font-bold text-sm border-blue-300 rounded-none" />
                         </div>
-                        <div>
-                            <textarea id="announce-content" required rows="3" placeholder="Sila taipkan kandungan pengumuman di sini..." class="mac-input w-full font-medium text-sm resize-none border-blue-300 rounded-none"></textarea>
+                        <div class="border border-blue-300 bg-white rounded-none flex flex-col shadow-sm">
+                            <!-- Editor Toolbar -->
+                            <div class="bg-gray-50 border-b border-blue-200 p-1.5 flex gap-1 flex-wrap">
+                                <button type="button" onclick="document.execCommand('bold',false,null)" class="p-1.5 hover:bg-gray-200 rounded text-gray-700 transition" title="Tebal (Bold)"><i data-lucide="bold" class="h-4 w-4"></i></button>
+                                <button type="button" onclick="document.execCommand('italic',false,null)" class="p-1.5 hover:bg-gray-200 rounded text-gray-700 transition" title="Condong (Italic)"><i data-lucide="italic" class="h-4 w-4"></i></button>
+                                <button type="button" onclick="document.execCommand('underline',false,null)" class="p-1.5 hover:bg-gray-200 rounded text-gray-700 transition" title="Garis Bawah (Underline)"><i data-lucide="underline" class="h-4 w-4"></i></button>
+                                <button type="button" onclick="document.execCommand('strikeThrough',false,null)" class="p-1.5 hover:bg-gray-200 rounded text-gray-700 transition" title="Garis Silang (Strikethrough)"><i data-lucide="strikethrough" class="h-4 w-4"></i></button>
+                                <div class="w-px bg-gray-300 mx-1 my-1"></div>
+                                <button type="button" onclick="window.insertLink()" class="p-1.5 hover:bg-gray-200 rounded text-blue-600 transition" title="Pautan (Link)"><i data-lucide="link" class="h-4 w-4"></i></button>
+                            </div>
+                            <!-- Editor Content Area -->
+                            <div id="announce-content-editor" contenteditable="true" class="w-full p-3 font-medium text-sm min-h-[100px] max-h-[300px] overflow-y-auto focus:outline-none rich-content bg-white" placeholder="Sila taipkan kandungan pengumuman di sini..."></div>
                         </div>
                         <div class="flex justify-end gap-3 pt-2">
                             <button type="button" onclick="hideAddAnnouncementForm()" class="mac-btn-secondary text-xs !py-2 !px-4 font-bold shadow-sm rounded-none border-blue-300 text-blue-900">Batal</button>
-                            <button type="submit" class="mac-btn-primary text-xs !py-2 !px-4 font-bold shadow-sm bg-blue-600 hover:bg-blue-700 rounded-none">Simpan Hebahan</button>
+                            <button type="submit" id="btn-submit-announce" class="mac-btn-primary text-xs !py-2 !px-4 font-bold shadow-sm bg-blue-600 hover:bg-blue-700 rounded-none">Simpan Hebahan</button>
                         </div>
                     </form>
                 </div>
@@ -936,7 +961,7 @@
             <div class="p-5 sm:p-6 bg-white relative">
                 <h4 class="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2 text-xs uppercase tracking-widest">
                     <i data-lucide="settings" class="h-4 w-4 text-blue-500"></i> Tetapan
-                    <span class="ml-auto bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider">v5.10</span>
+                    <span class="ml-auto bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider">v5.11</span>
                 </h4>
                 <form id="form-settings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 items-end">
                     <div class="space-y-1.5">
@@ -1752,6 +1777,13 @@
             showModal('modal-announcement');
         };
 
+        window.insertLink = function() {
+            const url = prompt("Sila masukkan URL pautan (cth: https://www.mtib.gov.my):", "https://");
+            if (url) {
+                document.execCommand('createLink', false, url);
+            }
+        };
+
         window.showAddAnnouncementForm = function() {
             const container = document.getElementById('form-announcement-container');
             if(container) {
@@ -1765,21 +1797,53 @@
             if(container) {
                 container.classList.add('hidden');
                 document.getElementById('form-announcement').reset();
+                document.getElementById('announce-id').value = '';
+                document.getElementById('announce-content-editor').innerHTML = '';
+                document.getElementById('btn-submit-announce').innerText = 'Simpan Hebahan';
             }
+        };
+
+        window.editAnnouncement = function(id) {
+            const announce = state.announcements.find(a => a.id === id);
+            if (!announce) return;
+
+            document.getElementById('announce-id').value = announce.id;
+            document.getElementById('announce-title').value = announce.title;
+            document.getElementById('announce-content-editor').innerHTML = announce.content;
+            document.getElementById('btn-submit-announce').innerText = 'Kemaskini Hebahan';
+            
+            showAddAnnouncementForm();
         };
 
         window.saveAnnouncement = async function(e) {
             e.preventDefault();
+            const id = document.getElementById('announce-id').value;
             const title = document.getElementById('announce-title').value;
-            const content = document.getElementById('announce-content').value;
+            const contentEditor = document.getElementById('announce-content-editor');
+            const content = contentEditor.innerHTML.trim();
+
+            if (!content) {
+                window.showInfoPopup("Sila masukkan kandungan pengumuman.", () => { contentEditor.focus(); });
+                return;
+            }
 
             try {
-                const colRef = collection(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'announcements');
-                await addDoc(colRef, {
-                    title: title,
-                    content: content,
-                    timestamp: Date.now()
-                });
+                if (id) {
+                    // Update sedia ada
+                    const docRef = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'announcements', id);
+                    await updateDoc(docRef, {
+                        title: title,
+                        content: content
+                    });
+                } else {
+                    // Cipta baharu
+                    const colRef = collection(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'announcements');
+                    await addDoc(colRef, {
+                        title: title,
+                        content: content,
+                        timestamp: Date.now()
+                    });
+                }
                 hideAddAnnouncementForm();
             } catch(err) {
                 showSystemError(`Gagal menyimpan pengumuman (${err.code}).`);
@@ -1822,8 +1886,13 @@
 
             state.announcements.forEach(a => {
                 const d = new Date(a.timestamp);
-                const deleteBtn = state.role === 'admin' ? 
-                    `<button onclick="deleteAnnouncement('${a.id}')" class="absolute top-4 right-4 text-blue-400 hover:text-red-500 transition-colors" title="Padam"><i data-lucide="x" class="h-4 w-4"></i></button>` : '';
+                
+                // Tambahan Butang Pinda (Edit) & Padam (Delete) untuk Admin
+                const actionBtns = state.role === 'admin' ? `
+                    <div class="absolute top-4 right-4 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onclick="editAnnouncement('${a.id}')" class="text-blue-500 hover:text-blue-700 transition-colors" title="Pinda Pengumuman"><i data-lucide="edit-3" class="h-4 w-4"></i></button>
+                        <button onclick="deleteAnnouncement('${a.id}')" class="text-red-400 hover:text-red-500 transition-colors" title="Padam"><i data-lucide="x" class="h-4 w-4"></i></button>
+                    </div>` : '';
 
                 listEl.innerHTML += `
                     <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 p-6 border border-blue-200 bg-blue-50 hover:bg-blue-100/50 transition-colors relative group rounded-none">
@@ -1832,10 +1901,10 @@
                             <span class="text-xs font-medium text-blue-600 mt-1">${d.getFullYear()}</span>
                         </div>
                         <div class="flex-1 pt-2 sm:pt-0 sm:border-l border-blue-200 sm:pl-6">
-                            <h4 class="text-lg font-bold text-blue-900 leading-tight mb-3 pr-8">${a.title}</h4>
-                            <p class="text-sm text-blue-800 font-medium whitespace-pre-wrap break-words leading-relaxed">${a.content}</p>
+                            <h4 class="text-lg font-bold text-blue-900 leading-tight mb-3 pr-12">${a.title}</h4>
+                            <div class="text-sm text-blue-800 font-medium whitespace-pre-wrap break-words leading-relaxed rich-content">${a.content}</div>
                         </div>
-                        ${deleteBtn}
+                        ${actionBtns}
                     </div>
                 `;
             });
