@@ -168,20 +168,12 @@
             100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
         }
         .animate-pulse-aqua { animation: pulse-light-aqua 2s infinite; }
-
-        /* Rich Text Editor Styles */
-        .rich-content b, .rich-content strong { font-weight: 900 !important; }
-        .rich-content i, .rich-content em { font-style: italic !important; }
-        .rich-content u { text-decoration: underline !important; }
-        .rich-content s, .rich-content strike { text-decoration: line-through !important; }
-        .rich-content a { color: #007aff !important; text-decoration: underline !important; cursor: pointer; }
         
-        [contenteditable="true"]:empty:before {
-            content: attr(placeholder);
-            color: #9ca3af;
-            pointer-events: none;
-            display: block;
-        }
+        /* Rich Text Editor Content Styles */
+        .rich-text a { color: #007aff; text-decoration: underline; cursor: pointer; font-weight: bold; }
+        .rich-text ul { list-style-type: disc; padding-left: 1.5rem; }
+        .rich-text ol { list-style-type: decimal; padding-left: 1.5rem; }
+        .rich-text [contenteditable="true"]:empty:before { content: attr(placeholder); color: #9ca3af; pointer-events: none; display: block; }
 
         /* =========================================
            WINDOWS 11 THEME OVERRIDES 
@@ -450,7 +442,7 @@
             </div>
         </div>
         <div class="text-center mt-10 text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest opacity-80">
-            Sistem Rekod Pelawat v5.11
+            Sistem Rekod Pelawat v5.19
         </div>
     </div>
 
@@ -512,14 +504,14 @@
 
             <!-- Top Widgets -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- WIDGET 1: Papan Pengumuman -->
-                <div onclick="openAnnouncementModal()" class="mac-window p-6 flex flex-col justify-center cursor-pointer hover:shadow-lg transition-all duration-300 group relative overflow-hidden" title="Lihat Papan Pengumuman">
+                <!-- WIDGET 1: Papan Pengumuman (White Theme with Blue Accents) -->
+                <div onclick="openAnnouncementModal()" class="mac-window p-6 flex flex-col justify-center cursor-pointer hover:shadow-lg transition-all duration-300 group relative overflow-hidden bg-white border-gray-200" title="Lihat Papan Pengumuman">
                     <div class="flex justify-between items-center mb-2 relative z-10">
-                        <p class="text-xs font-bold text-blue-600 uppercase tracking-wider transition-colors">Pengumuman Terkini</p>
-                        <div class="p-2 bg-blue-500 rounded-full group-hover:bg-blue-400 transition-colors"><i data-lucide="megaphone" class="h-4 w-4 text-white"></i></div>
+                        <p class="text-xs font-bold text-blue-500 uppercase tracking-wider transition-colors">Pengumuman Terkini</p>
+                        <div class="p-2 bg-blue-500 rounded-full group-hover:bg-blue-600 transition-colors"><i data-lucide="megaphone" class="h-4 w-4 text-white"></i></div>
                     </div>
                     <div class="relative z-10">
-                        <p id="widget-announce-title" class="text-sm font-black text-gray-800 line-clamp-1 mb-1 truncate">Memuatkan...</p>
+                        <p id="widget-announce-title" class="text-sm font-black text-gray-900 line-clamp-1 mb-1 truncate">Memuatkan...</p>
                         <p id="widget-announce-date" class="text-[10px] font-bold text-gray-500 uppercase tracking-widest"></p>
                     </div>
                 </div>
@@ -536,7 +528,7 @@
                             <p id="stat-today" class="text-3xl font-black text-blue-900 tracking-tight leading-none">0</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Bulan Ini</p>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5" id="stat-total-label">Bulan Ini</p>
                             <p id="stat-total" class="text-3xl font-black text-emerald-700 tracking-tight leading-none">0</p>
                         </div>
                     </div>
@@ -642,7 +634,7 @@
         </main>
         <!-- Label Versi -->
         <footer class="mt-auto text-center text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest no-print opacity-80 pt-6">
-            Sistem Rekod Pelawat v5.11
+            Sistem Rekod Pelawat v5.19
         </footer>
     </div>
 
@@ -679,7 +671,7 @@
         
         <div class="mt-12 text-xs text-gray-500 text-center font-bold">
             <p>Janaan automatik pada: <span id="print-timestamp" class="text-gray-800"></span></p>
-            <p class="mt-2 text-[10px] uppercase tracking-widest opacity-70">Sistem Rekod Pelawat v5.11</p>
+            <p class="mt-2 text-[10px] uppercase tracking-widest opacity-70">Sistem Rekod Pelawat v5.19</p>
         </div>
     </div>
 
@@ -687,53 +679,58 @@
     <!-- MODAL POPUPS (TAMBAH, EDIT, LAPORAN, TETAPAN)  -->
     <!-- ============================================== -->
 
-    <!-- Modal Papan Pengumuman (Blogpost Style) - Tema Biru Bucu Tajam -->
+    <!-- Modal Papan Pengumuman (Blogpost Style) - Timeline Card Theme -->
     <div id="modal-announcement" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[60] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden bg-white modal-animate-pop shadow-2xl rounded-xl border border-blue-200">
-            <div class="mac-titlebar bg-blue-50 border-b border-blue-100">
-                <span class="text-blue-900 font-bold">Papan Pengumuman</span>
+        <div class="mac-window max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f4f5f7] modal-animate-pop shadow-2xl rounded-xl border border-blue-200">
+            <div class="mac-titlebar bg-white border-b border-gray-200">
+                <span class="text-gray-800 font-bold">Papan Pengumuman</span>
                 <div class="mac-traffic-lights">
                     <div class="mac-dot mac-close" onclick="hideModal('modal-announcement')" title="Tutup"></div>
                 </div>
             </div>
             
-            <div class="p-5 sm:p-8 flex flex-col flex-1 overflow-hidden bg-white relative">
+            <div class="p-5 sm:p-8 flex flex-col flex-1 overflow-hidden bg-[#f4f5f7] relative">
                 <!-- Header Pengumuman & Butang Tambah -->
-                <div class="flex justify-between items-center mb-6 border-b border-blue-100 pb-4">
+                <div class="flex justify-between items-center mb-6 border-b border-gray-200 pb-4">
                     <h3 class="text-xl font-black text-blue-900 flex items-center gap-2"><i data-lucide="megaphone" class="h-6 w-6 text-blue-600"></i> Pengumuman Terkini</h3>
-                    <button id="btn-add-announcement" onclick="showAddAnnouncementForm()" class="hidden mac-btn-secondary text-xs !py-1.5 !px-3 shadow-sm border-blue-200 hover:bg-blue-50 text-blue-700">
+                    <button id="btn-add-announcement" onclick="showAddAnnouncementForm()" class="hidden mac-btn-secondary text-xs !py-1.5 !px-3 shadow-sm border-gray-200 hover:bg-gray-50 text-gray-700">
                         <i data-lucide="plus" class="h-3 w-3"></i> Tambah Pengumuman
                     </button>
                 </div>
 
-                <!-- Form Tambah/Edit Pengumuman (Admin Only) - Bucu Tajam -->
-                <div id="form-announcement-container" class="hidden bg-blue-50 p-6 rounded-none border border-blue-200 mb-6 shadow-inner">
+                <!-- Form Tambah Pengumuman (Admin Only) - Bucu Tajam & Rich Text Editor -->
+                <div id="form-announcement-container" class="hidden bg-white p-6 rounded-2xl border border-blue-200 mb-6 shadow-sm">
                     <form id="form-announcement" class="space-y-4">
                         <input type="hidden" id="announce-id" value="" />
-                        <div>
-                            <input type="text" id="announce-title" required placeholder="Tajuk Pengumuman" class="mac-input w-full font-bold text-sm border-blue-300 rounded-none" />
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input type="text" id="announce-title" required placeholder="Tajuk Pengumuman" class="mac-input flex-1 font-bold text-sm border-blue-300 rounded-none" />
+                            <select id="announce-title-size" class="mac-input sm:w-48 font-bold text-sm border-blue-300 rounded-none cursor-pointer text-gray-700" title="Tetapan Saiz Tajuk">
+                                <option value="text-base sm:text-lg">Saiz Tajuk: Kecil</option>
+                                <option value="text-lg sm:text-xl" selected>Saiz Tajuk: Sederhana</option>
+                                <option value="text-xl sm:text-2xl">Saiz Tajuk: Besar</option>
+                            </select>
                         </div>
-                        <div class="border border-blue-300 bg-white rounded-none flex flex-col shadow-sm">
-                            <!-- Editor Toolbar -->
-                            <div class="bg-gray-50 border-b border-blue-200 p-1.5 flex gap-1 flex-wrap">
-                                <button type="button" onclick="document.execCommand('bold',false,null)" class="p-1.5 hover:bg-gray-200 rounded text-gray-700 transition" title="Tebal (Bold)"><i data-lucide="bold" class="h-4 w-4"></i></button>
-                                <button type="button" onclick="document.execCommand('italic',false,null)" class="p-1.5 hover:bg-gray-200 rounded text-gray-700 transition" title="Condong (Italic)"><i data-lucide="italic" class="h-4 w-4"></i></button>
-                                <button type="button" onclick="document.execCommand('underline',false,null)" class="p-1.5 hover:bg-gray-200 rounded text-gray-700 transition" title="Garis Bawah (Underline)"><i data-lucide="underline" class="h-4 w-4"></i></button>
-                                <button type="button" onclick="document.execCommand('strikeThrough',false,null)" class="p-1.5 hover:bg-gray-200 rounded text-gray-700 transition" title="Garis Silang (Strikethrough)"><i data-lucide="strikethrough" class="h-4 w-4"></i></button>
-                                <div class="w-px bg-gray-300 mx-1 my-1"></div>
-                                <button type="button" onclick="window.insertLink()" class="p-1.5 hover:bg-gray-200 rounded text-blue-600 transition" title="Pautan (Link)"><i data-lucide="link" class="h-4 w-4"></i></button>
+                        <div>
+                            <!-- Rich Text Toolbar -->
+                            <div class="flex gap-1 mb-1 p-1 bg-blue-50 border border-blue-300 border-b-0 rounded-t-sm">
+                                <button type="button" onclick="document.execCommand('bold', false, null)" class="p-1.5 hover:bg-blue-200 text-blue-800 transition-colors" title="Tebal (Bold)"><i data-lucide="bold" class="w-3.5 h-3.5"></i></button>
+                                <button type="button" onclick="document.execCommand('italic', false, null)" class="p-1.5 hover:bg-blue-200 text-blue-800 transition-colors" title="Condong (Italic)"><i data-lucide="italic" class="w-3.5 h-3.5"></i></button>
+                                <button type="button" onclick="document.execCommand('underline', false, null)" class="p-1.5 hover:bg-blue-200 text-blue-800 transition-colors" title="Garis Bawah (Underline)"><i data-lucide="underline" class="w-3.5 h-3.5"></i></button>
+                                <button type="button" onclick="document.execCommand('strikeThrough', false, null)" class="p-1.5 hover:bg-blue-200 text-blue-800 transition-colors" title="Garis Silang (Strikethrough)"><i data-lucide="strikethrough" class="w-3.5 h-3.5"></i></button>
+                                <div class="w-px h-5 bg-blue-300 my-auto mx-1"></div>
+                                <button type="button" onclick="const url = prompt('Masukkan Pautan (URL):', 'https://'); if(url) document.execCommand('createLink', false, url);" class="p-1.5 hover:bg-blue-200 text-blue-800 transition-colors" title="Pautan (Link)"><i data-lucide="link" class="w-3.5 h-3.5"></i></button>
                             </div>
-                            <!-- Editor Content Area -->
-                            <div id="announce-content-editor" contenteditable="true" class="w-full p-3 font-medium text-sm min-h-[100px] max-h-[300px] overflow-y-auto focus:outline-none rich-content bg-white" placeholder="Sila taipkan kandungan pengumuman di sini..."></div>
+                            <!-- Editable Content Area -->
+                            <div id="announce-content" contenteditable="true" class="mac-input w-full min-h-[100px] max-h-[250px] overflow-y-auto font-medium text-sm border-blue-300 rounded-none bg-white outline-none p-4 focus:ring-2 ring-blue-200 rich-text" placeholder="Sila taipkan kandungan pengumuman di sini..."></div>
                         </div>
                         <div class="flex justify-end gap-3 pt-2">
                             <button type="button" onclick="hideAddAnnouncementForm()" class="mac-btn-secondary text-xs !py-2 !px-4 font-bold shadow-sm rounded-none border-blue-300 text-blue-900">Batal</button>
-                            <button type="submit" id="btn-submit-announce" class="mac-btn-primary text-xs !py-2 !px-4 font-bold shadow-sm bg-blue-600 hover:bg-blue-700 rounded-none">Simpan Hebahan</button>
+                            <button type="submit" id="btn-save-announce" class="mac-btn-primary text-xs !py-2 !px-4 font-bold shadow-sm bg-blue-600 hover:bg-blue-700 rounded-none">Simpan Hebahan</button>
                         </div>
                     </form>
                 </div>
 
-                <!-- Senarai Pengumuman -->
+                <!-- Senarai Pengumuman (Card Timeline Format) -->
                 <div class="flex-1 overflow-y-auto pr-2 space-y-5 pb-4" id="announcement-list">
                     <!-- Javascript injects cards here -->
                 </div>
@@ -961,9 +958,9 @@
             <div class="p-5 sm:p-6 bg-white relative">
                 <h4 class="font-bold text-gray-800 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2 text-xs uppercase tracking-widest">
                     <i data-lucide="settings" class="h-4 w-4 text-blue-500"></i> Tetapan
-                    <span class="ml-auto bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider">v5.11</span>
+                    <span class="ml-auto bg-blue-50 text-blue-600 border border-blue-200 px-2 py-0.5 rounded-full text-[9px] font-black tracking-wider">v5.19</span>
                 </h4>
-                <form id="form-settings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 items-end">
+                <form id="form-settings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-end">
                     <div class="space-y-1.5">
                         <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider ml-1">Tajuk Besar</label>
                         <input id="setting-title" type="text" required class="mac-input w-full font-bold" title="Ubah tajuk utama" />
@@ -983,6 +980,10 @@
                             <option value="100">100 Rekod</option>
                             <option value="all">Semua</option>
                         </select>
+                    </div>
+                    <div class="space-y-1.5">
+                        <label class="text-[10px] font-bold text-gray-500 uppercase tracking-wider ml-1">Kata Laluan Admin</label>
+                        <input id="setting-admin-pass" type="password" required class="mac-input w-full font-bold" title="Ubah kata laluan admin" />
                     </div>
                     <div>
                         <button type="submit" class="mac-btn-primary w-full py-2.5 shadow-sm font-bold" title="Simpan Konfigurasi">Simpan</button>
@@ -1147,6 +1148,104 @@
         </div>
     </div>
 
+    <!-- Modal Statistik & Top Visitors -->
+    <div id="modal-stats" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[50] fade-in backdrop-blur-sm">
+        <div class="mac-window max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7] modal-animate-pop">
+            <div class="mac-titlebar">
+                <span class="text-blue-900">Analitik Pelawat</span>
+                <div class="mac-traffic-lights">
+                    <div class="mac-dot mac-close" onclick="hideModal('modal-stats')" title="Tutup Statistik"></div>
+                </div>
+            </div>
+            
+            <div class="overflow-y-auto p-6 space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col gap-2">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">Ringkasan Kehadiran</label>
+                        <select id="modal-stat-filter" onchange="updateStatsModal()" class="mac-input w-auto text-sm py-1.5 font-bold cursor-pointer shadow-sm" title="Tukar tempoh statistik">
+                            <option value="month">Bulan Ini</option>
+                            <option value="week">Minggu Ini</option>
+                            <option value="all">Keseluruhan</option>
+                        </select>
+                    </div>
+                    <p id="modal-stat-total" class="text-5xl font-black text-[#27c93f] tracking-tight mt-2 drop-shadow-sm">0</p>
+                </div>
+
+                <div>
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-3">
+                        <h4 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                            <i data-lucide="award" class="h-4 w-4 text-yellow-500"></i> Ranking Kehadiran
+                        </h4>
+                        <!-- Changed input type month to select dropdown -->
+                        <select id="top-month-picker" onchange="updateStatsModal()" class="mac-input w-auto text-sm py-1.5 font-bold cursor-pointer shadow-sm" title="Pilih Bulan Ranking"></select>
+                    </div>
+                    
+                    <div class="mac-window border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                        <table class="w-full text-left text-sm">
+                            <thead class="sticky top-0 z-10">
+                                <tr>
+                                    <th class="mac-table-header text-center w-12 pl-2">No</th>
+                                    <th class="mac-table-header">Nama</th>
+                                    <th class="mac-table-header">Jabatan</th>
+                                    <th class="mac-table-header text-center w-16 pr-2">Hadir</th>
+                                </tr>
+                            </thead>
+                            <tbody id="top-visitors-body">
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-[11px] text-gray-400 font-bold uppercase tracking-widest mt-3 text-right">*Urusetia dikecualikan.</p>
+                </div>
+            </div>
+            
+            <div class="p-5 border-t border-gray-200 bg-white flex justify-end gap-3">
+                <button onclick="generateTopVisitorsReport()" class="mac-btn-secondary text-[#007aff] font-bold hover:bg-blue-50 hover:border-blue-300 shadow-sm" title="Cetak Senarai Top 10">
+                    <i data-lucide="printer" class="h-4 w-4"></i> Cetak Top 10
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Report -->
+    <div id="modal-report" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[50] fade-in backdrop-blur-sm">
+        <div class="mac-window max-w-sm w-full text-center bg-white modal-animate-pop">
+            <div class="mac-titlebar mb-4">
+                <span class="text-blue-900">Jana PDF</span>
+                <div class="mac-traffic-lights">
+                    <div class="mac-dot mac-close" onclick="closeReportModal()"></div>
+                </div>
+            </div>
+            
+            <div class="space-y-3 mb-6 px-6 text-left">
+                <button onclick="selectReport('harian', this)" class="report-btn mac-btn-secondary w-full justify-start text-left bg-gray-50 border-transparent shadow-none hover:bg-gray-100" title="Laporan Hari Ini">
+                    <i data-lucide="calendar" class="h-4 w-4 mr-2 text-gray-500"></i> <span class="font-bold text-sm text-gray-800">Senarai Harian</span>
+                </button>
+                <button onclick="selectReport('mingguan', this)" class="report-btn mac-btn-secondary w-full justify-start text-left bg-gray-50 border-transparent shadow-none hover:bg-gray-100" title="Laporan 7 Hari Terkini">
+                    <i data-lucide="calendar" class="h-4 w-4 mr-2 text-gray-500"></i> <span class="font-bold text-sm text-gray-800">Senarai Mingguan</span>
+                </button>
+                
+                <div class="flex flex-col gap-2">
+                    <button onclick="selectReport('bulanan', this)" class="report-btn mac-btn-secondary w-full justify-start text-left bg-gray-50 border-transparent shadow-none hover:bg-gray-100" title="Laporan Bulan Tertentu">
+                        <i data-lucide="calendar-days" class="h-4 w-4 mr-2 text-gray-500"></i> <span class="font-bold text-sm text-gray-800">Senarai Bulanan</span>
+                    </button>
+                    <select id="report-month-picker" class="hidden mac-input mt-1 shadow-sm font-bold"></select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <button onclick="selectReport('tahunan', this)" class="report-btn mac-btn-secondary w-full justify-start text-left bg-gray-50 border-transparent shadow-none hover:bg-gray-100" title="Laporan Tahun Tertentu">
+                        <i data-lucide="calendar-range" class="h-4 w-4 mr-2 text-gray-500"></i> <span class="font-bold text-sm text-gray-800">Senarai Tahunan</span>
+                    </button>
+                    <select id="report-year-picker" class="hidden mac-input mt-1 shadow-sm font-bold"></select>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 px-6 pb-6">
+                <button onclick="closeReportModal()" class="mac-btn-secondary font-bold shadow-sm">Batal</button>
+                <button id="btn-print-trigger" onclick="generateReport()" class="hidden mac-btn-primary animate-pulse-aqua font-bold shadow-sm"><i data-lucide="printer" class="h-4 w-4"></i> Cetak</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Profil Pelawat (Profil View) -->
     <div id="modal-user-profile" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[70] fade-in backdrop-blur-sm">
         <div class="mac-window max-w-4xl w-full flex flex-col max-h-[90vh] overflow-hidden bg-white modal-animate-pop">
@@ -1200,8 +1299,10 @@
                                     <option value="monthly">Bulanan</option>
                                     <option value="yearly">Tahunan</option>
                                 </select>
-                                <input type="month" id="profile-month-picker" onchange="renderUserProfileHistory()" class="hidden mac-input cursor-pointer w-auto font-bold text-indigo-800 shadow-sm">
-                                <input type="number" id="profile-year-picker" onchange="renderUserProfileHistory()" placeholder="Tahun" class="hidden w-24 mac-input font-bold text-indigo-800 shadow-sm">
+                                <select id="profile-month-picker" onchange="renderUserProfileHistory()" class="hidden mac-input cursor-pointer w-auto font-bold text-indigo-800 shadow-sm"></select>
+                                <select id="profile-year-picker" onchange="renderUserProfileHistory()" class="hidden mac-input cursor-pointer w-auto font-bold text-indigo-800 shadow-sm">
+                                    <!-- Populated in JS -->
+                                </select>
                             </div>
                         </div>
                         <button onclick="generateUserProfileReport()" class="mac-btn-secondary text-[#007aff] font-bold border-blue-200 hover:border-blue-400 hover:bg-blue-50 shadow-sm" title="Cetak Rekod Individu">
@@ -1227,103 +1328,6 @@
                         <p class="text-xs text-gray-500 font-medium">Menunjukkan <span id="profile-filtered-count" class="font-bold text-indigo-800">0</span> rekod.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Statistik & Top Visitors -->
-    <div id="modal-stats" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[50] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-2xl w-full max-h-[90vh] flex flex-col overflow-hidden bg-[#f5f5f7] modal-animate-pop">
-            <div class="mac-titlebar">
-                <span class="text-blue-900">Analitik Pelawat</span>
-                <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-close" onclick="hideModal('modal-stats')" title="Tutup Statistik"></div>
-                </div>
-            </div>
-            
-            <div class="overflow-y-auto p-6 space-y-6">
-                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col gap-2">
-                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
-                        <label class="text-xs font-bold text-gray-500 uppercase tracking-widest">Ringkasan Kehadiran</label>
-                        <select id="modal-stat-filter" onchange="updateStatsModal()" class="mac-input w-auto text-sm py-1.5 font-bold cursor-pointer shadow-sm" title="Tukar tempoh statistik">
-                            <option value="month">Bulan Ini</option>
-                            <option value="week">Minggu Ini</option>
-                            <option value="all">Keseluruhan</option>
-                        </select>
-                    </div>
-                    <p id="modal-stat-total" class="text-5xl font-black text-[#27c93f] tracking-tight mt-2 drop-shadow-sm">0</p>
-                </div>
-
-                <div>
-                    <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-4 gap-3">
-                        <h4 class="font-bold text-gray-900 text-sm flex items-center gap-2">
-                            <i data-lucide="award" class="h-4 w-4 text-yellow-500"></i> Ranking Kehadiran
-                        </h4>
-                        <input type="month" id="top-month-picker" onchange="updateStatsModal()" class="mac-input w-auto text-sm py-1.5 font-bold cursor-pointer shadow-sm" title="Pilih Bulan Ranking" />
-                    </div>
-                    
-                    <div class="mac-window border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
-                        <table class="w-full text-left text-sm">
-                            <thead class="sticky top-0 z-10">
-                                <tr>
-                                    <th class="mac-table-header text-center w-12 pl-2">No</th>
-                                    <th class="mac-table-header">Nama</th>
-                                    <th class="mac-table-header">Jabatan</th>
-                                    <th class="mac-table-header text-center w-16 pr-2">Hadir</th>
-                                </tr>
-                            </thead>
-                            <tbody id="top-visitors-body">
-                            </tbody>
-                        </table>
-                    </div>
-                    <p class="text-[11px] text-gray-400 font-bold uppercase tracking-widest mt-3 text-right">*Urusetia dikecualikan.</p>
-                </div>
-            </div>
-            
-            <div class="p-5 border-t border-gray-200 bg-white flex justify-end gap-3">
-                <button onclick="generateTopVisitorsReport()" class="mac-btn-secondary text-[#007aff] font-bold hover:bg-blue-50 hover:border-blue-300 shadow-sm" title="Cetak Senarai Top 10">
-                    <i data-lucide="printer" class="h-4 w-4"></i> Cetak Top 10
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Report -->
-    <div id="modal-report" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center p-4 z-[50] fade-in backdrop-blur-sm">
-        <div class="mac-window max-w-sm w-full text-center bg-white modal-animate-pop">
-            <div class="mac-titlebar mb-4">
-                <span class="text-blue-900">Jana PDF</span>
-                <div class="mac-traffic-lights">
-                    <div class="mac-dot mac-close" onclick="closeReportModal()"></div>
-                </div>
-            </div>
-            
-            <div class="space-y-3 mb-6 px-6 text-left">
-                <button onclick="selectReport('harian', this)" class="report-btn mac-btn-secondary w-full justify-start text-left bg-gray-50 border-transparent shadow-none hover:bg-gray-100" title="Laporan Hari Ini">
-                    <i data-lucide="calendar" class="h-4 w-4 mr-2 text-gray-500"></i> <span class="font-bold text-sm text-gray-800">Senarai Harian</span>
-                </button>
-                <button onclick="selectReport('mingguan', this)" class="report-btn mac-btn-secondary w-full justify-start text-left bg-gray-50 border-transparent shadow-none hover:bg-gray-100" title="Laporan 7 Hari Terkini">
-                    <i data-lucide="calendar" class="h-4 w-4 mr-2 text-gray-500"></i> <span class="font-bold text-sm text-gray-800">Senarai Mingguan</span>
-                </button>
-                
-                <div class="flex flex-col gap-2">
-                    <button onclick="selectReport('bulanan', this)" class="report-btn mac-btn-secondary w-full justify-start text-left bg-gray-50 border-transparent shadow-none hover:bg-gray-100" title="Laporan Bulan Tertentu">
-                        <i data-lucide="calendar-days" class="h-4 w-4 mr-2 text-gray-500"></i> <span class="font-bold text-sm text-gray-800">Senarai Bulanan</span>
-                    </button>
-                    <input type="month" id="report-month-picker" class="hidden mac-input mt-1 shadow-sm font-bold" />
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <button onclick="selectReport('tahunan', this)" class="report-btn mac-btn-secondary w-full justify-start text-left bg-gray-50 border-transparent shadow-none hover:bg-gray-100" title="Laporan Tahun Tertentu">
-                        <i data-lucide="calendar-range" class="h-4 w-4 mr-2 text-gray-500"></i> <span class="font-bold text-sm text-gray-800">Senarai Tahunan</span>
-                    </button>
-                    <input type="number" min="2000" max="2100" id="report-year-picker" placeholder="Tahun (cth: 2026)" class="hidden mac-input mt-1 shadow-sm font-bold" />
-                </div>
-            </div>
-
-            <div class="flex justify-end gap-3 px-6 pb-6">
-                <button onclick="closeReportModal()" class="mac-btn-secondary font-bold shadow-sm">Batal</button>
-                <button id="btn-print-trigger" onclick="generateReport()" class="hidden mac-btn-primary animate-pulse-aqua font-bold shadow-sm"><i data-lucide="printer" class="h-4 w-4"></i> Cetak</button>
             </div>
         </div>
     </div>
@@ -1370,7 +1374,8 @@
             theme: 'win11',
             settings: {
                 successMsg: "Pendaftaran berjaya! Data direkodkan.",
-                maxRecords: "all"
+                maxRecords: "all",
+                adminPassword: ""
             }
         };
 
@@ -1424,6 +1429,52 @@
             localStorage.setItem('tamu_theme', state.theme);
         };
 
+        // Populate Custom Malay Dropdowns for Month and Year
+        function populateMalayDropdowns() {
+            const months = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+            const currentYear = new Date().getFullYear();
+            
+            // Format: YYYY-MM
+            const monthOptions = [];
+            for (let y = currentYear + 1; y >= currentYear - 3; y--) {
+                for (let m = 11; m >= 0; m--) {
+                    const val = `${y}-${String(m + 1).padStart(2, '0')}`;
+                    const text = `${months[m]} ${y}`;
+                    monthOptions.push({ val, text });
+                }
+            }
+
+            // Format: YYYY
+            const yearOptions = [];
+            for (let y = currentYear + 1; y >= currentYear - 5; y--) {
+                yearOptions.push({ val: y.toString(), text: y.toString() });
+            }
+
+            const monthPickers = ['top-month-picker', 'profile-month-picker', 'report-month-picker'];
+            monthPickers.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = '';
+                    monthOptions.forEach(opt => {
+                        el.innerHTML += `<option value="${opt.val}">${opt.text}</option>`;
+                    });
+                    el.value = todayStr.substring(0, 7); // Set default to current month
+                }
+            });
+
+            const yearPickers = ['profile-year-picker', 'report-year-picker'];
+            yearPickers.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = '';
+                    yearOptions.forEach(opt => {
+                        el.innerHTML += `<option value="${opt.val}">${opt.text}</option>`;
+                    });
+                    el.value = todayStr.substring(0, 4); // Set default to current year
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const guestVisitDate = document.getElementById('guest-visit-date');
             const adminVisitDate = document.getElementById('admin-visit-date');
@@ -1437,6 +1488,8 @@
                 state.theme = 'win11'; 
             }
             document.body.setAttribute('data-theme', state.theme);
+            
+            populateMalayDropdowns();
             
             switchView('dashboard'); 
             updateAppTitles();
@@ -1702,92 +1755,22 @@
             }
         };
 
-        window.processReturningRegistration = async function(e) {
-            e.preventDefault();
-            const form = document.getElementById('form-returning-visitor');
-            if(!form) return;
-            
-            const formData = new FormData(form);
-            const empNoInput = formData.get('empNo');
-            const selectedVisitDate = todayStr;
-
-            const hasRegisteredToday = state.visitors.some(v => v.empNo && v.empNo.trim() === empNoInput && v.date === selectedVisitDate);
-            if (hasRegisteredToday) {
-                hideModal('modal-returning-visitor');
-                window.showInfoPopup("Anda telah mendaftar kehadiran pada hari ini.", () => {
-                    if (window.targetRegistrationType === 'guest') switchView('dashboard');
-                });
-                return;
-            }
-
-            const newVisitor = {
-                date: selectedVisitDate,
-                name: window.toTitleCase(formData.get('name')),
-                empNo: formData.get('empNo'),
-                position: formData.get('position'),
-                visitorRole: formData.get('visitorRole') || 'Pelawat Biasa',
-                department: formData.get('department') || '',
-                agency: formData.get('agency') || '',
-                comment: formData.get('comment'),
-                timestamp: Date.now() 
-            };
-
-            const btn = form.querySelector('button[type="submit"]');
-            let oriTxt = "Daftar Kehadiran";
-            if(btn) {
-                oriTxt = btn.innerText;
-                btn.innerText = "Menyimpan..."; 
-                btn.disabled = true;
-            }
-
-            try {
-                const visitorsCol = collection(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'visitors');
-                await addDoc(visitorsCol, newVisitor);
-                
-                if(btn) {
-                    btn.innerText = oriTxt; 
-                    btn.disabled = false;
-                }
-                form.reset();
-                hideModal('modal-returning-visitor');
-                
-                if (window.targetRegistrationType === 'guest') {
-                    state.role = 'visitor';
-                    state.selectedDate = selectedVisitDate;
-                    state.calendarDate = new Date(selectedVisitDate);
-                    switchView('dashboard');
-                } else {
-                    state.selectedDate = selectedVisitDate;
-                    state.calendarDate = new Date(selectedVisitDate);
-                    updateDashboardUI();
-                }
-            } catch (err) {
-                console.error(err);
-                if(btn) {
-                    btn.innerText = oriTxt; 
-                    btn.disabled = false;
-                }
-                showSystemError(`Gagal Menyimpan Data (${err.code}). Pastikan Rules Firestore anda adalah 'true'.`);
-            }
-        };
-
-        // --- Papan Pengumuman Logic ---
+        // --- Papan Pengumuman Logic (Rich Text, Size & Pinda) ---
         window.openAnnouncementModal = function() {
             renderAnnouncements();
             showModal('modal-announcement');
-        };
-
-        window.insertLink = function() {
-            const url = prompt("Sila masukkan URL pautan (cth: https://www.mtib.gov.my):", "https://");
-            if (url) {
-                document.execCommand('createLink', false, url);
-            }
         };
 
         window.showAddAnnouncementForm = function() {
             const container = document.getElementById('form-announcement-container');
             if(container) {
                 container.classList.remove('hidden');
+                document.getElementById('announce-id').value = '';
+                document.getElementById('announce-title').value = '';
+                const sizeEl = document.getElementById('announce-title-size');
+                if(sizeEl) sizeEl.value = 'text-lg sm:text-xl';
+                document.getElementById('announce-content').innerHTML = '';
+                document.getElementById('btn-save-announce').innerText = "Simpan Hebahan";
                 document.getElementById('announce-title').focus();
             }
         };
@@ -1797,57 +1780,53 @@
             if(container) {
                 container.classList.add('hidden');
                 document.getElementById('form-announcement').reset();
-                document.getElementById('announce-id').value = '';
-                document.getElementById('announce-content-editor').innerHTML = '';
-                document.getElementById('btn-submit-announce').innerText = 'Simpan Hebahan';
+                document.getElementById('announce-content').innerHTML = '';
             }
-        };
-
-        window.editAnnouncement = function(id) {
-            const announce = state.announcements.find(a => a.id === id);
-            if (!announce) return;
-
-            document.getElementById('announce-id').value = announce.id;
-            document.getElementById('announce-title').value = announce.title;
-            document.getElementById('announce-content-editor').innerHTML = announce.content;
-            document.getElementById('btn-submit-announce').innerText = 'Kemaskini Hebahan';
-            
-            showAddAnnouncementForm();
         };
 
         window.saveAnnouncement = async function(e) {
             e.preventDefault();
             const id = document.getElementById('announce-id').value;
             const title = document.getElementById('announce-title').value;
-            const contentEditor = document.getElementById('announce-content-editor');
-            const content = contentEditor.innerHTML.trim();
+            const sizeEl = document.getElementById('announce-title-size');
+            const titleSize = sizeEl ? sizeEl.value : 'text-lg sm:text-xl';
+            const content = document.getElementById('announce-content').innerHTML;
 
-            if (!content) {
-                window.showInfoPopup("Sila masukkan kandungan pengumuman.", () => { contentEditor.focus(); });
+            if(!content.trim()) {
+                window.showInfoPopup("Sila masukkan kandungan pengumuman.", null);
                 return;
             }
 
             try {
                 if (id) {
-                    // Update sedia ada
+                    // Update existing
                     const docRef = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'announcements', id);
-                    await updateDoc(docRef, {
-                        title: title,
-                        content: content
-                    });
+                    await updateDoc(docRef, { title: title, content: content, titleSize: titleSize });
                 } else {
-                    // Cipta baharu
+                    // Add new
                     const colRef = collection(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'announcements');
-                    await addDoc(colRef, {
-                        title: title,
-                        content: content,
-                        timestamp: Date.now()
-                    });
+                    await addDoc(colRef, { title: title, content: content, titleSize: titleSize, timestamp: Date.now() });
                 }
                 hideAddAnnouncementForm();
             } catch(err) {
                 showSystemError(`Gagal menyimpan pengumuman (${err.code}).`);
             }
+        };
+
+        window.editAnnouncement = function(id) {
+            const ann = state.announcements.find(a => a.id === id);
+            if(!ann) return;
+            
+            document.getElementById('announce-id').value = ann.id;
+            document.getElementById('announce-title').value = ann.title;
+            const sizeEl = document.getElementById('announce-title-size');
+            if(sizeEl) sizeEl.value = ann.titleSize || 'text-lg sm:text-xl';
+            document.getElementById('announce-content').innerHTML = ann.content;
+            
+            const container = document.getElementById('form-announcement-container');
+            if(container) container.classList.remove('hidden');
+            document.getElementById('btn-save-announce').innerText = "Kemaskini Hebahan";
+            document.getElementById('announce-title').focus();
         };
 
         window.deleteAnnouncement = function(id) {
@@ -1880,31 +1859,36 @@
             }
 
             if(state.announcements.length === 0) {
-                listEl.innerHTML = `<div class="text-center p-8 text-blue-400 font-bold uppercase tracking-widest text-xs">Tiada pengumuman setakat ini.</div>`;
+                listEl.innerHTML = `<div class="text-center p-8 text-gray-400 font-bold uppercase tracking-widest text-xs">Tiada pengumuman setakat ini.</div>`;
                 return;
             }
 
             state.announcements.forEach(a => {
                 const d = new Date(a.timestamp);
+                const dateStr = `${d.getDate()} ${getMonthShort(d.getMonth())} ${d.getFullYear()}`;
+                let adminActions = '';
+                const titleSizeClass = a.titleSize || 'text-lg sm:text-xl';
                 
-                // Tambahan Butang Pinda (Edit) & Padam (Delete) untuk Admin
-                const actionBtns = state.role === 'admin' ? `
-                    <div class="absolute top-4 right-4 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onclick="editAnnouncement('${a.id}')" class="text-blue-500 hover:text-blue-700 transition-colors" title="Pinda Pengumuman"><i data-lucide="edit-3" class="h-4 w-4"></i></button>
-                        <button onclick="deleteAnnouncement('${a.id}')" class="text-red-400 hover:text-red-500 transition-colors" title="Padam"><i data-lucide="x" class="h-4 w-4"></i></button>
-                    </div>` : '';
+                if (state.role === 'admin') {
+                    adminActions = `
+                        <div class="flex items-center gap-1.5 ml-3 border-l border-gray-200 pl-3">
+                            <button onclick="editAnnouncement('${a.id}')" class="text-blue-500 hover:text-blue-700 transition-colors bg-blue-50 hover:bg-blue-100 p-1.5 rounded-lg" title="Pinda"><i data-lucide="edit" class="h-3.5 w-3.5"></i></button>
+                            <button onclick="deleteAnnouncement('${a.id}')" class="text-red-500 hover:text-red-700 transition-colors bg-red-50 hover:bg-red-100 p-1.5 rounded-lg" title="Padam"><i data-lucide="trash-2" class="h-3.5 w-3.5"></i></button>
+                        </div>
+                    `;
+                }
 
                 listEl.innerHTML += `
-                    <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 p-6 border border-blue-200 bg-blue-50 hover:bg-blue-100/50 transition-colors relative group rounded-none">
-                        <div class="flex flex-col items-start sm:items-center justify-start min-w-[80px]">
-                            <span class="text-xl font-black text-blue-900 leading-none">${d.getDate()} ${getMonthShort(d.getMonth())}</span>
-                            <span class="text-xs font-medium text-blue-600 mt-1">${d.getFullYear()}</span>
+                    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 sm:p-8 hover:shadow-md transition-shadow relative group">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 gap-3">
+                            <span class="bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-md border border-blue-100">Hebahan Pusat Sumber</span>
+                            <div class="flex items-center">
+                                <span class="text-xs font-bold text-gray-500 flex items-center gap-1.5"><i data-lucide="calendar" class="h-3.5 w-3.5"></i> ${dateStr}</span>
+                                ${adminActions}
+                            </div>
                         </div>
-                        <div class="flex-1 pt-2 sm:pt-0 sm:border-l border-blue-200 sm:pl-6">
-                            <h4 class="text-lg font-bold text-blue-900 leading-tight mb-3 pr-12">${a.title}</h4>
-                            <div class="text-sm text-blue-800 font-medium whitespace-pre-wrap break-words leading-relaxed rich-content">${a.content}</div>
-                        </div>
-                        ${actionBtns}
+                        <h4 class="${titleSizeClass} font-black text-gray-900 leading-tight mb-4">${a.title}</h4>
+                        <div class="text-sm text-gray-700 leading-relaxed rich-text break-words whitespace-pre-wrap">${a.content}</div>
                     </div>
                 `;
             });
@@ -1978,11 +1962,13 @@
             const subTitleEl = document.getElementById('setting-subtitle');
             const successMsgEl = document.getElementById('setting-successMsg');
             const maxRecEl = document.getElementById('setting-maxRecords');
+            const adminPassEl = document.getElementById('setting-admin-pass');
             
             if(titleEl) titleEl.value = state.appTitle;
             if(subTitleEl) subTitleEl.value = state.appSubtitle;
             if(successMsgEl) successMsgEl.value = state.settings.successMsg;
             if(maxRecEl) maxRecEl.value = state.settings.maxRecords;
+            if(adminPassEl) adminPassEl.value = state.settings.adminPassword || 'pustakaMtib';
             
             showModal('modal-settings');
         };
@@ -2009,12 +1995,25 @@
             const filterEl = document.getElementById('modal-stat-filter');
             const filter = filterEl ? filterEl.value : 'month';
             state.statsFilter = filter;
+            
+            const monthPicker = document.getElementById('top-month-picker');
+            const topMonth = monthPicker && monthPicker.value ? monthPicker.value : todayStr.substring(0,7); 
+
+            // Sync Text Option "Bulan Ini"
+            if (filterEl && filterEl.options[0]) {
+                const monthNames = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+                const parts = topMonth.split('-');
+                if(parts.length === 2) {
+                    const mName = monthNames[parseInt(parts[1], 10) - 1];
+                    filterEl.options[0].text = `Bulan: ${mName} ${parts[0]}`;
+                }
+            }
+
             renderStats(); 
 
             let total = 0;
             if(filter === 'month') {
-                const prefix = todayStr.substring(0, 7);
-                total = state.visitors.filter(v => v.date.startsWith(prefix)).length;
+                total = state.visitors.filter(v => v.date && v.date.startsWith(topMonth)).length;
             } else if(filter === 'week') {
                 total = state.visitors.filter(v => isWithinLast7Days(v.date)).length;
             } else {
@@ -2024,9 +2023,6 @@
             const totalEl = document.getElementById('modal-stat-total');
             if(totalEl) totalEl.innerText = total;
 
-            const monthPicker = document.getElementById('top-month-picker');
-            const topMonth = monthPicker && monthPicker.value ? monthPicker.value : todayStr.substring(0,7); 
-            
             const monthData = state.visitors.filter(v => 
                 v.date && v.date.startsWith(topMonth) && 
                 v.visitorRole !== 'Urusetia Pusat Sumber'
@@ -2052,7 +2048,7 @@
                 tbody.innerHTML = '';
                 
                 if(topVisitors.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-gray-500 font-bold uppercase tracking-widest text-xs">Tiada rekod pada bulan ini.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="4" class="p-6 text-center text-gray-500 font-bold uppercase tracking-widest text-xs">Tiada rekod pada bulan yang dipilih.</td></tr>';
                 } else {
                     topVisitors.forEach((v, index) => {
                         const bgClass = index % 2 === 0 ? 'bg-white' : 'bg-gray-50';
@@ -2335,7 +2331,6 @@
             setTimeout(()=>window.print(), 500);
         };
 
-
         // --- Firebase Database Connection Logic ---
         let isDbInitialized = false;
 
@@ -2382,6 +2377,7 @@
                     if(data.subtitle) state.appSubtitle = data.subtitle;
                     if(data.successMsg) state.settings.successMsg = data.successMsg;
                     if(data.maxRecords) state.settings.maxRecords = data.maxRecords;
+                    if(data.adminPassword) state.settings.adminPassword = data.adminPassword;
                     updateAppTitles();
                     updateDashboardUI();
                 }
@@ -2424,6 +2420,7 @@
             const newSubtitle = document.getElementById('setting-subtitle')?.value || state.appSubtitle;
             const newSuccessMsg = document.getElementById('setting-successMsg')?.value || state.settings.successMsg;
             const newMaxRecords = document.getElementById('setting-maxRecords')?.value || 'all';
+            const newAdminPass = document.getElementById('setting-admin-pass')?.value || state.settings.adminPassword || 'pustakaMtib';
             
             try {
                 const settingsRef = doc(db, 'artifacts', 'tamu-pusat-sumber-6dfbc', 'public', 'data', 'settings', 'general');
@@ -2432,7 +2429,8 @@
                     title: newTitle, 
                     subtitle: newSubtitle,
                     successMsg: newSuccessMsg,
-                    maxRecords: newMaxRecords
+                    maxRecords: newMaxRecords,
+                    adminPassword: newAdminPass
                 }, { merge: true });
                 
                 hideModal('modal-settings');
@@ -2445,8 +2443,9 @@
             e.preventDefault();
             const passInput = document.getElementById('quick-admin-pass');
             const pass = passInput ? passInput.value : '';
+            const currentPass = state.settings.adminPassword || 'pustakaMtib';
 
-            if (pass === 'pustakaMtib') {
+            if (pass === currentPass) {
                 state.role = 'admin';
                 hideModal('modal-admin-login');
                 updateDashboardUI(); 
@@ -2588,12 +2587,10 @@
         };
 
         window.openEditModal = function(id) {
+            hideModal('modal-user-profile'); // Pastikan profile tertutup supaya edit tidak berlapis
+            
             const visitor = state.visitors.find(v => v.id === id);
             if (!visitor) return;
-            
-            // Tutup tetingkap lain supaya tidak berlapis/terlindung
-            hideModal('modal-user-profile');
-            hideModal('modal-ahli');
             
             const editId = document.getElementById('edit-id'); if(editId) editId.value = visitor.id;
             const editDate = document.getElementById('edit-date'); if(editDate) editDate.value = visitor.date || todayStr;
@@ -2769,12 +2766,28 @@
             let totalCount = 0;
             
             if (filterValue === 'month') {
-                const currentMonthPrefix = todayStr.substring(0, 7);
-                totalCount = state.visitors.filter(v => v.date.startsWith(currentMonthPrefix)).length;
+                const monthPicker = document.getElementById('top-month-picker');
+                const selectedPrefix = monthPicker && monthPicker.value ? monthPicker.value : todayStr.substring(0, 7);
+                totalCount = state.visitors.filter(v => v.date && v.date.startsWith(selectedPrefix)).length;
+                
+                const labelEl = document.getElementById('stat-total-label');
+                if(labelEl) {
+                    const monthNames = ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogo', 'Sep', 'Okt', 'Nov', 'Dis'];
+                    const parts = selectedPrefix.split('-');
+                    if(parts.length === 2) {
+                        labelEl.innerText = `Bulan: ${monthNames[parseInt(parts[1], 10) - 1]}`;
+                    } else {
+                        labelEl.innerText = 'Bulan Ini';
+                    }
+                }
             } else if (filterValue === 'week') {
                 totalCount = state.visitors.filter(v => isWithinLast7Days(v.date)).length;
+                const labelEl = document.getElementById('stat-total-label');
+                if(labelEl) labelEl.innerText = 'Minggu Ini';
             } else {
                 totalCount = state.visitors.length;
+                const labelEl = document.getElementById('stat-total-label');
+                if(labelEl) labelEl.innerText = 'Keseluruhan';
             }
             
             const totalEl = document.getElementById('stat-total');
@@ -2848,22 +2861,22 @@
         window.changeMonth = function(offset) {
             const d = state.calendarDate;
             state.calendarDate = new Date(d.getFullYear(), d.getMonth() + offset, 1);
-            renderCalendar();
+            window.renderCalendar();
         };
 
         window.selectDate = function(dateStr) {
             state.selectedDate = dateStr;
-            renderCalendar();
-            renderTable();
-            renderStats(); 
+            window.renderCalendar();
+            window.renderTable();
+            window.renderStats(); 
         };
 
         window.selectToday = function(preventScroll = false) {
             state.selectedDate = todayStr;
             state.calendarDate = new Date();
-            renderCalendar();
-            renderTable();
-            renderStats(); 
+            window.renderCalendar();
+            window.renderTable();
+            window.renderStats(); 
             
             if (preventScroll !== true) {
                 const tableTitle = document.getElementById('table-title');
@@ -2871,7 +2884,7 @@
             }
         };
 
-        function renderCalendar() {
+        window.renderCalendar = function() {
             const monthNames = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
             const year = state.calendarDate.getFullYear();
             const month = state.calendarDate.getMonth();
@@ -3102,7 +3115,6 @@
         window.cancelPrint = function() {
             switchView('dashboard');
         };
-
     </script>
 </body>
 </html>
